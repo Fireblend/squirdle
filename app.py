@@ -5,28 +5,26 @@ from flask import Flask, request, render_template, make_response, url_for, redir
 app = Flask(__name__)
 
 def getCookieData():
-    #try:
-    secret = request.cookies.get('secret')
-    attempts = int(request.cookies.get('attempts'))
-    previousGuesses = request.cookies.get('game_record')
-    previousGuesses = json.loads(previousGuesses)
-    gameOver = 1 if len(previousGuesses) > 0 and previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
-    #except:
-    #    previousGuesses = []
-    #    gameOver = 0
-    #    attempts = 8
+    try:
+        secret = request.cookies.get('secret')
+        attempts = int(request.cookies.get('attempts'))
+        previousGuesses = request.cookies.get('game_record')
+        previousGuesses = json.loads(previousGuesses)
+        gameOver = 1 if len(previousGuesses) > 0 and previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
+    except:
+        previousGuesses = []
+        gameOver = 0
+        attempts = 8
 
     return previousGuesses, gameOver, secret, attempts
 
 @app.route("/")
 def index():
     if 'clear' in request.args or not 'secret' in request.cookies:
-        print(request.args)
         try:
             gen = int(request.args['gen'])
         except:
             gen = 8
-        print(gen)
         resp = make_response(redirect(url_for('index')))
         resp.set_cookie('game_record', "[]")
         resp.set_cookie('secret', getPokemon(gen=gen))
@@ -35,7 +33,6 @@ def index():
         return resp
 
     previousGuesses, gameOver, secret, attempts = getCookieData()
-    print(attempts)
     mosaic = "\n".join([x['emoji'] for x in previousGuesses])
     return render_template("index.html", data=previousGuesses, gameOver=gameOver, pokemon=getPokeList(), secret=secret, error=False, mosaic=mosaic, attempts=attempts)
 

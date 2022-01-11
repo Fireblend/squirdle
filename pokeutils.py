@@ -9,7 +9,6 @@ def getPokemon(gen):
     if gen == 1:
         dex = dex[dex['generation'] == 1]
     secret = np.random.choice(dex, 1)['name'][0]
-    print(secret)
     return secret
 
 def getPokeList():
@@ -17,7 +16,6 @@ def getPokeList():
     
 def getPokeInfo(pokemon):
     dex = readPokedex()
-    print(pokemon)
     return dex[dex['name']==pokemon][0]
 
 def getHint(guess_str, secret_str):
@@ -34,7 +32,6 @@ def getHint(guess_str, secret_str):
         hint['name'] = 1 if guess_str == secret_str else 5
         hint['Guess'] = guess_str
         hint['pokeinfo'] = formatInfo(guess)
-        print(hint)
         return hint
     except:
         return False
@@ -49,6 +46,5 @@ def formatInfo(pokemon):
     txt += f"<b>Type 2:</b> {t2}<br>"
     txt += f"<b>Height:</b> {pokemon['height_m']} m<br>"
     txt += f"<b>Weight:</b> {pokemon['weight_kg']} kg<br>"
-    print(txt)
 
     return txt
