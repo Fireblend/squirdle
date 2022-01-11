@@ -1,14 +1,21 @@
 import numpy as np
+from datetime import datetime
 
 def readPokedex():
     dex = np.recfromcsv("pokedex.csv", encoding="utf-8")
     return dex
 
-def getPokemon(gen):
-    dex = readPokedex()
-    if gen == 1:
-        dex = dex[dex['generation'] == 1]
-    secret = np.random.choice(dex, 1)['name'][0]
+def getPokemon(gen=8, daily=False):
+    if daily:
+        today = str(datetime.date(datetime.now()))
+        dex = np.recfromcsv("daily.csv", encoding="utf-8")
+        row = dex[dex['date'] == today]
+        secret = row['pokemon'][0]
+    else:
+        dex = readPokedex()
+        if gen == 1:
+            dex = dex[dex['generation'] == 1]
+        secret = np.random.choice(dex, 1)['name'][0]
     return secret
 
 def getPokeList():
