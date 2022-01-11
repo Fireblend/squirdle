@@ -4,8 +4,11 @@ def readPokedex():
     dex = np.recfromcsv("pokedex.csv", encoding="utf-8")
     return dex
 
-def getPokemon():
-    secret = np.random.choice(readPokedex(), 1)['name'][0]
+def getPokemon(gen):
+    dex = readPokedex()
+    if gen == 1:
+        dex = dex[dex['generation'] == 1]
+    secret = np.random.choice(dex, 1)['name'][0]
     print(secret)
     return secret
 

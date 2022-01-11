@@ -12,7 +12,7 @@
 
 <h2>Squirdle</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
-I'm thinking of a Pokémon. Guess which! You have 8 guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
+I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
 
 <br><br>
 {% if data|length > 0 %}
@@ -69,7 +69,8 @@ The secret Pokémon was <b>{{secret}}</b>!<br>
 
 <form action="{{ url_for('index', clear=True) }}" method="GET">
   <input type="hidden" name="clear" value="1" /> 
-  <input class="togglec" type="submit" value="▶️ New Game">
+  <button class="togglec" type="submit" name="gen" value="8">▶️ New Game</button>
+  <button class="togglec" type="submit" name="gen" value="1">▶️ New Game (Gen 1 only!)</button>
 </form>
 
 <script>
