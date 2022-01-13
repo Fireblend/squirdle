@@ -1,5 +1,5 @@
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def readPokedex():
     dex = np.recfromcsv("pokedex.csv", encoding="utf-8")
@@ -7,7 +7,7 @@ def readPokedex():
 
 def getPokemon(gen=8, daily=False):
     if daily:
-        today = str(datetime.date(datetime.now()))
+        today = str(datetime.date(datetime.now()-timedelta(hours=10)))
         dex = np.recfromcsv("daily.csv", encoding="utf-8")
         row = dex[dex['date'] == today]
         secret = row['pokemon'][0]
@@ -20,22 +20,31 @@ def getPokemon(gen=8, daily=False):
 
 def getPokeList():
     return list(readPokedex().name)
+
+def getDay(pkmn):
+    dex = np.recfromcsv("daily.csv", encoding="utf-8")
+    return list(dex['pokemon']).index(pkmn)
     
 def getPokeInfo(pokemon):
     dex = readPokedex()
     return dex[dex['name']==pokemon][0]
 
-def getHint(guess_str, secret_str):
+def getHint(guess_str, secret_str, daily=False):
     try:
         guess = getPokeInfo(guess_str)
         secret = getPokeInfo(secret_str)
         hint = dict()
-        hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🔼' if guess["generation"] < secret["generation"] else '🔽'
+        if not daily:
+            hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🔼' if guess["generation"] < secret["generation"] else '🔽'
+        else:
+            hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🟦'
+
         hint['Type 1'] = '🟩' if guess["type_1"] == secret["type_1"] else '🟨' if guess["type_1"] == secret["type_2"] else '🟥'
         hint['Type 2'] = '🟩' if guess["type_2"] == secret["type_2"] else '🟨' if guess["type_2"] == secret["type_1"] else '🟥'
         hint['Height'] = '🟩' if guess["height_m"] == secret["height_m"] else '🔼' if guess["height_m"] < secret["height_m"] else '🔽'
         hint['Weight'] = '🟩' if guess["weight_kg"] == secret["weight_kg"] else '🔼' if guess["weight_kg"] < secret["weight_kg"] else '🔽'
         hint['emoji'] = getHintMoji(hint)
+        hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🔼' if guess["generation"] < secret["generation"] else '🔽'
         hint['name'] = 1 if guess_str == secret_str else 5
         hint['Guess'] = guess_str
         hint['pokeinfo'] = formatInfo(guess)

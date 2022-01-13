@@ -13,14 +13,14 @@
 <h2>Squirdle Daily</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
 I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
-
+<br>(Updates @ 00:00 GMT-2)
 <br><br>
 {% if data|length > 0 %}
 <div class="guesses">
     <div class="row">
         {% for hint in ["Gen", "Type 1", "Type 2", "Height", "Weight", "Guess"] %}
         <div class='column'>
-            <p class="hint">{{hint}}</p><br>
+            <p class="hint">{{hint}}</p>
         </div>
         {% endfor %}
     </div>
@@ -64,6 +64,7 @@ You lost!
 {% if gameOver > 0 %}
 The secret Pokémon was <b>{{secret}}</b>!<br>
 <a class="togglec" onclick="copyCurrentDay('{{mosaic|safe}}')" href="#">📄 Share Result</a><br>
+<b>New:</b> Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
 Come back tomorrow for another daily!
 {% endif %}
 <br><a href="https://squirdle.fireblend.com">Back to regular Squirdle!</a>

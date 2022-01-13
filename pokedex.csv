@@ -414,7 +414,9 @@ Rampardos,4,Rock,,1.6,102.5
 Shieldon,4,Rock,Steel,0.5,57.0
 Bastiodon,4,Rock,Steel,1.3,149.5
 Burmy,4,Bug,,0.2,3.4
-Wormadam,4,Bug,Grass,0.5,6.5
+Wormadam Plant Cloak,4,Bug,Grass,0.5,6.5
+Wormadam Sandy Cloak,4,Bug,Ground,0.5,6.5
+Wormadam Trash Cloak,4,Bug,Steel,0.5,6.5
 Mothim,4,Bug,Flying,0.9,23.3
 Combee,4,Bug,Flying,0.3,5.5
 Vespiquen,4,Bug,Flying,1.2,38.5

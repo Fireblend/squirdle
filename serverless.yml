@@ -25,3 +25,6 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'
+    environment:
+      API_STATS_URL: ${env:API_STATS_URL}
+      API_KEY: ${env:API_KEY}
