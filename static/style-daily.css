@@ -79,7 +79,7 @@
     border: 1px solid transparent;
     background-color: #f1f1f1;
     padding: 10px;
-    font-size: 16px;
+    font-size: 22px;
   }
   
   input[type=text] {
@@ -144,4 +144,22 @@
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+
+  @media screen and (max-width: 450px) {
+    body {
+      font-size: 16px;
+    }
+    .column{
+      min-width: 55px;
+      max-width: 55px;
+    }
+    .autocomplete{
+      width: 200px;
+    }
+    
+    .togglec {
+      font-size: 15px;
+      margin: 3px;
+    }
   }
