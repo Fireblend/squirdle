@@ -248,7 +248,7 @@ Larvitar,2,Rock,Ground,0.6,72.0
 Pupitar,2,Rock,Ground,1.2,152.0
 Tyranitar,2,Rock,Dark,2.0,202.0
 Lugia,2,Psychic,Flying,5.2,216.0
-Ho-oh,2,Fire,Flying,3.8,199.0
+Ho-Oh,2,Fire,Flying,3.8,199.0
 Celebi,2,Psychic,Grass,0.6,5.0
 Treecko,3,Grass,,0.5,5.0
 Grovyle,3,Grass,,0.9,21.6
@@ -495,7 +495,8 @@ Dialga,4,Steel,Dragon,5.4,683.0
 Palkia,4,Water,Dragon,4.2,336.0
 Heatran,4,Fire,Steel,1.7,430.0
 Regigigas,4,Normal,,3.7,420.0
-Giratina,4,Ghost,Dragon,4.5,750.0
+Giratina Altered Forme,4,Ghost,Dragon,4.5,750.0
+Giratina Origin Forme,4,Ghost,Dragon,6.9,650.0
 Cresselia,4,Psychic,,1.5,85.6
 Phione,4,Water,,0.4,3.1
 Manaphy,4,Water,,0.3,1.4
@@ -653,7 +654,8 @@ Terrakion,5,Rock,Fighting,1.9,260.0
 Virizion,5,Grass,Fighting,2.0,200.0
 Tornadus Incarnate Forme,5,Flying,,1.5,63.0
 Tornadus Therian Forme,5,Flying,,1.4,63.0
-Thundurus,5,Electric,Flying,1.5,61.0
+Thundurus Incarnate Forme,5,Electric,Flying,1.5,61.0
+Thundurus Therian Forme,5,Electric,Flying,3.0,61.0
 Reshiram,5,Dragon,Fire,3.2,330.0
 Zekrom,5,Dragon,Electric,2.9,345.0
 Landorus Incarnate Forme,5,Ground,Flying,1.5,68.0
@@ -674,7 +676,6 @@ Delphox,6,Fire,Psychic,1.5,39.0
 Froakie,6,Water,,0.3,7.0
 Frogadier,6,Water,,0.6,10.9
 Greninja,6,Water,Dark,1.5,40.0
-Ash-Greninja,6,Water,Dark,1.5,40.0
 Bunnelby,6,Normal,,0.4,5.0
 Diggersby,6,Normal,Ground,1.0,42.4
 Fletchling,6,Normal,Flying,0.3,1.7
@@ -694,8 +695,7 @@ Pancham,6,Fighting,,0.6,8.0
 Pangoro,6,Fighting,Dark,2.1,136.0
 Furfrou,6,Normal,,1.2,28.0
 Espurr,6,Psychic,,0.3,3.5
-Meowstic Male,6,Psychic,,0.6,8.5
-Meowstic Female,6,Psychic,,0.6,8.5
+Meowstic,6,Psychic,,0.6,8.5
 Honedge,6,Steel,Ghost,0.8,2.0
 Doublade,6,Steel,Ghost,0.8,4.5
 Aegislash,6,Steel,Ghost,1.7,53.0
@@ -739,8 +739,8 @@ Zygarde 50% Forme,6,Dragon,Ground,5.0,305.0
 Zygarde 10% Forme,6,Dragon,Ground,1.2,33.5
 Zygarde Complete Forme,6,Dragon,Ground,4.5,610.0
 Diancie,6,Rock,Fairy,0.7,8.8
-Hoopa Hoopa Confined,6,Psychic,Ghost,0.5,9.0
-Hoopa Hoopa Unbound,6,Psychic,Dark,6.5,490.0
+Hoopa Confined,6,Psychic,Ghost,0.5,9.0
+Hoopa Unbound,6,Psychic,Dark,6.5,490.0
 Volcanion,6,Fire,Water,1.7,195.0
 Rowlet,7,Grass,Flying,0.3,1.5
 Dartrix,7,Grass,Flying,0.7,16.0
