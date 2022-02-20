@@ -22,8 +22,9 @@ def getPokeList():
     return list(readPokedex().name)
 
 def getDay(pkmn):
+    today = str(datetime.date(datetime.now()-timedelta(hours=10)))
     dex = np.recfromcsv("daily.csv", encoding="utf-8")
-    return list(dex['pokemon']).index(pkmn)
+    return list(dex['date']).index(today)
     
 def getPokeInfo(pokemon):
     dex = readPokedex()

@@ -34,7 +34,21 @@ I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses left toda
                 <span class="tooltiptext">{{x["pokeinfo"] | safe}}</span>
               </div>
               {% else %}
-                <p class=emoji>{{x[hint]}}</p>
+                {% if x[hint] == "🟩" %}
+                <img class=emoji src="{{url_for('static', filename='correct.png') }}">
+                {% endif %}
+                {% if x[hint] == "🟥" %}
+                <img class=emoji src="{{url_for('static', filename='wrong.png') }}">
+                {% endif %}
+                {% if x[hint] == "🟨" %}
+                <img class=emoji src="{{url_for('static', filename='wrongpos.png') }}">
+                {% endif %}
+                {% if x[hint] == "🔼" %}
+                <img class=emoji src="{{url_for('static', filename='up.png') }}">
+                {% endif %}
+                {% if x[hint] == "🔽" %}
+                <img class=emoji src="{{url_for('static', filename='down.png') }}">
+                {% endif %}
               {% endif %}
             </div>
             {% endfor %}
@@ -49,7 +63,7 @@ I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses left toda
 Pokemon not found!
 {% endif %}
 <form autocomplete="off" method="POST">
-  <div class="autocomplete" style="width:300px;">
+  <div class="autocomplete">
     <input id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
   <input type="submit" value="Submit">

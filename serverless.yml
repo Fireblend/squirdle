@@ -4,9 +4,13 @@ service: squirdle
 
 plugins:
   - serverless-python-requirements
+  - serverless-apigw-binary
   - serverless-wsgi
 
 custom:
+  apigwBinary:
+    types:
+      - '*/*'
   wsgi:
     app: app.app
     packRequirements: false
@@ -21,7 +25,7 @@ provider:
 
 functions:
   app:
-    handler: wsgi.handler
+    handler: wsgi_handler.handler
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'

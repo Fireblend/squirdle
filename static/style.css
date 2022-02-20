@@ -54,6 +54,7 @@
     text-align: center;
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     flex-wrap: wrap;
     flex:1;
   }
@@ -76,6 +77,11 @@
     width:300px;
   }
   
+  img {
+    object-fit: scale-down;
+    height:auto;
+  }
+
   input {
     border: 1px solid transparent;
     background-color: #f1f1f1;
