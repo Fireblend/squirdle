@@ -27,9 +27,11 @@ def getCookieData(daily=""):
         attempts = 8
         maxGen = 8
 
-    return previousGuesses, gameOver, secret, attempts, maxGen
+    return previousGuesses, gameOver, secret, attempts, maxGen if maxGen else 8
 
 def handleGameOver(previousGuesses, gameOver, secret, attempts, daily, maxGen):
+    if not API_KEY or not API_STATS_URL:
+        return None
     # Stat collecting: Sends guesses, secret pokemon, remaining attempts and whether it's a daily attempt to stats endpoint.
     message = json.dumps({"guesses":[x['Guess'] for x in previousGuesses], "result":gameOver, 
                           "secret":secret, "attempts":attempts, "maxGen":maxGen, "daily":daily, "timestamp":str(datetime.now())})
