@@ -82,7 +82,7 @@ The secret Pokémon was <b>{{secret}}</b>!<br>
 Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
 Come back tomorrow for another daily!
 {% endif %}
-<br><a href="https://squirdle.fireblend.com">Back to regular Squirdle!</a>
+<br><a href="{{ url_for('index') }}">Back to regular Squirdle!</a>
 
 <script>
 var pokemon = {{pokemon | safe}};

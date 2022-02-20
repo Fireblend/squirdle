@@ -88,7 +88,7 @@ The secret Pokémon was <b>{{secret}}</b>!<br>
   <label for="quantity">Guess Pokémon up to gen:</label>
   <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
 </form>
-<br><a href="https://squirdle.fireblend.com/daily">Try Daily Squirdle!</a>
+<br><a href="{{ url_for('daily') }}">Try Daily Squirdle!</a>
 
 <script>
 
