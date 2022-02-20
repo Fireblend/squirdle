@@ -77,8 +77,9 @@ You lost!
 {% endif %}
 {% if gameOver > 0 %}
 The secret Pokémon was <b>{{secret}}</b>!<br>
-<a class="togglec" onclick="copyCurrentDay('{{mosaic|safe}}')" href="#">📄 Share Result</a><br>
-<b>New:</b> Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
+<a class="togglec" onclick="copyCurrentDay('{{mosaic|safe}}')" href="#">📄 Share</a>
+<a class="togglec" onclick="copyCurrentDay('{{mosaic_names|safe}}')" href="#">👀 Share w/names</a><br>
+Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
 Come back tomorrow for another daily!
 {% endif %}
 <br><a href="https://squirdle.fireblend.com">Back to regular Squirdle!</a>

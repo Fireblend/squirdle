@@ -15,7 +15,7 @@
   }
 
   .togglec {
-    font-size : 17px;
+    font-size : 19px;
     border-style: solid;
     border-width: 0px;
     color: #383838;
@@ -163,10 +163,5 @@
     }
     .autocomplete{
       width: 200px;
-    }
-    
-    .togglec {
-      font-size: 15px;
-      margin: 3px;
     }
   }
