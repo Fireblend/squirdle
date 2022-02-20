@@ -64,9 +64,9 @@ Pokemon not found!
 {% endif %}
 <form autocomplete="off" method="POST">
   <div class="autocomplete">
-    <input id="guess" type="text" name="guess" placeholder="Pokemon Name">
+    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input type="submit" value="Submit">
+  <input class="guess_input" type="submit" value="Submit">
 </form><br>
 {% endif %}
 
@@ -83,8 +83,9 @@ The secret Pokémon was <b>{{secret}}</b>!<br>
 
 <form action="{{ url_for('index', clear=True) }}" method="GET">
   <input type="hidden" name="clear" value="1" /> 
-  <button class="togglec" type="submit" name="gen" value="8">▶️ New Game</button>
-  <button class="togglec" type="submit" name="gen" value="1">▶️ New Game (Gen 1 only!)</button>
+  <button class="togglec" type="submit" name="gen" value="8">▶️ New Game</button><br>
+  <label for="quantity">Guess Pokémon up to gen:</label>
+  <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
 </form>
 <br><a href="https://squirdle.fireblend.com/daily">Try Daily Squirdle!</a>
 

@@ -13,13 +13,14 @@ def getPokemon(gen=8, daily=False):
         secret = row['pokemon'][0]
     else:
         dex = readPokedex()
-        if gen == 1:
-            dex = dex[dex['generation'] == 1]
+        dex = dex[dex['generation'] <= int(gen)]
         secret = np.random.choice(dex, 1)['name'][0]
     return secret
 
-def getPokeList():
-    return list(readPokedex().name)
+def getPokeList(gen=8):
+    dex = readPokedex()
+    dex = dex[dex['generation'] <= int(gen)]
+    return list(dex.name)
 
 def getDay(pkmn):
     today = str(datetime.date(datetime.now()-timedelta(hours=10)))
