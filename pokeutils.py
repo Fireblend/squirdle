@@ -1,25 +1,24 @@
 import numpy as np
 from datetime import datetime, timedelta
 
-def readPokedex():
+def readPokedex(mingen=1, maxgen=8):
     dex = np.recfromcsv("pokedex.csv", encoding="utf-8")
+    dex = dex[(dex['generation'] <= int(maxgen)) & (dex['generation'] >= int(mingen))]
     return dex
 
-def getPokemon(gen=8, daily=False):
+def getPokemon(mingen=1, maxgen=8, daily=False):
     if daily:
         today = str(datetime.date(datetime.now()-timedelta(hours=10)))
         dex = np.recfromcsv("daily.csv", encoding="utf-8")
         row = dex[dex['date'] == today]
         secret = row['pokemon'][0]
     else:
-        dex = readPokedex()
-        dex = dex[dex['generation'] <= int(gen)]
+        dex = readPokedex(mingen=1, maxgen=8)
         secret = np.random.choice(dex, 1)['name'][0]
     return secret
 
-def getPokeList(gen=8):
-    dex = readPokedex()
-    dex = dex[dex['generation'] <= int(gen)]
+def getPokeList(mingen=1, maxgen=8):
+    dex = readPokedex(mingen, maxgen)
     return list(dex.name)
 
 def getDay(pkmn):

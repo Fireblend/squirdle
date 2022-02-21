@@ -85,7 +85,9 @@ The secret Pokémon was <b>{{secret}}</b>!<br>
 <form action="{{ url_for('index', clear=True) }}" method="GET">
   <input type="hidden" name="clear" value="1" /> 
   <button class="togglec" type="submit" name="gen" value="8">▶️ New Game</button><br>
-  <label for="quantity">Guess Pokémon up to gen:</label>
+  <label for="quantity">Guess Pkmn from gen</label>
+  <input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="{{mingen}}" oninput="validity.valid||(value='');">
+  <label for="quantity">to</label>
   <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
 </form>
 <br><a href="{{ url_for('daily') }}">Try Daily Squirdle!</a>
