@@ -2,31 +2,42 @@ name,generation,type_1,type_2,height_m,weight_kg
 Bulbasaur,1,Grass,Poison,0.7,6.9
 Ivysaur,1,Grass,Poison,1.0,13.0
 Venusaur,1,Grass,Poison,2.0,100.0
+Mega Venusaur,6,Grass,Poison,2.4,155.5
 Charmander,1,Fire,,0.6,8.5
 Charmeleon,1,Fire,,1.1,19.0
 Charizard,1,Fire,Flying,1.7,90.5
+Mega Charizard X,6,Fire,Dragon,1.7,110.5
+Mega Charizard Y,6,Fire,Flying,1.7,100.5
 Squirtle,1,Water,,0.5,9.0
 Wartortle,1,Water,,1.0,22.5
 Blastoise,1,Water,,1.6,85.5
+Mega Blastoise,6,Water,,1.6,101.1
 Caterpie,1,Bug,,0.3,2.9
 Metapod,1,Bug,,0.7,9.9
 Butterfree,1,Bug,Flying,1.1,32.0
 Weedle,1,Bug,Poison,0.3,3.2
 Kakuna,1,Bug,Poison,0.6,10.0
 Beedrill,1,Bug,Poison,1.0,29.5
+Mega Beedrill,6,Bug,Poison,1.4,40.5
 Pidgey,1,Normal,Flying,0.3,1.8
 Pidgeotto,1,Normal,Flying,1.1,30.0
 Pidgeot,1,Normal,Flying,1.5,39.5
+Mega Pidgeot,6,Normal,Flying,2.2,50.5
 Rattata,1,Normal,,0.3,3.5
+Alolan Rattata,7,Dark,Normal,0.3,3.8
 Raticate,1,Normal,,0.7,18.5
+Alolan Raticate,7,Dark,Normal,0.7,25.5
 Spearow,1,Normal,Flying,0.3,2.0
 Fearow,1,Normal,Flying,1.2,38.0
 Ekans,1,Poison,,2.0,6.9
 Arbok,1,Poison,,3.5,65.0
 Pikachu,1,Electric,,0.4,6.0
 Raichu,1,Electric,,0.8,30.0
+Alolan Raichu,7,Electric,Psychic,0.7,21.0
 Sandshrew,1,Ground,,0.6,12.0
+Alolan Sandshrew,7,Ice,Steel,0.7,40.0
 Sandslash,1,Ground,,1.0,29.5
+Alolan Sandslash,7,Ice,Steel,1.2,55.0
 Nidoran♀,1,Poison,,0.4,7.0
 Nidorina,1,Poison,,0.8,20.0
 Nidoqueen,1,Poison,Ground,1.3,60.0
@@ -36,7 +47,9 @@ Nidoking,1,Poison,Ground,1.4,62.0
 Clefairy,1,Fairy,,0.6,7.5
 Clefable,1,Fairy,,1.3,40.0
 Vulpix,1,Fire,,0.6,9.9
+Alolan Vulpix,7,Ice,,0.6,9.9
 Ninetales,1,Fire,,1.1,19.9
+Alolan Ninetales,7,Ice,Fairy,1.1,19.9
 Jigglypuff,1,Normal,Fairy,0.5,5.5
 Wigglytuff,1,Normal,Fairy,1.0,12.0
 Zubat,1,Poison,Flying,0.8,7.5
@@ -49,21 +62,29 @@ Parasect,1,Bug,Grass,1.0,29.5
 Venonat,1,Bug,Poison,1.0,30.0
 Venomoth,1,Bug,Poison,1.5,12.5
 Diglett,1,Ground,,0.2,0.8
+Alolan Diglett,7,Ground,Steel,0.2,1.0
 Dugtrio,1,Ground,,0.7,33.3
+Alolan Dugtrio,7,Ground,Steel,0.7,66.6
 Meowth,1,Normal,,0.4,4.2
+Alolan Meowth,7,Dark,,0.4,4.2
+Galarian Meowth,8,Steel,,0.4,7.5
 Persian,1,Normal,,1.0,32.0
+Alolan Persian,7,Dark,,1.1,33.0
 Psyduck,1,Water,,0.8,19.6
 Golduck,1,Water,,1.7,76.6
 Mankey,1,Fighting,,0.5,28.0
 Primeape,1,Fighting,,1.0,32.0
 Growlithe,1,Fire,,0.7,19.0
+Hisuian Growlithe,8,Fire,Rock,0.8,22.7
 Arcanine,1,Fire,,1.9,155.0
+Hisuian Arcanine,8,Fire,Rock,2.0,168.0
 Poliwag,1,Water,,0.6,12.4
 Poliwhirl,1,Water,,1.0,20.0
 Poliwrath,1,Water,Fighting,1.3,54.0
 Abra,1,Psychic,,0.9,19.5
 Kadabra,1,Psychic,,1.3,56.5
 Alakazam,1,Psychic,,1.5,48.0
+Mega Alakazam,6,Psychic,,1.2,48.0
 Machop,1,Fighting,,0.8,19.5
 Machoke,1,Fighting,,1.5,70.5
 Machamp,1,Fighting,,1.6,130.0
@@ -73,47 +94,65 @@ Victreebel,1,Grass,Poison,1.7,15.5
 Tentacool,1,Water,Poison,0.9,45.5
 Tentacruel,1,Water,Poison,1.6,55.0
 Geodude,1,Rock,Ground,0.4,20.0
+Alolan Geodude,7,Rock,Electric,0.4,20.3
 Graveler,1,Rock,Ground,1.0,105.0
+Alolan Graveler,7,Rock,Electric,1.0,110.0
 Golem,1,Rock,Ground,1.4,300.0
+Alolan Golem,7,Rock,Electric,1.7,316.0
 Ponyta,1,Fire,,1.0,30.0
+Galarian Ponyta,8,Psychic,,0.8,24.0
 Rapidash,1,Fire,,1.7,95.0
+Galarian Rapidash,8,Psychic,Fairy,1.7,80.0
 Slowpoke,1,Water,Psychic,1.2,36.0
+Galarian Slowpoke,8,Psychic,,1.2,36.0
 Slowbro,1,Water,Psychic,1.6,78.5
+Mega Slowbro,6,Water,Psychic,2.0,120.0
+Galarian Slowbro,8,Poison,Psychic,1.6,70.5
 Magnemite,1,Electric,Steel,0.3,6.0
 Magneton,1,Electric,Steel,1.0,60.0
 Farfetchd,1,Normal,Flying,0.8,15.0
+Galarian Farfetchd,8,Fighting,,0.8,42.0
 Doduo,1,Normal,Flying,1.4,39.2
 Dodrio,1,Normal,Flying,1.8,85.2
 Seel,1,Water,,1.1,90.0
 Dewgong,1,Water,Ice,1.7,120.0
 Grimer,1,Poison,,0.9,30.0
+Alolan Grimer,7,Poison,Dark,0.7,42.0
 Muk,1,Poison,,1.2,30.0
+Alolan Muk,7,Poison,Dark,1.0,52.0
 Shellder,1,Water,,0.3,4.0
 Cloyster,1,Water,Ice,1.5,132.5
 Gastly,1,Ghost,Poison,1.3,0.1
 Haunter,1,Ghost,Poison,1.6,0.1
 Gengar,1,Ghost,Poison,1.5,40.5
+Mega Gengar,6,Ghost,Poison,1.4,40.5
 Onix,1,Rock,Ground,8.8,210.0
 Drowzee,1,Psychic,,1.0,32.4
 Hypno,1,Psychic,,1.6,75.6
 Krabby,1,Water,,0.4,6.5
 Kingler,1,Water,,1.3,60.0
 Voltorb,1,Electric,,0.5,10.4
+Hisuian Voltorb,8,Electric,Grass,0.5,13.0
 Electrode,1,Electric,,1.2,66.6
+Hisuian Electrode,8,Electric,Grass,1.2,71.0
 Exeggcute,1,Grass,Psychic,0.4,2.5
 Exeggutor,1,Grass,Psychic,2.0,120.0
+Alolan Exeggutor,7,Grass,Dragon,10.9,415.6
 Cubone,1,Ground,,0.4,6.5
 Marowak,1,Ground,,1.0,45.0
+Alolan Marowak,7,Fire,Ghost,1.0,34.0
 Hitmonlee,1,Fighting,,1.5,49.8
 Hitmonchan,1,Fighting,,1.4,50.2
 Lickitung,1,Normal,,1.2,65.5
 Koffing,1,Poison,,0.6,1.0
 Weezing,1,Poison,,1.2,9.5
+Galarian Weezing,8,Poison,Fairy,3.0,16.0
 Rhyhorn,1,Ground,Rock,1.0,115.0
 Rhydon,1,Ground,Rock,1.9,120.0
 Chansey,1,Normal,,1.1,34.6
 Tangela,1,Grass,,1.0,35.0
 Kangaskhan,1,Normal,,2.2,80.0
+Mega Kangaskhan,6,Normal,,2.2,100.0
 Horsea,1,Water,,0.4,8.0
 Seadra,1,Water,,1.2,25.0
 Goldeen,1,Water,,0.6,15.0
@@ -121,14 +160,17 @@ Seaking,1,Water,,1.3,39.0
 Staryu,1,Water,,0.8,34.5
 Starmie,1,Water,Psychic,1.1,80.0
 Mr. Mime,1,Psychic,Fairy,1.3,54.5
+Galarian Mr. Mime,8,Ice,Psychic,1.4,56.8
 Scyther,1,Bug,Flying,1.5,56.0
 Jynx,1,Ice,Psychic,1.4,40.6
 Electabuzz,1,Electric,,1.1,30.0
 Magmar,1,Fire,,1.3,44.5
 Pinsir,1,Bug,,1.5,55.0
+Mega Pinsir,6,Bug,Flying,1.7,59.0
 Tauros,1,Normal,,1.4,88.4
 Magikarp,1,Water,,0.9,10.0
 Gyarados,1,Water,Flying,6.5,235.0
+Mega Gyarados,6,Water,Dark,6.5,305.0
 Lapras,1,Water,Ice,2.5,220.0
 Ditto,1,Normal,,0.3,4.0
 Eevee,1,Normal,,0.3,6.5
@@ -141,14 +183,20 @@ Omastar,1,Rock,Water,1.0,35.0
 Kabuto,1,Rock,Water,0.5,11.5
 Kabutops,1,Rock,Water,1.3,40.5
 Aerodactyl,1,Rock,Flying,1.8,59.0
+Mega Aerodactyl,6,Rock,Flying,2.1,79.0
 Snorlax,1,Normal,,2.1,460.0
 Articuno,1,Ice,Flying,1.7,55.4
+Galarian Articuno,8,Psychic,Flying,1.7,50.9
 Zapdos,1,Electric,Flying,1.6,52.6
+Galarian Zapdos,8,Fighting,Flying,1.6,58.2
 Moltres,1,Fire,Flying,2.0,60.0
+Galarian Moltres,8,Dark,Flying,2.0,66.0
 Dratini,1,Dragon,,1.8,3.3
 Dragonair,1,Dragon,,4.0,16.5
 Dragonite,1,Dragon,Flying,2.2,210.0
 Mewtwo,1,Psychic,,2.0,122.0
+Mega Mewtwo X,6,Psychic,Fighting,2.3,127.0
+Mega Mewtwo Y,6,Psychic,,1.5,33.0
 Mew,1,Psychic,,0.4,4.0
 Chikorita,2,Grass,,0.9,6.4
 Bayleef,2,Grass,,1.2,15.8
@@ -156,6 +204,7 @@ Meganium,2,Grass,,1.8,100.5
 Cyndaquil,2,Fire,,0.5,7.9
 Quilava,2,Fire,,0.9,19.0
 Typhlosion,2,Fire,,1.7,79.5
+Hisuian Typhlosion,8,Fire,Ghost,1.6,69.8
 Totodile,2,Water,,0.6,9.5
 Croconaw,2,Water,,1.1,25.0
 Feraligatr,2,Water,,2.3,88.8
@@ -180,6 +229,7 @@ Xatu,2,Psychic,Flying,1.5,15.0
 Mareep,2,Electric,,0.6,7.8
 Flaaffy,2,Electric,,0.8,13.3
 Ampharos,2,Electric,,1.4,61.5
+Mega Ampharos,6,Electric,Dragon,1.4,61.5
 Bellossom,2,Grass,,0.4,5.8
 Marill,2,Water,Fairy,0.4,8.5
 Azumarill,2,Water,Fairy,0.8,28.5
@@ -198,6 +248,7 @@ Espeon,2,Psychic,,0.9,26.5
 Umbreon,2,Dark,,1.0,27.0
 Murkrow,2,Dark,Flying,0.5,2.1
 Slowking,2,Water,Psychic,2.0,79.5
+Galarian Slowking,8,Poison,Psychic,1.8,79.5
 Misdreavus,2,Ghost,,0.7,1.0
 Unown,2,Psychic,,0.5,5.0
 Wobbuffet,2,Psychic,,1.3,28.5
@@ -207,13 +258,18 @@ Forretress,2,Bug,Steel,1.2,125.8
 Dunsparce,2,Normal,,1.5,14.0
 Gligar,2,Ground,Flying,1.1,64.8
 Steelix,2,Steel,Ground,9.2,400.0
+Mega Steelix,6,Steel,Ground,10.5,740.0
 Snubbull,2,Fairy,,0.6,7.8
 Granbull,2,Fairy,,1.4,48.7
 Qwilfish,2,Water,Poison,0.5,3.9
+Hisuian Qwilfish,8,Dark,Poison,0.5,3.9
 Scizor,2,Bug,Steel,1.8,118.0
+Mega Scizor,6,Bug,Steel,2.0,125.0
 Shuckle,2,Bug,Rock,0.6,20.5
 Heracross,2,Bug,Fighting,1.5,54.0
+Mega Heracross,6,Bug,Fighting,1.7,62.5
 Sneasel,2,Dark,Ice,0.9,28.0
+Hisuian Sneasel,8,Fighting,Poison,0.9,27.0
 Teddiursa,2,Normal,,0.6,8.8
 Ursaring,2,Normal,,1.8,125.8
 Slugma,2,Fire,,0.7,35.0
@@ -221,6 +277,7 @@ Magcargo,2,Fire,Rock,0.8,55.0
 Swinub,2,Ice,Ground,0.4,6.5
 Piloswine,2,Ice,Ground,1.1,55.8
 Corsola,2,Water,Rock,0.6,5.0
+Galarian Corsola,8,Ghost,,0.6,0.5
 Remoraid,2,Water,,0.6,12.0
 Octillery,2,Water,,0.9,28.5
 Delibird,2,Ice,Flying,0.9,16.0
@@ -228,6 +285,7 @@ Mantine,2,Water,Flying,2.1,220.0
 Skarmory,2,Steel,Flying,1.7,50.5
 Houndour,2,Dark,Fire,0.6,10.8
 Houndoom,2,Dark,Fire,1.4,35.0
+Mega Houndoom,6,Dark,Fire,1.9,49.5
 Kingdra,2,Water,Dragon,1.8,152.0
 Phanpy,2,Ground,,0.5,33.5
 Donphan,2,Ground,,1.1,120.0
@@ -247,22 +305,28 @@ Suicune,2,Water,,2.0,187.0
 Larvitar,2,Rock,Ground,0.6,72.0
 Pupitar,2,Rock,Ground,1.2,152.0
 Tyranitar,2,Rock,Dark,2.0,202.0
+Mega Tyranitar,6,Rock,Dark,2.5,255.0
 Lugia,2,Psychic,Flying,5.2,216.0
 Ho-Oh,2,Fire,Flying,3.8,199.0
 Celebi,2,Psychic,Grass,0.6,5.0
 Treecko,3,Grass,,0.5,5.0
 Grovyle,3,Grass,,0.9,21.6
 Sceptile,3,Grass,,1.7,52.2
+Mega Sceptile,6,Grass,Dragon,1.9,55.2
 Torchic,3,Fire,,0.4,2.5
 Combusken,3,Fire,Fighting,0.9,19.5
 Blaziken,3,Fire,Fighting,1.9,52.0
+Mega Blaziken,6,Fire,Fighting,1.9,52.0
 Mudkip,3,Water,,0.4,7.6
 Marshtomp,3,Water,Ground,0.7,28.0
 Swampert,3,Water,Ground,1.5,81.9
+Mega Swampert,6,Water,Ground,1.9,102.0
 Poochyena,3,Dark,,0.5,13.6
 Mightyena,3,Dark,,1.0,37.0
 Zigzagoon,3,Normal,,0.4,17.5
+Galarian Zigzagoon,8,Dark,Normal,0.4,17.5
 Linoone,3,Normal,,0.5,32.5
+Galarian Linoone,8,Dark,Normal,0.5,32.5
 Wurmple,3,Bug,,0.3,3.6
 Silcoon,3,Bug,,0.6,10.0
 Beautifly,3,Bug,Flying,1.0,28.4
@@ -281,6 +345,7 @@ Pelipper,3,Water,Flying,1.2,28.0
 Ralts,3,Psychic,Fairy,0.4,6.6
 Kirlia,3,Psychic,Fairy,0.8,20.2
 Gardevoir,3,Psychic,Fairy,1.6,48.4
+Mega Gardevoir,6,Psychic,Fairy,1.6,48.4
 Surskit,3,Bug,Water,0.5,1.7
 Masquerain,3,Bug,Flying,0.8,3.6
 Shroomish,3,Grass,,0.4,4.5
@@ -301,14 +366,19 @@ Nosepass,3,Rock,,1.0,97.0
 Skitty,3,Normal,,0.6,11.0
 Delcatty,3,Normal,,1.1,32.6
 Sableye,3,Dark,Ghost,0.5,11.0
+Mega Sableye,6,Dark,Ghost,0.5,161.0
 Mawile,3,Steel,Fairy,0.6,11.5
+Mega Mawile,6,Steel,Fairy,1.0,23.5
 Aron,3,Steel,Rock,0.4,60.0
 Lairon,3,Steel,Rock,0.9,120.0
 Aggron,3,Steel,Rock,2.1,360.0
+Mega Aggron,6,Steel,,2.2,395.0
 Meditite,3,Fighting,Psychic,0.6,11.2
 Medicham,3,Fighting,Psychic,1.3,31.5
+Mega Medicham,6,Fighting,Psychic,1.3,31.5
 Electrike,3,Electric,,0.6,15.2
 Manectric,3,Electric,,1.5,40.2
+Mega Manectric,6,Electric,,1.8,44.0
 Plusle,3,Electric,,0.4,4.2
 Minun,3,Electric,,0.4,4.2
 Volbeat,3,Bug,,0.7,17.7
@@ -318,10 +388,12 @@ Gulpin,3,Poison,,0.4,10.3
 Swalot,3,Poison,,1.7,80.0
 Carvanha,3,Water,Dark,0.8,20.8
 Sharpedo,3,Water,Dark,1.8,88.8
+Mega Sharpedo,6,Water,Dark,2.5,130.3
 Wailmer,3,Water,,2.0,130.0
 Wailord,3,Water,,14.5,398.0
 Numel,3,Fire,Ground,0.7,24.0
 Camerupt,3,Fire,Ground,1.9,220.0
+Mega Camerupt,6,Fire,Ground,2.5,320.5
 Torkoal,3,Fire,,0.5,80.4
 Spoink,3,Psychic,,0.7,30.6
 Grumpig,3,Psychic,,0.9,71.5
@@ -333,6 +405,7 @@ Cacnea,3,Grass,,0.4,51.3
 Cacturne,3,Grass,Dark,1.3,77.4
 Swablu,3,Normal,Flying,0.4,1.2
 Altaria,3,Dragon,Flying,1.1,20.6
+Mega Altaria,6,Dragon,Fairy,1.5,20.6
 Zangoose,3,Normal,,1.3,40.3
 Seviper,3,Poison,,2.7,52.5
 Lunatone,3,Rock,Psychic,1.0,168.0
@@ -356,14 +429,17 @@ Castform Snowy Form,3,Ice,,0.3,0.8
 Kecleon,3,Normal,,1.0,22.0
 Shuppet,3,Ghost,,0.6,2.3
 Banette,3,Ghost,,1.1,12.5
+Mega Banette,6,Ghost,,1.2,13.0
 Duskull,3,Ghost,,0.8,15.0
 Dusclops,3,Ghost,,1.6,30.6
 Tropius,3,Grass,Flying,2.0,100.0
 Chimecho,3,Psychic,,0.6,1.0
 Absol,3,Dark,,1.2,47.0
+Mega Absol,6,Dark,,1.2,49.0
 Wynaut,3,Psychic,,0.6,14.0
 Snorunt,3,Ice,,0.7,16.8
 Glalie,3,Ice,,1.5,256.5
+Mega Glalie,6,Ice,,2.1,350.2
 Spheal,3,Ice,Water,0.8,39.5
 Sealeo,3,Ice,Water,1.1,87.6
 Walrein,3,Ice,Water,1.4,150.6
@@ -375,17 +451,24 @@ Luvdisc,3,Water,,0.6,8.7
 Bagon,3,Dragon,,0.6,42.1
 Shelgon,3,Dragon,,1.1,110.5
 Salamence,3,Dragon,Flying,1.5,102.6
+Mega Salamence,6,Dragon,Flying,1.8,112.6
 Beldum,3,Steel,Psychic,0.6,95.2
 Metang,3,Steel,Psychic,1.2,202.5
 Metagross,3,Steel,Psychic,1.6,550.0
+Mega Metagross,6,Steel,Psychic,2.5,942.9
 Regirock,3,Rock,,1.7,230.0
 Regice,3,Ice,,1.8,175.0
 Registeel,3,Steel,,1.9,205.0
 Latias,3,Dragon,Psychic,1.4,40.0
+Mega Latias,6,Dragon,Psychic,1.8,52.0
 Latios,3,Dragon,Psychic,2.0,60.0
+Mega Latios,6,Dragon,Psychic,2.3,70.0
 Kyogre,3,Water,,4.5,352.0
+Primal Kyogre,6,Water,,9.8,430.0
 Groudon,3,Ground,,3.5,950.0
+Primal Groudon,6,Ground,Fire,5.0,999.7
 Rayquaza,3,Dragon,Flying,7.0,206.5
+Mega Rayquaza,6,Dragon,Flying,10.8,392.0
 Jirachi,3,Steel,Psychic,0.3,1.1
 Deoxys,3,Psychic,,1.7,60.8
 Turtwig,4,Grass,,0.4,10.2
@@ -432,6 +515,7 @@ Drifloon,4,Ghost,Flying,0.4,1.2
 Drifblim,4,Ghost,Flying,1.2,15.0
 Buneary,4,Normal,,0.4,5.5
 Lopunny,4,Normal,,1.2,33.3
+Mega Lopunny,6,Normal,Fighting,1.3,28.3
 Mismagius,4,Ghost,,0.9,4.4
 Honchkrow,4,Dark,Flying,0.9,27.3
 Glameow,4,Normal,,0.5,3.9
@@ -449,9 +533,11 @@ Spiritomb,4,Ghost,Dark,1.0,108.0
 Gible,4,Dragon,Ground,0.7,20.5
 Gabite,4,Dragon,Ground,1.4,56.0
 Garchomp,4,Dragon,Ground,1.9,95.0
+Mega Garchomp,6,Dragon,Ground,1.9,95.0
 Munchlax,4,Normal,,0.6,105.0
 Riolu,4,Fighting,,0.7,20.2
 Lucario,4,Fighting,Steel,1.2,54.0
+Mega Lucario,6,Fighting,Steel,1.3,57.5
 Hippopotas,4,Ground,,0.8,49.5
 Hippowdon,4,Ground,,2.0,300.0
 Skorupi,4,Poison,Bug,0.8,12.0
@@ -464,6 +550,7 @@ Lumineon,4,Water,,1.2,24.0
 Mantyke,4,Water,Flying,1.0,65.0
 Snover,4,Grass,Ice,1.0,50.5
 Abomasnow,4,Grass,Ice,2.2,135.5
+Mega Abomasnow,6,Grass,Ice,2.7,185.0
 Weavile,4,Dark,Ice,1.1,34.0
 Magnezone,4,Electric,Steel,1.2,180.0
 Lickilicky,4,Normal,,1.7,140.0
@@ -479,6 +566,7 @@ Gliscor,4,Ground,Flying,2.0,42.5
 Mamoswine,4,Ice,Ground,2.5,291.0
 Porygon-Z,4,Normal,,0.9,34.0
 Gallade,4,Psychic,Fighting,1.6,52.0
+Mega Gallade,6,Psychic,Fighting,1.6,56.4
 Probopass,4,Rock,Steel,1.4,340.0
 Dusknoir,4,Ghost,,2.2,106.6
 Froslass,4,Ice,Ghost,1.3,26.6
@@ -492,7 +580,9 @@ Uxie,4,Psychic,,0.3,0.3
 Mesprit,4,Psychic,,0.3,0.3
 Azelf,4,Psychic,,0.3,0.3
 Dialga,4,Steel,Dragon,5.4,683.0
+Dialga Origin Forme,8,Steel,Dragon,5.4,683.0
 Palkia,4,Water,Dragon,4.2,336.0
+Palkia Origin Forme,8,Water,Dragon,4.2,336.0
 Heatran,4,Fire,Steel,1.7,430.0
 Regigigas,4,Normal,,3.7,420.0
 Giratina Altered Forme,4,Ghost,Dragon,4.5,750.0
@@ -514,6 +604,7 @@ Emboar,5,Fire,Fighting,1.6,150.0
 Oshawott,5,Water,,0.5,5.9
 Dewott,5,Water,,0.8,24.5
 Samurott,5,Water,,1.5,94.6
+Hisuian Samurott,8,Water,Dark,1.5,58.2
 Patrat,5,Normal,,0.5,11.6
 Watchog,5,Normal,,1.1,27.0
 Lillipup,5,Normal,,0.4,4.1
@@ -542,6 +633,7 @@ Swoobat,5,Psychic,Flying,0.9,10.5
 Drilbur,5,Ground,,0.3,8.5
 Excadrill,5,Ground,Steel,0.7,40.4
 Audino,5,Normal,,1.1,31.0
+Mega Audino,6,Normal,Fairy,1.5,32.0
 Timburr,5,Fighting,,0.6,12.5
 Gurdurr,5,Fighting,,1.2,40.0
 Conkeldurr,5,Fighting,,1.4,87.0
@@ -560,13 +652,17 @@ Cottonee,5,Grass,Fairy,0.3,0.6
 Whimsicott,5,Grass,Fairy,0.7,6.6
 Petilil,5,Grass,,0.5,6.6
 Lilligant,5,Grass,,1.1,16.3
+Hisuian Lilligant,8,Grass,Fighting,1.2,19.2
 Basculin,5,Water,,1.0,18.0
 Sandile,5,Ground,Dark,0.7,15.2
 Krokorok,5,Ground,Dark,1.0,33.4
 Krookodile,5,Ground,Dark,1.5,96.3
 Darumaka,5,Fire,,0.6,37.5
+Galarian Darumaka,8,Ice,,0.7,40.0
 Darmanitan Standard Mode,5,Fire,,1.3,92.9
 Darmanitan Zen Mode,5,Fire,Psychic,1.3,92.9
+Galarian Darmanitan Standard Mode,8,Ice,,1.7,120.0
+Galarian Darmanitan Zen Mode,8,Ice,Fire,1.7,120.0
 Maractus,5,Grass,,1.0,28.0
 Dwebble,5,Bug,Rock,0.3,14.5
 Crustle,5,Bug,Rock,1.4,200.0
@@ -574,6 +670,7 @@ Scraggy,5,Dark,Fighting,0.6,11.8
 Scrafty,5,Dark,Fighting,1.1,30.0
 Sigilyph,5,Psychic,Flying,1.4,14.0
 Yamask,5,Ghost,,0.5,1.5
+Galarian Yamask,8,Ground,Ghost,0.5,1.5
 Cofagrigus,5,Ghost,,1.7,76.5
 Tirtouga,5,Water,Rock,0.7,16.5
 Carracosta,5,Water,Rock,1.2,81.0
@@ -582,7 +679,9 @@ Archeops,5,Rock,Flying,1.4,32.0
 Trubbish,5,Poison,,0.6,31.0
 Garbodor,5,Poison,,1.9,107.3
 Zorua,5,Dark,,0.7,12.5
+Hisuian Zorua,8,Normal,Ghost,0.7,12.5
 Zoroark,5,Dark,,1.6,81.1
+Hisuian Zoroark,8,Normal,Ghost,1.6,73.0
 Minccino,5,Normal,,0.4,5.8
 Cinccino,5,Normal,,0.5,7.5
 Gothita,5,Psychic,,0.4,5.8
@@ -630,6 +729,7 @@ Cryogonal,5,Ice,,1.1,148.0
 Shelmet,5,Bug,,0.4,7.7
 Accelgor,5,Bug,,0.8,25.3
 Stunfisk,5,Ground,Electric,0.7,11.0
+Galarian Stunfisk,8,Ground,Steel,0.7,20.5
 Mienfoo,5,Fighting,,0.9,20.0
 Mienshao,5,Fighting,,1.4,35.5
 Druddigon,5,Dragon,,1.6,139.0
@@ -640,6 +740,7 @@ Bisharp,5,Dark,Steel,1.6,70.0
 Bouffalant,5,Normal,,1.6,94.6
 Rufflet,5,Normal,Flying,0.5,10.5
 Braviary,5,Normal,Flying,1.5,41.0
+Hisuian Braviary,8,Psychic,Flying,1.7,43.4
 Vullaby,5,Dark,Flying,0.5,9.0
 Mandibuzz,5,Dark,Flying,1.2,39.5
 Heatmor,5,Fire,,1.4,58.0
@@ -676,6 +777,7 @@ Delphox,6,Fire,Psychic,1.5,39.0
 Froakie,6,Water,,0.3,7.0
 Frogadier,6,Water,,0.6,10.9
 Greninja,6,Water,Dark,1.5,40.0
+Ash-Greninja,7,Water,Dark,1.5,40.0
 Bunnelby,6,Normal,,0.4,5.0
 Diggersby,6,Normal,Ground,1.0,42.4
 Fletchling,6,Normal,Flying,0.3,1.7
@@ -723,7 +825,9 @@ Dedenne,6,Electric,Fairy,0.2,2.2
 Carbink,6,Rock,Fairy,0.3,5.7
 Goomy,6,Dragon,,0.3,2.8
 Sliggoo,6,Dragon,,0.8,17.5
+Hisuian Sliggoo,8,Steel,Dragon,0.7,68.5
 Goodra,6,Dragon,,2.0,150.5
+Hisuian Goodra,8,Steel,Dragon,1.7,334.1
 Klefki,6,Steel,Fairy,0.2,3.0
 Phantump,6,Ghost,Grass,0.4,7.0
 Trevenant,6,Ghost,Grass,1.5,71.0
@@ -731,20 +835,23 @@ Pumpkaboo,6,Ghost,Grass,0.4,5.0
 Gourgeist,6,Ghost,Grass,0.9,12.5
 Bergmite,6,Ice,,1.0,99.5
 Avalugg,6,Ice,,2.0,505.0
+Hisuian Avalugg,8,Ice,Rock,1.4,262.4
 Noibat,6,Flying,Dragon,0.5,8.0
 Noivern,6,Flying,Dragon,1.5,85.0
 Xerneas,6,Fairy,,3.0,215.0
 Yveltal,6,Dark,Flying,5.8,203.0
 Zygarde 50% Forme,6,Dragon,Ground,5.0,305.0
-Zygarde 10% Forme,6,Dragon,Ground,1.2,33.5
-Zygarde Complete Forme,6,Dragon,Ground,4.5,610.0
+Zygarde 10% Forme,7,Dragon,Ground,1.2,33.5
+Zygarde Complete Forme,7,Dragon,Ground,4.5,610.0
 Diancie,6,Rock,Fairy,0.7,8.8
+Mega Diancie,6,Rock,Fairy,1.1,27.8
 Hoopa Confined,6,Psychic,Ghost,0.5,9.0
 Hoopa Unbound,6,Psychic,Dark,6.5,490.0
 Volcanion,6,Fire,Water,1.7,195.0
 Rowlet,7,Grass,Flying,0.3,1.5
 Dartrix,7,Grass,Flying,0.7,16.0
 Decidueye,7,Grass,Ghost,1.6,36.6
+Hisuian Decidueye,8,Grass,Fighting,1.6,37.0
 Litten,7,Fire,,0.4,4.3
 Torracat,7,Fire,,0.7,25.0
 Incineroar,7,Fire,Dark,1.8,83.0
@@ -934,3 +1041,11 @@ Spectrier,8,Ghost,,2.0,44.5
 Calyrex,8,Psychic,Grass,1.1,7.7
 Calyrex Ice Rider,8,Psychic,Ice,2.4,809.1
 Calyrex Shadow Rider,8,Psychic,Ghost,2.4,53.6
+Wyrdeer,8,Normal,Psychic,1.8,95.1
+Kleavor,8,Bug,Rock,1.8,89.0
+Ursaluna,8,Ground,Normal,2.4,290.0
+Basculegion,8,Water,Ghost,3.0,110.0
+Sneasler,8,Fighting,Poison,1.3,43.0
+Overqwil,8,Dark,Poison,2.5,60.5
+Enamorus Incarnate Forme,8,Fairy,Flying,1.6,48.0
+Enamorus Therian Forme,8,Fairy,Flying,1.6,48.0
