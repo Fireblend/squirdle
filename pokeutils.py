@@ -13,7 +13,7 @@ def getPokemon(mingen=1, maxgen=8, daily=False):
         row = dex[dex['date'] == today]
         secret = row['pokemon'][0]
     else:
-        dex = readPokedex(mingen=1, maxgen=8)
+        dex = readPokedex(mingen, maxgen)
         secret = np.random.choice(dex, 1)['name'][0]
     return secret
 
