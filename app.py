@@ -33,7 +33,7 @@ def getCookieData(daily=""):
 
     return previousGuesses, gameOver, secret, attempts, minGen, maxGen
 
-def handleGameOver(previousGuesses, gameOver, secret, attempts, minGen, maxGen):
+def handleGameOver(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen):
     if not API_KEY or not API_STATS_URL:
         return None
     # Stat collecting: Sends guesses, secret pokemon, remaining attempts and whether it's a daily attempt to stats endpoint.
