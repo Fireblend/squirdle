@@ -28,7 +28,7 @@ def getCookieData(daily=""):
 
     return previousGuesses, gameOver, secret, attempts, minGen, maxGen
 
-# Stat collecting: Sends guesses, secret pokemon, remaining attempts and whether it's a daily attempt to stats endpoint.
+# Stat collecting: Sends guesses, secret pokemon, remaining attempts and whether it's a daily attempt to a stats endpoint.
 def sendStats(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen):
     # Skip if API URL or key not available.
     if not API_KEY or not API_STATS_URL: return None
@@ -42,7 +42,7 @@ def sendStats(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen
 # Returns the text block that gets copied into the user's clipboard for sharing.
 def getEmojiMosaic(previousGuesses, victory, day=None):
     prefix = "d_" if day else ""
-    daily = f" Daily {day}" if day else ""
+    daily = f" Daily {day} -" if day else ""
 
     total_attempts = request.cookies.get(prefix+'total_attempts')
     guesses = len(previousGuesses) if victory else 'X'
@@ -51,16 +51,20 @@ def getEmojiMosaic(previousGuesses, victory, day=None):
     return mosaic, mosaic_names
 
 # Shows the current state of the game to handle GET calls
-def handleShowGame(is_daily, is_error=False, prevoverride=None, attoverride=None):
+def handleShowGame(is_daily, is_error=False, prevoverride=None, attoverride=None, gooverride=None):
     day = getDay() if is_daily else None
-
     previousGuesses, gameOver, secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
+
+    # If handleShowGame is called from handleNextGuess, we need to override these 3 cookie values:
+    previousGuesses = prevoverride if prevoverride else previousGuesses
+    gameOver = gooverride if gooverride else gameOver
+    attempts = attoverride if attoverride else attempts
+
     mosaic, mosaic_names = getEmojiMosaic(previousGuesses, gameOver==1, day)
 
-    return render_template("daily.html" if is_daily else "index.html", data=prevoverride if prevoverride else previousGuesses, 
+    return render_template("daily.html" if is_daily else "index.html", data=previousGuesses, 
                             gameOver=gameOver, mingen=minGen, maxgen=maxGen, pokemon=getPokeList(mingen=minGen, maxgen=maxGen), 
-                            secret=secret, error=is_error, mosaic=mosaic, mosaic_names=mosaic_names, 
-                            attempts=attoverride if attoverride else attempts)
+                            secret=secret, error=is_error, mosaic=mosaic, mosaic_names=mosaic_names, attempts=attempts)
 
 # Handles the next page shown when user is given a hint (handles POST calls)
 def handleNextGuess(is_daily):
@@ -81,8 +85,7 @@ def handleNextGuess(is_daily):
             sendStats(previousGuesses, gameOver, secret, attempts, is_daily, minGen, maxGen)
 
     # Build response
-    resp = make_response(handleShowGame(is_daily, prevoverride=previousGuesses, attoverride=attempts))
-
+    resp = make_response(handleShowGame(is_daily, prevoverride=previousGuesses, attoverride=attempts, gooverride=gameOver))
     resp.set_cookie(prefix+'game_record', json.dumps(previousGuesses))
     resp.set_cookie(prefix+'attempts', str(attempts))
     return resp
@@ -94,25 +97,24 @@ def handleNewGame(is_daily):
     if is_daily:
         expire_date = datetime.combine(datetime.date(datetime.now()-timedelta(hours=10)), datetime.min.time())+timedelta(days=1, hours=10)
 
+    # Edit the right cookies depending on mode
     prefix = "d_" if is_daily else ""
 
-    args = request.args
-    mingen = int(args['mingen']) if 'mingen' in args else 1
-    maxgen = int(args['maxgen']) if 'maxgen' in args else 8
-    
-    # Exchange min and max if reversed
+    # Read min and max generation and reverse if needed
+    mingen = int(request.args['mingen']) if 'mingen' in request.args else 1
+    maxgen = int(request.args['maxgen']) if 'maxgen' in request.args else 8
     if mingen > maxgen:
         mingen, maxgen = maxgen, mingen
 
-    guessesMap = {1:'5', 2:'5', 3:'6', 4:'6', 5:'7', 6:'7', 7:'8', 8:'8'}
-                
+    guessesMap = {0:'5', 1:'5', 2:'6', 3:'6', 4:'7', 5:'7', 6:'8', 7:'8'}
+    # Set cookies for new game
     resp = make_response(redirect(url_for('daily' if is_daily else 'index')))
     resp.set_cookie(prefix+'game_record', "[]", expires=expire_date)
     resp.set_cookie(prefix+'min_gen', f"{mingen}", expires=expire_date)
     resp.set_cookie(prefix+'max_gen', f"{maxgen}", expires=expire_date)
     resp.set_cookie(prefix+'secret', getPokemon(daily=is_daily, mingen=mingen, maxgen=maxgen), expires=expire_date)
-    resp.set_cookie(prefix+'attempts', guessesMap[maxgen-mingen+1], expires=expire_date)
-    resp.set_cookie(prefix+'total_attempts', guessesMap[maxgen-mingen+1], expires=expire_date)
+    resp.set_cookie(prefix+'attempts', guessesMap[maxgen-mingen], expires=expire_date)
+    resp.set_cookie(prefix+'total_attempts', guessesMap[maxgen-mingen], expires=expire_date)
     return resp
 
 # Handle GET requests to index page (free play mode)
@@ -136,7 +138,7 @@ def daily():
         return handleNewGame(is_daily=True)
     return handleShowGame(is_daily=True)
 
-# Handle POST requests to index page (free play mode)
+# Handle POST requests to daily page (daily mode)
 @app.route("/daily", methods=['POST'])
 def dailyGuess():
     return handleNextGuess(is_daily=True)

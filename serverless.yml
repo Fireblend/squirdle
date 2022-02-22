@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: squirdle
+service: squirdle-dev
 
 plugins:
   - serverless-python-requirements
