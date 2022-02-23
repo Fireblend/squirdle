@@ -21,7 +21,7 @@ def getPokeList(mingen=1, maxgen=8):
     dex = readPokedex(mingen, maxgen)
     return list(dex.name)
 
-def getDay(pkmn):
+def getDay():
     today = str(datetime.date(datetime.now()-timedelta(hours=10)))
     dex = np.recfromcsv("daily.csv", encoding="utf-8")
     return list(dex['date']).index(today)
@@ -39,7 +39,6 @@ def getHint(guess_str, secret_str, daily=False):
             hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🔼' if guess["generation"] < secret["generation"] else '🔽'
         else:
             hint['Gen'] = '🟩' if guess["generation"] == secret["generation"] else '🟦'
-
         hint['Type 1'] = '🟩' if guess["type_1"] == secret["type_1"] else '🟨' if guess["type_1"] == secret["type_2"] else '🟥'
         hint['Type 2'] = '🟩' if guess["type_2"] == secret["type_2"] else '🟨' if guess["type_2"] == secret["type_1"] else '🟥'
         hint['Height'] = '🟩' if guess["height_m"] == secret["height_m"] else '🔼' if guess["height_m"] < secret["height_m"] else '🔽'
