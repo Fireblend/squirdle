@@ -18,12 +18,11 @@ def getCookieData(daily=""):
 
     secret = request.cookies.get(prefix+'secret')
     attempts = int(request.cookies.get(prefix+'attempts'))
-    previousGuesses = request.cookies.get(prefix+'game_record')
+    previousGuesses = json.loads(request.cookies.get(prefix+'game_record'))
     maxGen = request.cookies.get(prefix+'max_gen')
     maxGen = maxGen if maxGen else 8
     minGen = request.cookies.get(prefix+'min_gen')
     minGen = minGen if minGen else 1
-    previousGuesses = json.loads(previousGuesses)
     gameOver = 1 if len(previousGuesses) > 0 and previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
 
     return previousGuesses, gameOver, secret, attempts, minGen, maxGen
@@ -51,14 +50,14 @@ def getEmojiMosaic(previousGuesses, victory, day=None):
     return mosaic, mosaic_names
 
 # Shows the current state of the game to handle GET calls
-def handleShowGame(is_daily, is_error=False, prevoverride=None, attoverride=None, gooverride=None):
+def showGameState(is_daily, is_error=False, prev=None, at=None, go=None):
     day = getDay() if is_daily else None
     previousGuesses, gameOver, secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
 
-    # If handleShowGame is called from handleNextGuess, we need to override these 3 cookie values:
-    previousGuesses = prevoverride if prevoverride else previousGuesses
-    gameOver = gooverride if gooverride else gameOver
-    attempts = attoverride if attoverride else attempts
+    # If showGameState is called from handleNextGuess, we need to override these 3 cookie values:
+    previousGuesses = prev if prev else previousGuesses
+    gameOver = go if go else gameOver
+    attempts = at if at else attempts
 
     mosaic, mosaic_names = getEmojiMosaic(previousGuesses, gameOver==1, day)
 
@@ -77,7 +76,7 @@ def handleNextGuess(is_daily):
             previousGuesses.append(hint)
             attempts -= 1
         else:
-            return handleShowGame(is_daily, is_error=True)
+            return showGameState(is_daily, is_error=True)
 
         # Determine whether the game has ended
         gameOver = 1 if previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
@@ -85,7 +84,7 @@ def handleNextGuess(is_daily):
             sendStats(previousGuesses, gameOver, secret, attempts, is_daily, minGen, maxGen)
 
     # Build response
-    resp = make_response(handleShowGame(is_daily, prevoverride=previousGuesses, attoverride=attempts, gooverride=gameOver))
+    resp = make_response(showGameState(is_daily, prev=previousGuesses, at=attempts, go=gameOver))
     resp.set_cookie(prefix+'game_record', json.dumps(previousGuesses))
     resp.set_cookie(prefix+'attempts', str(attempts))
     return resp
@@ -95,7 +94,8 @@ def handleNewGame(is_daily):
     # Cookies need to expire by next day if in daily mode
     expire_date = None 
     if is_daily:
-        expire_date = datetime.combine(datetime.date(datetime.now()-timedelta(hours=10)), datetime.min.time())+timedelta(days=1, hours=10)
+        expire_date = datetime.combine(datetime.date(datetime.now()-timedelta(hours=10)),
+                                       datetime.min.time())+timedelta(days=1, hours=10)
 
     # Edit the right cookies depending on mode
     prefix = "d_" if is_daily else ""
@@ -123,7 +123,7 @@ def index():
     # If new game is requested, set cookies accordingly
     if 'clear' in request.args or not 'secret' in request.cookies:
         return handleNewGame(is_daily=False)
-    return handleShowGame(is_daily=False)
+    return showGameState(is_daily=False)
 
 # Handle POST requests to index page (free play mode)
 @app.route("/", methods=['POST'])
@@ -136,7 +136,7 @@ def daily():
     # If the old cookie expired, load data for today's game
     if not 'd_secret' in request.cookies:
         return handleNewGame(is_daily=True)
-    return handleShowGame(is_daily=True)
+    return showGameState(is_daily=True)
 
 # Handle POST requests to daily page (daily mode)
 @app.route("/daily", methods=['POST'])
