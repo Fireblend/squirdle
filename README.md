@@ -1,4 +1,6 @@
 # Squirdle
+**Note:** New features and enhancements are currently on hold while I rewrite most of this in Javascript to offset API Gateway/Lambda costs. Thanks for your patience!
+
 A Pokémon Wordle-like, found at [squirdle.fireblend.com](http://squirdle.fireblend.com/)
 
 Featured on [Kotaku](https://kotaku.com/wordle-squirdle-daily-puzzle-word-game-free-browser-1848499480), [GamesRadar](https://www.gamesradar.com/theres-a-pokemon-themed-wordle-called-drumroll-squirdle/), [Forbes](https://www.forbes.com/sites/paultassi/2022/02/09/another-wordle-alternative-squirdle-wants-you-to-guess-that-pokemon/?sh=6a7996747b94), [TechRadar](https://www.techradar.com/sg/news/games-like-wordle-the-best-spinoffs-and-alternatives) and others!
