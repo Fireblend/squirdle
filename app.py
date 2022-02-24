@@ -8,8 +8,8 @@ import os
 app = Flask(__name__)
 
 # Load API URL and key to send stats payload upon game end.
-API_KEY = os.environ['API_KEY'] if 'API_KEY' in os.environ else None
-API_STATS_URL = os.environ['API_STATS_URL'] if 'API_STATS_URL' in os.environ else None
+API_KEY = os.getenv('API_KEY')
+API_STATS_URL = os.getenv('API_STATS_URL')
 
 # Retrieves cookies needed to play the game.
 def getCookieData(daily=""):
