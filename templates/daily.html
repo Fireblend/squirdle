@@ -5,10 +5,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
     <script src="{{url_for('static', filename='scripts.js')}}"></script>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style-daily.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>     
-<body>
+<body class="daily">
 
 <h2>Squirdle Daily</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
@@ -64,7 +64,7 @@ Pokemon not found!
 {% endif %}
 <form autocomplete="off" method="POST">
   <div class="autocomplete">
-    <input id="guess" type="text" name="guess" placeholder="Pokemon Name">
+    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
   <input type="submit" value="Submit">
 </form>

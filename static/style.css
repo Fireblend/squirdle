@@ -10,6 +10,11 @@
     font-size: 17px ;
   }
 
+  body.daily {
+    color: rgb(255 232 232);
+    background-color: rgb(78, 0, 0);
+  }
+
   a {
     color: palevioletred;
   }
@@ -114,7 +119,11 @@
     left: 0;
     right: 0;
   }
-  
+
+  body.daily .autocomplete-items {
+    color: rgb(54, 0, 0);
+  }
+
   .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
