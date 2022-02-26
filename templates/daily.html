@@ -62,11 +62,11 @@ I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses left toda
 {% if error %}
 Pokemon not found!
 {% endif %}
-<form autocomplete="off" method="POST">
+<form autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
     <input id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" onclick="handleGuess('{{pokedex}}')">
 </form>
 {% endif %}
 {% if gameOver == 1 %}

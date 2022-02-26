@@ -38,19 +38,8 @@ def sendStats(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen
 
     return requests.post(API_STATS_URL, headers={"x-api-key":API_KEY}, json={"message":message})
 
-# Returns the text block that gets copied into the user's clipboard for sharing.
-def getEmojiMosaic(previousGuesses, victory, day=None):
-    prefix = "d_" if day else ""
-    daily = f" Daily {day} -" if day else ""
-
-    total_attempts = request.cookies.get(prefix+'total_attempts')
-    guesses = len(previousGuesses) if victory else 'X'
-    mosaic = f"Squirdle{daily} {guesses}/{total_attempts}\\n\\n" +"\\n".join([x['emoji'] for x in previousGuesses])
-    mosaic_names = f"Squirdle{daily} {guesses}/{total_attempts}\\n\\n" +"\\n".join([x['emoji']+" "+x['Guess'] for x in previousGuesses])
-    return mosaic, mosaic_names
-
 # Shows the current state of the game to handle GET calls
-def showGameState(is_daily, is_error=False, prev=None, at=None, go=None):
+def showGameState(is_daily, prev=None, at=None, go=None):
     day = getDay() if is_daily else None
     previousGuesses, gameOver, secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
 
@@ -59,40 +48,18 @@ def showGameState(is_daily, is_error=False, prev=None, at=None, go=None):
     gameOver = go if go else gameOver
     attempts = at if at else attempts
 
-    mosaic, mosaic_names = getEmojiMosaic(previousGuesses, gameOver==1, day)
+    with open("static/pokedex.json") as pokefile:
+        pokedex = pokefile.read()
 
-    return render_template("daily.html" if is_daily else "index.html", data=previousGuesses, 
+    print(pokedex)
+    return render_template("daily.html" if is_daily else "index.html", data=previousGuesses, pokedex=pokedex,
                             gameOver=gameOver, mingen=minGen, maxgen=maxGen, pokemon=getPokeList(mingen=minGen, maxgen=maxGen), 
-                            secret=secret, error=is_error, mosaic=mosaic, mosaic_names=mosaic_names, attempts=attempts)
-
-# Handles the next page shown when user is given a hint (handles POST calls)
-def handleNextGuess(is_daily):
-    previousGuesses, gameOver, secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
-    prefix = "d_" if is_daily else ""
-
-    if(not gameOver):
-        # Get next hint information
-        if (hint := getHint(request.form['guess'], secret, daily=True if is_daily else False)):
-            previousGuesses.append(hint)
-            attempts -= 1
-        else:
-            return showGameState(is_daily, is_error=True)
-
-        # Determine whether the game has ended
-        gameOver = 1 if previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
-        if(gameOver):
-            sendStats(previousGuesses, gameOver, secret, attempts, is_daily, minGen, maxGen)
-
-    # Build response
-    resp = make_response(showGameState(is_daily, prev=previousGuesses, at=attempts, go=gameOver))
-    resp.set_cookie(prefix+'game_record', json.dumps(previousGuesses))
-    resp.set_cookie(prefix+'attempts', str(attempts))
-    return resp
+                            secret=secret, attempts=attempts)
 
 # Handles a new game, mostly sets cookies needed to play a new game
 def handleNewGame(is_daily):
     # Cookies need to expire by next day if in daily mode
-    expire_date = None 
+    expire_date = None
     if is_daily:
         expire_date = datetime.combine(datetime.date(datetime.now()-timedelta(hours=10)),
                                        datetime.min.time())+timedelta(days=1, hours=10)
@@ -110,9 +77,9 @@ def handleNewGame(is_daily):
     # Set cookies for new game
     resp = make_response(redirect(url_for('daily' if is_daily else 'index')))
     resp.set_cookie(prefix+'game_record', "[]", expires=expire_date)
+    resp.set_cookie(prefix+'secret', getPokemon(daily=is_daily, mingen=mingen, maxgen=maxgen), expires=expire_date)
     resp.set_cookie(prefix+'min_gen', f"{mingen}", expires=expire_date)
     resp.set_cookie(prefix+'max_gen', f"{maxgen}", expires=expire_date)
-    resp.set_cookie(prefix+'secret', getPokemon(daily=is_daily, mingen=mingen, maxgen=maxgen), expires=expire_date)
     resp.set_cookie(prefix+'attempts', guessesMap[maxgen-mingen], expires=expire_date)
     resp.set_cookie(prefix+'total_attempts', guessesMap[maxgen-mingen], expires=expire_date)
     return resp
@@ -125,23 +92,13 @@ def index():
         return handleNewGame(is_daily=False)
     return showGameState(is_daily=False)
 
-# Handle POST requests to index page (free play mode)
-@app.route("/", methods=['POST'])
-def guess():
-    return handleNextGuess(is_daily=False)
-
 # Handle GET requests to daily page (daily mode)
 @app.route("/daily")
 def daily():
-    # If the old cookie expired, load data for today's game
-    if not 'd_secret' in request.cookies:
+    # If new game is requested, set cookies accordingly
+    if 'clear' in request.args or not 'secret' in request.cookies:
         return handleNewGame(is_daily=True)
     return showGameState(is_daily=True)
-
-# Handle POST requests to daily page (daily mode)
-@app.route("/daily", methods=['POST'])
-def dailyGuess():
-    return handleNextGuess(is_daily=True)
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)
