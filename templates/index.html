@@ -14,9 +14,9 @@
 
 <h2>Squirdle</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
-I'm thinking of a Pokémon. Guess which! You have {{total_attempts}} guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
+I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
 
-<br><br>
+<br>
 <div id="guesses" class="guesses" style="display: none;">
     <div class="row">
       <div class='column'>
@@ -39,17 +39,17 @@ I'm thinking of a Pokémon. Guess which! You have {{total_attempts}} guesses. <d
 <br>
 
 <p id="error" style="display: none;">Pokemon not found!</p>
-<form autocomplete="off" onsubmit="return false;">
+<form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}})">
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
 </form>
 
 <div id="results" style="display: none;">
-  <p id="won">You won!</p>
-  <p id="lost">You lost!</p>
-  <p>The secret Pokémon was <b>{{secret}}</b>!</p><br>
+  <span id="won" style="display: none;">You won!</span>
+  <span id="lost" style="display: none;">You lost!</span>
+  <span>The secret Pokémon was <b>{{secret}}</b>!</span><br>
   <a class="togglec" onclick="copyCurrentDay(false)" href="#">📄 Share</a>
   <a class="togglec" onclick="copyCurrentDay(true)" href="#">👀 Share w/names</a>
 </div>
@@ -68,7 +68,7 @@ I'm thinking of a Pokémon. Guess which! You have {{total_attempts}} guesses. <d
 document.addEventListener('DOMContentLoaded', (event) => {
   var pokemon = {{pokemon | safe}};
   autocomplete(document.getElementById("guess"), pokemon);
-  showState();
+  showState({{attempts}});
 })
 </script>
 

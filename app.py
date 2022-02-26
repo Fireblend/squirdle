@@ -15,46 +15,37 @@ API_STATS_URL = os.getenv('API_STATS_URL')
 def getCookieData(daily=""):
     # Cookies prepended with "d_" refer to daily mode cookies.
     prefix = "d_" if daily else ""
-
     secret = request.cookies.get(prefix+'secret')
     attempts = int(request.cookies.get(prefix+'attempts'))
-    previousGuesses = json.loads(request.cookies.get(prefix+'game_record'))
     maxGen = request.cookies.get(prefix+'max_gen')
     maxGen = maxGen if maxGen else 8
     minGen = request.cookies.get(prefix+'min_gen')
     minGen = minGen if minGen else 1
-    gameOver = 1 if len(previousGuesses) > 0 and previousGuesses[-1]["name"] == 1 else 2 if attempts <= 0 else 0
+    return secret, attempts, minGen, maxGen
 
-    return previousGuesses, gameOver, secret, attempts, minGen, maxGen
-
+"""
 # Stat collecting: Sends guesses, secret pokemon, remaining attempts and whether it's a daily attempt to a stats endpoint.
 def sendStats(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen):
     # Skip if API URL or key not available.
     if not API_KEY or not API_STATS_URL: return None
-
     message = json.dumps({"guesses":[x['Guess'] for x in previousGuesses], "result":gameOver,
                           "secret":secret, "attempts":attempts, "minGen":minGen, "maxGen":maxGen,
                           "daily":daily, "timestamp":str(datetime.now())})
 
     return requests.post(API_STATS_URL, headers={"x-api-key":API_KEY}, json={"message":message})
+"""
 
 # Shows the current state of the game to handle GET calls
-def showGameState(is_daily, prev=None, at=None, go=None):
-    day = getDay() if is_daily else None
-    previousGuesses, gameOver, secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
-
-    # If showGameState is called from handleNextGuess, we need to override these 3 cookie values:
-    previousGuesses = prev if prev else previousGuesses
-    gameOver = go if go else gameOver
-    attempts = at if at else attempts
+def showGameState(is_daily):
+    secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
 
     with open("static/pokedex.json") as pokefile:
         pokedex = pokefile.read()
 
-    print(pokedex)
-    return render_template("daily.html" if is_daily else "index.html", data=previousGuesses, pokedex=pokedex,
-                            gameOver=gameOver, mingen=minGen, maxgen=maxGen, pokemon=getPokeList(mingen=minGen, maxgen=maxGen), 
-                            secret=secret, attempts=attempts)
+    imgs = [url_for('static', filename=f'{x}.png') for x in ['correct','up','down','wrongpos','wrong']]
+
+    return render_template("daily.html" if is_daily else "index.html", pokedex=pokedex, mingen=minGen, maxgen=maxGen, 
+                            pokemon=getPokeList(mingen=minGen, maxgen=maxGen), secret=secret, attempts=attempts, im=imgs)
 
 # Handles a new game, mostly sets cookies needed to play a new game
 def handleNewGame(is_daily):
@@ -76,12 +67,11 @@ def handleNewGame(is_daily):
     guessesMap = {0:'5', 1:'5', 2:'6', 3:'6', 4:'7', 5:'7', 6:'8', 7:'8'}
     # Set cookies for new game
     resp = make_response(redirect(url_for('daily' if is_daily else 'index')))
-    resp.set_cookie(prefix+'game_record', "[]", expires=expire_date)
+    resp.set_cookie(prefix+'guessesv2', "", expires=expire_date)
     resp.set_cookie(prefix+'secret', getPokemon(daily=is_daily, mingen=mingen, maxgen=maxgen), expires=expire_date)
     resp.set_cookie(prefix+'min_gen', f"{mingen}", expires=expire_date)
     resp.set_cookie(prefix+'max_gen', f"{maxgen}", expires=expire_date)
     resp.set_cookie(prefix+'attempts', guessesMap[maxgen-mingen], expires=expire_date)
-    resp.set_cookie(prefix+'total_attempts', guessesMap[maxgen-mingen], expires=expire_date)
     return resp
 
 # Handle GET requests to index page (free play mode)

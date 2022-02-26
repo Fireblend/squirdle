@@ -106,20 +106,65 @@ function autocomplete(inp, arr) {
       return "";
     }
 
-    function showState() {
+    let createElement= (initObj)=> {
+      var element = document.createElement(initObj.Tag);
+      for (var prop in initObj) {
+          if (prop === "childNodes") {
+              initObj.childNodes.forEach(function (node) { element.appendChild(node); });
+          }
+          else if (prop === "attributes") {
+              initObj.attributes.forEach(function (attr) { element.setAttribute(attr.key, attr.value) });
+          }
+          else element[prop] = initObj[prop];
+      }
+      return element;
+    }
+      
+
+    function showState(attempts) {
       var guesses = getCookie("guessesv2")
       guesses = guesses == ""? []:JSON.parse(guesses)
       document.getElementById("guesses").style.display = guesses.length > 0? "block":"none";
-      
+      var lastAttempt = ""
       for (const [index,guess] of guesses.entries()) {
         if (!(document.getElementById('guess'+index) || false)) {
-          
+          lastAttempt = guess.name
+          let rowElement = createElement({Tag:"div", id:'guess'+index, classList:'row'})
+
+          for (const hint of guess.hints) {
+            let img = createElement({Tag:"img", classList:'emoji', src:hint})
+            let colElement = createElement({Tag:"div", classList:'column', childNodes:[img]})
+            rowElement.appendChild(colElement)
+          }
+          let pokename = createElement({Tag:"p", classList:'guess', innerHTML:guess.name})
+          let pokeinfo = createElement({Tag:"span", classList:'tooltiptext', innerHTML:guess.info})
+          let tooltip = createElement({Tag:"div", classList:'tooltip', childNodes:[pokename, pokeinfo]})
+          let colElement = createElement({Tag:"div", classList:'column', childNodes:[tooltip]})
+
+          rowElement.appendChild(colElement)
+
+          const guessesDiv = document.getElementById("guesses");
+          guessesDiv.appendChild(rowElement);
         }
       }
+
+      var secret_name = getCookie("secret")
+      if(secret_name == lastAttempt){
+        document.getElementById("guessform").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        document.getElementById("won").style.display = "block";
+      }
+      else if(guesses.length == attempts){
+        document.getElementById("guessform").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        document.getElementById("lost").style.display = "block";
+      }
+      document.getElementById("attempts").innerHTML = attempts-guesses.length
     }
 
-    function handleGuess(dex) {
-      const imgs = {'🟩':1, '🔼':2, '🔽':3, '🟨':4, '🟥':5}
+    function handleGuess(dex, attempts, im1, im2, im3, im4, im5) {
+      console.log(im1)
+      const imgs = {'🟩':im1, '🔼':im2, '🔽':im3, '🟨':im4, '🟥':im5}
       
       var guess_name = document.getElementById("guess").value
       var secret_name = getCookie("secret")
@@ -141,8 +186,8 @@ function autocomplete(inp, arr) {
 
       var emoji = gen+t1+t2+h+w
      
-      var pokeinfo = {"Gen:":guess[0], "Type 1:":guess[1], "Type 2:":guess[2],
-                    "Height:":guess[3], "Weight:":guess[4]}
+      var pokeinfo = "<b>Gen:</b> "+guess[0]+"<br><b>Type 1:</b> "+guess[1]+"<br><b>Type 2:</b> "+guess[2]+
+                     "<br><b>Height:</b> "+guess[3]+"<br><b>Weight:</b> "+guess[4]
                     
       var guess = {"hints":[imgs[gen], imgs[t1], imgs[t2], imgs[h], imgs[w]], 
                    "name":guess_name, "info":pokeinfo, "emoji":emoji}
@@ -152,8 +197,7 @@ function autocomplete(inp, arr) {
 
       console.log(guesses)
       guesses.push(guess)
-
       setCookie("guessesv2", JSON.stringify(guesses), 100)
 
-      showState()
+      showState(attempts)
     }
