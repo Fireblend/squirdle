@@ -65,7 +65,17 @@ function autocomplete(inp, arr) {
     });
   }
 
-  function copyCurrentDay(text) {
+  function copyCurrentDay(attempts, day, names) {
+    var guesses = JSON.parse(getCookie("guessesv2", day > -1))
+    var gnum = guesses.length == attempts? "X" : guesses.length
+    var dailyinfo = day == -1?"":("Daily "+day+" - ")
+
+    var text = "Squirdle "+dailyinfo+gnum+"/"+attempts
+
+    for (const guess of guesses) {
+      text = text+"\n"+guess.mosaic+(names?guess.name:"")
+    }
+
     var success = "Copied mosaic to clipboard!";
     if (window.clipboardData && window.clipboardData.setData) {
         alert(success);
@@ -88,14 +98,16 @@ function autocomplete(inp, arr) {
     }
   }
 
-  function setCookie(cname, cvalue, exdays) {
+  function setCookie(cname, cvalue, exdays, daily) {
+    cname = (daily?"d_":"")+cname
     const d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"+";samesite=strict";
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"+";secure;samesite=strict";
   }
 
-    function getCookie(cname) {
+    function getCookie(cname, daily) {
+      cname = (daily?"d_":"")+cname
       var cookies = ` ${document.cookie}`.split(";");
       for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i].split("=");
@@ -120,9 +132,8 @@ function autocomplete(inp, arr) {
       return element;
     }
       
-
-    function showState(attempts) {
-      var guesses = getCookie("guessesv2")
+    function showState(attempts, daily) {
+      var guesses = getCookie("guessesv2", daily)
       guesses = guesses == ""? []:JSON.parse(guesses)
       document.getElementById("guesses").style.display = guesses.length > 0? "block":"none";
       var lastAttempt = ""
@@ -148,7 +159,7 @@ function autocomplete(inp, arr) {
         }
       }
 
-      var secret_name = getCookie("secret")
+      var secret_name = getCookie("secret_poke", daily)
       if(secret_name == lastAttempt){
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
@@ -162,12 +173,11 @@ function autocomplete(inp, arr) {
       document.getElementById("attempts").innerHTML = attempts-guesses.length
     }
 
-    function handleGuess(dex, attempts, im1, im2, im3, im4, im5) {
-      console.log(im1)
+    function handleGuess(dex, attempts, daily, im1, im2, im3, im4, im5) {
       const imgs = {'🟩':im1, '🔼':im2, '🔽':im3, '🟨':im4, '🟥':im5}
       
       var guess_name = document.getElementById("guess").value
-      var secret_name = getCookie("secret")
+      var secret_name = getCookie("secret_poke", daily)
       guess = dex[guess_name]
 
       if (guess == null) {
@@ -175,29 +185,27 @@ function autocomplete(inp, arr) {
         return
       }
       document.getElementById("error").style.display = "none";
-      
+      document.getElementById("guess").value = "";
+
       secret = dex[secret_name]
 
       var gen = guess[0] == secret[0] ? "🟩" : guess[0] < secret[0]? '🔼':'🔽'
-      var t1 = guess[1] == secret[1] ? "🟩" : guess[1] == secret[1] ? '🟨':'🟥'
-      var t2 = guess[2] == secret[2] ? "🟩" : guess[2] == secret[2] ? '🟨':'🟥'
+      var t1 = guess[1] == secret[1] ? "🟩" : guess[1] == secret[2] ? '🟨':'🟥'
+      var t2 = guess[2] == secret[2] ? "🟩" : guess[2] == secret[1] ? '🟨':'🟥'
       var h = guess[3] == secret[3] ? "🟩" : guess[3] < secret[3]? '🔼':'🔽'
       var w = guess[4] == secret[4] ? "🟩" : guess[4] < secret[4]? '🔼':'🔽'
 
-      var emoji = gen+t1+t2+h+w
-     
-      var pokeinfo = "<b>Gen:</b> "+guess[0]+"<br><b>Type 1:</b> "+guess[1]+"<br><b>Type 2:</b> "+guess[2]+
+      var pokeinfo = "<b>Gen:</b> "+guess[0]+"<br><b>Type 1:</b> "+guess[1]+
+                     "<br><b>Type 2:</b> "+(guess[2]==""?"None":guess[2])+
                      "<br><b>Height:</b> "+guess[3]+"<br><b>Weight:</b> "+guess[4]
                     
       var guess = {"hints":[imgs[gen], imgs[t1], imgs[t2], imgs[h], imgs[w]], 
-                   "name":guess_name, "info":pokeinfo, "emoji":emoji}
+                   "name":guess_name, "info":pokeinfo, "mosaic":gen+t1+t2+h+w}
 
-      var guesses = getCookie("guessesv2")
+      var guesses = getCookie("guessesv2", daily)
       guesses = guesses == ""? []:JSON.parse(guesses)
 
-      console.log(guesses)
       guesses.push(guess)
-      setCookie("guessesv2", JSON.stringify(guesses), 100)
-
-      showState(attempts)
+      setCookie("guessesv2", JSON.stringify(guesses), 100, daily)
+      showState(attempts,daily)
     }

@@ -4,8 +4,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <script src="{{url_for('static', filename='scripts.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,15 +41,15 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},false,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
 </form>
 
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
   <span>The secret Pokémon was <b>{{secret}}</b>!</span><br>
-  <a class="togglec" onclick="copyCurrentDay(false)" href="#">📄 Share</a>
-  <a class="togglec" onclick="copyCurrentDay(true)" href="#">👀 Share w/names</a>
+  <a class="togglec" onclick="copyCurrentDay({{attempts}},-1,false)" href="#">📄 Share</a>
+  <a class="togglec" onclick="copyCurrentDay({{attempts}},-1,true)" href="#">👀 Share w/names</a>
 </div>
 
 <form action="{{ url_for('index', clear=True) }}" method="GET">
@@ -68,7 +66,7 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 document.addEventListener('DOMContentLoaded', (event) => {
   var pokemon = {{pokemon | safe}};
   autocomplete(document.getElementById("guess"), pokemon);
-  showState({{attempts}});
+  showState({{attempts}}, false);
 })
 </script>
 
