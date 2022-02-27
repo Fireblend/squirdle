@@ -5,7 +5,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
-    <script src="{{url_for('static', filename='scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='game.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>     
 <body>
@@ -41,32 +41,31 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},false,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(false,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
 </form>
 
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
-  <span>The secret Pokémon was <b>{{secret}}</b>!</span><br>
-  <a class="togglec" onclick="copyCurrentDay({{attempts}},-1,false)" href="#">📄 Share</a>
-  <a class="togglec" onclick="copyCurrentDay({{attempts}},-1,true)" href="#">👀 Share w/names</a>
+  <span>The secret Pokémon was <b><span id="secretpoke">{{secret}}</span></b>!</span><br>
+  <a class="togglec" onclick="copyCurrentDay(-1,false)" href="#">📄 Share</a>
+  <a class="togglec" onclick="copyCurrentDay(-1,true)" href="#">👀 Share w/names</a>
 </div>
 
-<form action="{{ url_for('index', clear=True) }}" method="GET">
-  <input type="hidden" name="clear" value="1" /> 
-  <button class="togglec" type="submit" name="gen" value="8">▶️ New Game</button><br>
-  <label for="quantity">Guess Pkmn from gen</label>
-  <input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="{{mingen}}" oninput="validity.valid||(value='');">
-  <label for="quantity">to</label>
-  <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
-</form>
+<a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
+<label for="quantity">Guess Pkmn from gen</label>
+<input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="{{mingen}}" oninput="validity.valid||(value='');">
+<label for="quantity">to</label>
+<input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
 <br><a href="{{ url_for('daily') }}">Try Squirdle Daily!</a>
 
 <script>
+var pokedex = {{pokedex | safe}};
+let mingen = parseInt(getCookie("min_gene", false))
+let maxgen = parseInt(getCookie("max_gene", false))
 document.addEventListener('DOMContentLoaded', (event) => {
-  var pokemon = {{pokemon | safe}};
-  autocomplete(document.getElementById("guess"), pokemon);
-  showState({{attempts}}, false);
+  autocomplete(document.getElementById("guess"), getPokemon(mingen, maxgen)[1]);
+  showState(false);
 })
 </script>
 
