@@ -39,11 +39,10 @@ def showGameState(is_daily):
     secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
 
     pokedex=getDexJson(minGen, maxGen)
-
     imgs = [url_for('static', filename=f'{x}.png') for x in ['correct','up','down','wrongpos','wrong']]
 
     return render_template("daily.html" if is_daily else "index.html", pokedex=pokedex, mingen=minGen, maxgen=maxGen, day=day,
-                            pokemon=getPokeList(mingen=minGen, maxgen=maxGen), secret=secret, attempts=attempts, im=imgs)
+                            pokemon=list(pokedex.keys()), secret=secret, attempts=attempts, im=imgs)
 
 # Handles a new game, mostly sets cookies needed to play a new game
 def handleNewGame(is_daily):
