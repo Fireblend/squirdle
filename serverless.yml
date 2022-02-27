@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: squirdle
+service: squirdle-dev
 
 plugins:
   - serverless-python-requirements
@@ -32,3 +32,4 @@ functions:
     environment:
       API_STATS_URL: ${env:API_STATS_URL}
       API_KEY: ${env:API_KEY}
+

@@ -1,88 +1,58 @@
 function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
     var currentFocus;
-    /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", function(e) {
         var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
-        /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
-          /*check if the item starts with the same letters as the text field value:*/
           if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
-            /*make the matching letters bold:*/
             b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
             b.innerHTML += arr[i].substr(val.length);
-            /*insert a input field that will hold the current array item's value:*/
             value = arr[i].replace("'","&#39;")
             b.innerHTML += "<input type='hidden' value='" + value + "'>";
-            /*execute a function when someone clicks on the item value (DIV element):*/
             b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
                 inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
                 closeAllLists();
             });
             a.appendChild(b);
           }
         }
     });
-    /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function(e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
-          /*If the arrow DOWN key is pressed,
-          increase the currentFocus variable:*/
           currentFocus++;
-          /*and and make the current item more visible:*/
           addActive(x);
-        } else if (e.keyCode == 38) { //up
-          /*If the arrow UP key is pressed,
-          decrease the currentFocus variable:*/
+        } else if (e.keyCode == 38) { 
           currentFocus--;
-          /*and and make the current item more visible:*/
           addActive(x);
         } else if (e.keyCode == 13) {
-          /*If the ENTER key is pressed, prevent the form from being submitted,*/
           e.preventDefault();
           if (currentFocus > -1) {
-            /*and simulate a click on the "active" item:*/
             if (x) x[currentFocus].click();
           }
         }
     });
     function addActive(x) {
-      /*a function to classify an item as "active":*/
       if (!x) return false;
-      /*start by removing the "active" class on all items:*/
       removeActive(x);
       if (currentFocus >= x.length) currentFocus = 0;
       if (currentFocus < 0) currentFocus = (x.length - 1);
-      /*add class "autocomplete-active":*/
       x[currentFocus].classList.add("autocomplete-active");
     }
     function removeActive(x) {
-      /*a function to remove the "active" class from all autocomplete items:*/
       for (var i = 0; i < x.length; i++) {
         x[i].classList.remove("autocomplete-active");
       }
     }
     function closeAllLists(elmnt) {
-      /*close all autocomplete lists in the document,
-      except the one passed as an argument:*/
       var x = document.getElementsByClassName("autocomplete-items");
       for (var i = 0; i < x.length; i++) {
         if (elmnt != x[i] && elmnt != inp) {
@@ -90,28 +60,34 @@ function autocomplete(inp, arr) {
         }
       }
     }
-    /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
   }
 
-  function copyCurrentDay(text) {
-    var success = "Copied mosaic to clipboard!";
+  function copyCurrentDay(attempts, day, names) {
+    var guesses = JSON.parse(getCookie("guessesv2", day > -1))
+    var gnum = guesses.length == attempts? "X" : guesses.length
+    var dailyinfo = day == -1?"":("Daily "+day+" - ")
 
+    var text = "Squirdle "+dailyinfo+gnum+"/"+attempts
+
+    for (const guess of guesses) {
+      text = text+"\n"+guess.mosaic+(names?guess.name:"")
+    }
+
+    var success = "Copied mosaic to clipboard!";
     if (window.clipboardData && window.clipboardData.setData) {
-        // IE specific code path to prevent textarea being shown while dialog is visible.
         alert(success);
         return clipboardData.setData("Text", text);
-
     } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
         var textarea = document.createElement("textarea");
         textarea.textContent = text;
-        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();
         try {
-            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            return document.execCommand("copy");
         } catch (ex) {
             console.warn("Copy to clipboard failed. Let Fireblend know!", ex);
             return false;
@@ -120,4 +96,116 @@ function autocomplete(inp, arr) {
             alert(success);
         }
     }
-}  
+  }
+
+  function setCookie(cname, cvalue, exdays, daily) {
+    cname = (daily?"d_":"")+cname
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"+";secure;samesite=strict";
+  }
+
+    function getCookie(cname, daily) {
+      cname = (daily?"d_":"")+cname
+      var cookies = ` ${document.cookie}`.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].split("=");
+        if (cookie[0] == ` ${cname}`) {
+          return cookie[1];
+        }
+      }
+      return "";
+    }
+
+    let createElement= (initObj)=> {
+      var element = document.createElement(initObj.Tag);
+      for (var prop in initObj) {
+          if (prop === "childNodes") {
+              initObj.childNodes.forEach(function (node) { element.appendChild(node); });
+          }
+          else if (prop === "attributes") {
+              initObj.attributes.forEach(function (attr) { element.setAttribute(attr.key, attr.value) });
+          }
+          else element[prop] = initObj[prop];
+      }
+      return element;
+    }
+      
+    function showState(attempts, daily) {
+      var guesses = getCookie("guessesv2", daily)
+      guesses = guesses == ""? []:JSON.parse(guesses)
+      document.getElementById("guesses").style.display = guesses.length > 0? "block":"none";
+      var lastAttempt = ""
+      for (const [index,guess] of guesses.entries()) {
+        if (!(document.getElementById('guess'+index) || false)) {
+          lastAttempt = guess.name
+          let rowElement = createElement({Tag:"div", id:'guess'+index, classList:'row'})
+
+          for (const hint of guess.hints) {
+            let img = createElement({Tag:"img", classList:'emoji', src:hint})
+            let colElement = createElement({Tag:"div", classList:'column', childNodes:[img]})
+            rowElement.appendChild(colElement)
+          }
+          let pokename = createElement({Tag:"p", classList:'guess', innerHTML:guess.name})
+          let pokeinfo = createElement({Tag:"span", classList:'tooltiptext', innerHTML:guess.info})
+          let tooltip = createElement({Tag:"div", classList:'tooltip', childNodes:[pokename, pokeinfo]})
+          let colElement = createElement({Tag:"div", classList:'column', childNodes:[tooltip]})
+
+          rowElement.appendChild(colElement)
+
+          const guessesDiv = document.getElementById("guesses");
+          guessesDiv.appendChild(rowElement);
+        }
+      }
+
+      var secret_name = getCookie("secret_poke", daily)
+      if(secret_name == lastAttempt){
+        document.getElementById("guessform").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        document.getElementById("won").style.display = "block";
+      }
+      else if(guesses.length == attempts){
+        document.getElementById("guessform").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        document.getElementById("lost").style.display = "block";
+      }
+      document.getElementById("attempts").innerHTML = attempts-guesses.length
+    }
+
+    function handleGuess(dex, attempts, daily, im1, im2, im3, im4, im5) {
+      const imgs = {'🟩':im1, '🔼':im2, '🔽':im3, '🟨':im4, '🟥':im5}
+      
+      var guess_name = document.getElementById("guess").value
+      var secret_name = getCookie("secret_poke", daily)
+      guess = dex[guess_name]
+
+      if (guess == null) {
+        document.getElementById("error").style.display = "block";
+        return
+      }
+      document.getElementById("error").style.display = "none";
+      document.getElementById("guess").value = "";
+
+      secret = dex[secret_name]
+
+      var gen = guess[0] == secret[0] ? "🟩" : guess[0] < secret[0]? '🔼':'🔽'
+      var t1 = guess[1] == secret[1] ? "🟩" : guess[1] == secret[2] ? '🟨':'🟥'
+      var t2 = guess[2] == secret[2] ? "🟩" : guess[2] == secret[1] ? '🟨':'🟥'
+      var h = guess[3] == secret[3] ? "🟩" : guess[3] < secret[3]? '🔼':'🔽'
+      var w = guess[4] == secret[4] ? "🟩" : guess[4] < secret[4]? '🔼':'🔽'
+
+      var pokeinfo = "<b>Gen:</b> "+guess[0]+"<br><b>Type 1:</b> "+guess[1]+
+                     "<br><b>Type 2:</b> "+(guess[2]==""?"None":guess[2])+
+                     "<br><b>Height:</b> "+guess[3]+"<br><b>Weight:</b> "+guess[4]
+                    
+      var guess = {"hints":[imgs[gen], imgs[t1], imgs[t2], imgs[h], imgs[w]], 
+                   "name":guess_name, "info":pokeinfo, "mosaic":gen+t1+t2+h+w}
+
+      var guesses = getCookie("guessesv2", daily)
+      guesses = guesses == ""? []:JSON.parse(guesses)
+
+      guesses.push(guess)
+      setCookie("guessesv2", JSON.stringify(guesses), 100, daily)
+      showState(attempts,daily)
+    }

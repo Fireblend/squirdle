@@ -4,89 +4,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
-    <script src="{{url_for('static', filename='scripts.js')}}"></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <script src="{{url_for('static', filename='scripts.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>     
 <body class="daily">
 
 <h2>Squirdle Daily</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
-I'm thinking of a Pokémon. Guess which! You have {{attempts}} guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
+I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
 <br>(Updates @ 00:00 GMT-10)
-<br><br>
-{% if data|length > 0 %}
-<div class="guesses">
-    <div class="row">
-        {% for hint in ["Gen", "Type 1", "Type 2", "Height", "Weight", "Guess"] %}
-        <div class='column'>
-            <p class="hint">{{hint}}</p>
-        </div>
-        {% endfor %}
-    </div>
-    
-    {% for x in data %}
-        <div class="row">
-        {% for hint in ["Gen", "Type 1", "Type 2", "Height", "Weight", "Guess"] %}
-              <div class='column'>
-              {% if hint == "Guess" %}
-              <div class="tooltip"><p class=guess>{{x[hint]}}</p>
-                <span class="tooltiptext">{{x["pokeinfo"] | safe}}</span>
-              </div>
-              {% else %}
-                {% if x[hint] == "🟩" %}
-                <img class=emoji src="{{url_for('static', filename='correct.png') }}">
-                {% endif %}
-                {% if x[hint] == "🟥" %}
-                <img class=emoji src="{{url_for('static', filename='wrong.png') }}">
-                {% endif %}
-                {% if x[hint] == "🟨" %}
-                <img class=emoji src="{{url_for('static', filename='wrongpos.png') }}">
-                {% endif %}
-                {% if x[hint] == "🔼" %}
-                <img class=emoji src="{{url_for('static', filename='up.png') }}">
-                {% endif %}
-                {% if x[hint] == "🔽" %}
-                <img class=emoji src="{{url_for('static', filename='down.png') }}">
-                {% endif %}
-              {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
-    </div>
-</div><br>
-{%endif%}
+<br>
 
-{% if gameOver == 0 %}
-{% if error %}
-Pokemon not found!
-{% endif %}
-<form autocomplete="off" method="POST">
+<div id="guesses" class="guesses">
+  <div class="row">
+    <div class='column'>
+        <p class="hint">Gen</p>
+    </div>
+    <div class='column'>
+        <p class="hint">Type 1</p>
+    </div>
+    <div class='column'>
+        <p class="hint">Type 2</p>
+    </div>
+    <div class='column'>
+        <p class="hint">Height</p>
+    </div>
+    <div class='column'>
+        <p class="hint">Weight</p>
+    </div>
+  </div>
+</div><br>
+
+<p id="error" style="display: none;">Pokemon not found!</p>
+<form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input type="submit" value="Submit">
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},true,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
 </form>
-{% endif %}
-{% if gameOver == 1 %}
-You won!
-{% endif %}
-{% if gameOver == 2 %}
-You lost!
-{% endif %}
-{% if gameOver > 0 %}
-The secret Pokémon was <b>{{secret}}</b>!<br>
-<a class="togglec" onclick="copyCurrentDay('{{mosaic|safe}}')" href="#">📄 Share</a>
-<a class="togglec" onclick="copyCurrentDay('{{mosaic_names|safe}}')" href="#">👀 Share w/names</a><br>
+
+
+<div id="results" style="display: none;">
+  <span id="won" style="display: none;">You won!</span>
+  <span id="lost" style="display: none;">You lost!</span>
+  <span>The secret Pokémon was <b>{{secret}}</b>!</span><br>
+  <a class="togglec" onclick="copyCurrentDay({{attempts}},{{day}},false)" href="#">📄 Share</a>
+  <a class="togglec" onclick="copyCurrentDay({{attempts}},{{day}},true)" href="#">👀 Share w/names</a><br>
 Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
 Come back tomorrow for another daily!
-{% endif %}
+</div>
+
 <br><a href="{{ url_for('index') }}">Free Play</a>
 
 <script>
-var pokemon = {{pokemon | safe}};
-autocomplete(document.getElementById("guess"), pokemon);
+  document.addEventListener('DOMContentLoaded', (event) => {
+    var pokemon = {{pokemon | safe}};
+    autocomplete(document.getElementById("guess"), pokemon);
+    showState({{attempts}}, true);
+  })
 </script>
 
 </body>
