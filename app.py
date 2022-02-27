@@ -37,12 +37,12 @@ def sendStats(previousGuesses, gameOver, secret, attempts, daily, minGen, maxGen
 def showGameState(is_daily):
     day = getDay() if is_daily else None
     secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
+    pokedex=getDexJson()
 
-    pokedex=getDexJson(minGen, maxGen)
     imgs = [url_for('static', filename=f'{x}.png') for x in ['correct','up','down','wrongpos','wrong']]
 
     return render_template("daily.html" if is_daily else "index.html", pokedex=pokedex, mingen=minGen, maxgen=maxGen, day=day,
-                            pokemon=list(pokedex.keys()), secret=secret, attempts=attempts, im=imgs)
+                            secret=secret, attempts=attempts, im=imgs)
 
 # Handles a new game, mostly sets cookies needed to play a new game
 def handleNewGame(is_daily):
@@ -51,32 +51,26 @@ def handleNewGame(is_daily):
     if is_daily:
         expire_date = datetime.combine(datetime.date(datetime.now()-timedelta(hours=10)),
                                        datetime.min.time())+timedelta(days=1, hours=10)
+    else:
+        expire_date = datetime.date(datetime.now())+timedelta(days=7)
 
     # Edit the right cookies depending on mode
     prefix = "d_" if is_daily else ""
 
-    # Read min and max generation and reverse if needed
-    mingen = int(request.args['mingen']) if 'mingen' in request.args else 1
-    maxgen = int(request.args['maxgen']) if 'maxgen' in request.args else 8
-    if mingen > maxgen:
-        mingen, maxgen = maxgen, mingen
-
-    guessesMap = {0:'5', 1:'5', 2:'6', 3:'6', 4:'7', 5:'7', 6:'8', 7:'8'}
-    
     # Set cookies for new game
     resp = make_response(redirect(url_for('daily' if is_daily else 'index')))
     resp.set_cookie(prefix+'guessesv2', "", expires=expire_date)
-    resp.set_cookie(prefix+'secret_poke', getPokemon(daily=is_daily, mingen=mingen, maxgen=maxgen), expires=expire_date)
-    resp.set_cookie(prefix+'min_gene', f"{mingen}", expires=expire_date)
-    resp.set_cookie(prefix+'max_gene', f"{maxgen}", expires=expire_date)
-    resp.set_cookie(prefix+'t_attempts', guessesMap[maxgen-mingen], expires=expire_date)
+    resp.set_cookie(prefix+'secret_poke', getPokemon(daily=is_daily), expires=expire_date)
+    resp.set_cookie(prefix+'min_gene', "1", expires=expire_date)
+    resp.set_cookie(prefix+'max_gene', "8", expires=expire_date)
+    resp.set_cookie(prefix+'t_attempts', "8", expires=expire_date)
     return resp
 
 # Handle GET requests to index page (free play mode)
 @app.route("/")
 def index():
     # If new game is requested, set cookies accordingly
-    if 'clear' in request.args or not 'secret_poke' in request.cookies:
+    if not 'secret_poke' in request.cookies:
         return handleNewGame(is_daily=False)
     return showGameState(is_daily=False)
 

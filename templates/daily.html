@@ -5,7 +5,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
-    <script src="{{url_for('static', filename='scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='game.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>     
 <body class="daily">
@@ -41,16 +41,16 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess({{pokedex}},{{attempts}},true,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(true,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
 </form>
 
 
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
-  <span>The secret Pokémon was <b>{{secret}}</b>!</span><br>
-  <a class="togglec" onclick="copyCurrentDay({{attempts}},{{day}},false)" href="#">📄 Share</a>
-  <a class="togglec" onclick="copyCurrentDay({{attempts}},{{day}},true)" href="#">👀 Share w/names</a><br>
+  <span>The secret Pokémon was <b><span id="secretpoke">{{secret}}</span></b>!</span><br>
+  <a class="togglec" onclick="copyCurrentDay({{day}},false)" href="#">📄 Share</a>
+  <a class="togglec" onclick="copyCurrentDay({{day}},true)" href="#">👀 Share w/names</a><br>
 Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
 Come back tomorrow for another daily!
 </div>
@@ -58,10 +58,10 @@ Come back tomorrow for another daily!
 <br><a href="{{ url_for('index') }}">Free Play</a>
 
 <script>
+  var pokedex = {{pokedex | safe}};
   document.addEventListener('DOMContentLoaded', (event) => {
-    var pokemon = {{pokemon | safe}};
-    autocomplete(document.getElementById("guess"), pokemon);
-    showState({{attempts}}, true);
+    autocomplete(document.getElementById("guess"), getPokemon(1, 8)[1]);
+    showState(true);
   })
 </script>
 
