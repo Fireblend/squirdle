@@ -6,6 +6,10 @@ def readPokedex(mingen=1, maxgen=8):
     dex = dex[(dex['generation'] <= int(maxgen)) & (dex['generation'] >= int(mingen))]
     return dex
 
+def getDexJson(mingen=1, maxgen=8):
+    dex = readPokedex(mingen, maxgen)
+    return {x.name:[x.generation, x.type_1, x.type_2, x.height_m, x.weight_kg] for x in dex}
+
 def getPokemon(mingen=1, maxgen=8, daily=False):
     if daily:
         today = str(datetime.date(datetime.now()-timedelta(hours=10)))

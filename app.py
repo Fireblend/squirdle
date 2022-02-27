@@ -38,8 +38,7 @@ def showGameState(is_daily):
     day = getDay() if is_daily else None
     secret, attempts, minGen, maxGen = getCookieData(daily=is_daily)
 
-    with open("static/pokedex.json") as pokefile:
-        pokedex = pokefile.read()
+    pokedex=getDexJson(minGen, maxGen)
 
     imgs = [url_for('static', filename=f'{x}.png') for x in ['correct','up','down','wrongpos','wrong']]
 
