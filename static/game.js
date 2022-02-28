@@ -180,7 +180,7 @@ function autocomplete(inp, arr) {
     function handleGuess(daily, im1, im2, im3, im4, im5) {
       const imgs = {'🟩':im1, '🔼':im2, '🔽':im3, '🟨':im4, '🟥':im5}
       let guess_name = document.getElementById("guess").value
-      let secret_name = getCookie("secret_poke", daily)
+      let secret_name = getCookie("secret_poke", daily).replaceAll('"', '')
       let guess = pokedex[guess_name]
 
       if (guess == null) {
