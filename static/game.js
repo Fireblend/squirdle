@@ -68,7 +68,10 @@ function autocomplete(inp, arr) {
   function copyCurrentDay(day, names) {
     let attempts = parseInt(getCookie("t_attempts", day > -1))
     var guesses = JSON.parse(getCookie("guessesv2", day > -1))
-    var gnum = guesses.length == attempts? "X" : guesses.length
+    var gnum = guesses.length
+    if (document.getElementById('lost').style.display == "block") {
+      gnum = "X"
+    }
     var dailyinfo = day == -1?"":("Daily "+day+" - ")
 
     var text = "Squirdle "+dailyinfo+gnum+"/"+attempts
@@ -163,7 +166,7 @@ function autocomplete(inp, arr) {
         }
       }
 
-      let secret_name = getCookie("secret_poke", daily)
+      let secret_name = getCookie("secret_poke", daily).replaceAll('"', '')
       if(secret_name == lastAttempt){
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
