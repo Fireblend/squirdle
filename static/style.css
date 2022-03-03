@@ -22,7 +22,6 @@
   .togglec {
     font-size : 19px;
     border-style: solid;
-    border-width: 0px;
     color: #383838;
     background-color: rgb(155, 211, 212);
     padding: 8px;
@@ -30,11 +29,31 @@
     font-weight: normal;
     display: inline-block;
     text-decoration: none;
-    border-color: #383838;
     border-radius: 10px;
     cursor: pointer;
   }
 
+  .type-block {
+    font-size : 14px;
+    border-style: solid;
+    border-width: 3px;
+    color: #ffffff;
+    padding: 6px;
+    margin: 3px;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: none;
+    border-color: #ffffff;
+    border-style: none;
+    border-radius: 10px;
+    opacity: 0.7;
+  }
+
+  .hintbtn {
+    opacity: 1;
+    margin-top: 10px;
+    background-color: rgb(97, 97, 97);
+  }
   .guesses {
     margin-left: auto;
     margin-right: auto;
@@ -101,6 +120,7 @@
     padding: 10px;
     font-size: 22px;
   }
+
   
   input[type=text] {
     background-color: #f1f1f1;
@@ -148,6 +168,11 @@
     display: inline-block;
   }
 
+  .dropinfo {
+    color:rgb(68, 68, 68);
+    font-size: 13px;
+  }
+
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
@@ -174,11 +199,16 @@
     body {
       font-size: 16px;
     }
-    .column{
+    .column {
       min-width: 55px;
       max-width: 55px;
     }
-    .autocomplete{
+    .autocomplete {
       width: 200px;
+    }
+    .type-block {
+      font-size : 13px;
+      padding: 5px;
+      margin: 2px;
     }
   }

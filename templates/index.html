@@ -36,14 +36,14 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 </div>
 <br>
 
-<p id="error" style="display: none;">Pokemon not found!</p>
+<p id="error" style="display: none;">Pokémon not found!</p>
 <form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
-    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokemon Name">
+    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokémon Name">
   </div>
   <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(false,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
+  <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(false)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
 </form>
-
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
@@ -51,12 +51,32 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
   <a class="togglec" onclick="copyCurrentDay(-1,false)" href="#">📄 Share</a>
   <a class="togglec" onclick="copyCurrentDay(-1,true)" href="#">👀 Share w/names</a>
 </div>
+<br>
+<div id="type_Normal" class="type-block" style="background-color: rgba(177, 177, 177);">Normal</div>
+<div id="type_Fire" class="type-block" style="background-color: rgb(255, 97, 6);">Fire</div>
+<div id="type_Water" class="type-block" style="background-color: rgb(57, 159, 255);">Water</div>
+<div id="type_Grass" class="type-block" style="background-color: rgb(32, 255, 11);">Grass</div>
+<div id="type_Electric" class="type-block" style="background-color: rgb(192, 196, 0);">Electric</div>
+<div id="type_Ice" class="type-block" style="background-color: rgb(80, 243, 255);">Ice</div><br>
+<div id="type_Fighting" class="type-block" style="background-color: rgba(230, 0, 0);">Fighting</div>
+<div id="type_Poison" class="type-block" style="background-color: rgb(143, 0, 187);">Poison</div>
+<div id="type_Ground" class="type-block" style="background-color: rgb(170, 130, 0);">Ground</div>
+<div id="type_Flying" class="type-block" style="background-color: rgb(235, 81, 255);">Flying</div>
+<div id="type_Psychic" class="type-block" style="background-color: rgb(255, 46, 210);">Psychic</div>
+<div id="type_Bug" class="type-block" style="background-color: rgb(156, 199, 0);">Bug</div><br>
+<div id="type_Rock" class="type-block" style="background-color: rgb(129, 84, 0);">Rock</div>
+<div id="type_Ghost" class="type-block" style="background-color: rgb(68, 0, 255);">Ghost</div>
+<div id="type_Dark" class="type-block" style="background-color: rgb(131, 107, 0);">Dark</div>
+<div id="type_Dragon" class="type-block" style="background-color: rgb(119, 0, 255);">Dragon</div>
+<div id="type_Steel" class="type-block" style="background-color: rgb(122, 109, 129);">Steel</div>
+<div id="type_Fairy" class="type-block" style="background-color: rgb(255, 140, 230);">Fairy</div>
+<div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div><br><br>
 
-<a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
 <label for="quantity">Guess Pkmn from gen</label>
 <input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="{{mingen}}" oninput="validity.valid||(value='');">
 <label for="quantity">to</label>
-<input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br><br>
+<input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="{{maxgen}}" oninput="validity.valid||(value='');"><br>
+<a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
 <br><a href="{{ url_for('daily') }}">Try Squirdle Daily!</a>
 
 <script>

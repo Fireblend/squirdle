@@ -1,5 +1,6 @@
 function autocomplete(inp, arr) {
     var currentFocus;
+    let hintsenabled = getCookie("hintsenabled", false)
     inp.addEventListener("input", function(e) {
         var a, b, i, val = this.value;
         closeAllLists();
@@ -10,11 +11,19 @@ function autocomplete(inp, arr) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < arr.length; i++) {
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          if (arr[i][0].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
             b = document.createElement("DIV");
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            value = arr[i].replace("'","&#39;")
+            b.innerHTML = "<strong>" + arr[i][0].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i][0].substr(val.length);
+            if (hintsenabled == "1" | hintsenabled == ""){
+              let type1 = arr[i][1][1]
+              let type2 = arr[i][1][2]
+              let h = arr[i][1][3]
+              let w = arr[i][1][4]
+              let gen = arr[i][1][0]
+              b.innerHTML += "<br><span class=\"dropinfo\"> Gen "+gen+", "+type1+"/"+(type2 == ""?"None":type2)+", "+h+"m, "+w+"kg"+"</span>";
+            }
+            value = arr[i][0].replace("'","&#39;")
             b.innerHTML += "<input type='hidden' value='" + value + "'>";
             b.addEventListener("click", function(e) {
                 inp.value = this.getElementsByTagName("input")[0].value;
@@ -65,6 +74,10 @@ function autocomplete(inp, arr) {
     });
   }
 
+  function replaceAt(str, index, ch) {
+    return str.replace(/./g, (c, i) => i == index ? ch : c);
+  }
+  
   function copyCurrentDay(day, names) {
     let attempts = parseInt(getCookie("t_attempts", day > -1))
     var guesses = JSON.parse(getCookie("guessesv2", day > -1))
@@ -76,7 +89,11 @@ function autocomplete(inp, arr) {
 
     var text = ""
     for (const guess of guesses) {
-      text = text+"\n"+guess.mosaic+(names?guess.name:"")
+      let mosaic = guess.mosaic
+      if (day > -1 & (mosaic[0] == "2" | mosaic[0] == "3")){
+        mosaic = replaceAt(mosaic, 0, '6')
+      }
+      text = text+"\n"+mosaic+(names?guess.name:"")
     }
 
     text = text.replace(/1/g, '🟩');
@@ -84,6 +101,8 @@ function autocomplete(inp, arr) {
     text = text.replace(/3/g, '🔽');
     text = text.replace(/4/g, '🟨');
     text = text.replace(/5/g, '🟥');
+    text = text.replace(/6/g, '🟦');
+
 
     text = "Squirdle "+dailyinfo+gnum+"/"+attempts+text
 
@@ -144,6 +163,9 @@ function autocomplete(inp, arr) {
     }
       
     function showState(daily) {
+      let enabled = getCookie("hintsenabled", false)
+      document.getElementById("toggleinfo").innerHTML = "📋 Pokémon Info "+ (enabled =="0"?"OFF":"ON");
+
       let guesses = getCookie("guessesv2", daily)
       let attempts = getCookie("t_attempts", daily)
 
@@ -170,6 +192,17 @@ function autocomplete(inp, arr) {
 
           var guessesDiv = document.getElementById("guesses");
           guessesDiv.appendChild(rowElement);
+
+          let guessedPoke = pokedex[guess.name]
+          let type1correct = guess.mosaic[1] == "1" | guess.mosaic[1] == "4"
+          let type2correct = guess.mosaic[2] == "1" | guess.mosaic[2] == "4"
+
+          let type1elem = document.getElementById("type_"+guessedPoke[1])
+          let type2elem = document.getElementById("type_"+guessedPoke[2])
+          type1elem.style.opacity = type1correct? "1":"0.12";
+          type1elem.style.borderStyle = type1correct? "solid":"none";
+          type2elem.style.opacity = type2correct? "1":"0.12";
+          type2elem.style.borderStyle = type2correct? "solid":"none";
         }
       }
 
@@ -225,15 +258,28 @@ function autocomplete(inp, arr) {
       showState(daily)
     }
 
+    function toggleHints(daily) {
+      let enabled = getCookie("hintsenabled", false)
+      let min = parseInt(getCookie("min_gene", daily))
+      let max = parseInt(getCookie("max_gene", daily))
+
+      enabled = enabled == "0"? "1":"0"
+      setCookie("hintsenabled", enabled)
+      document.getElementById("toggleinfo").innerHTML = "📋 Pokémon Info "+ (enabled =="1"?"ON":"OFF");
+
+      filterRes = getPokemon(min, max)
+      autocomplete(document.getElementById("guess"), filterRes[1]);
+    }
+
     function getPokemon(mingen, maxgen){
       let filtered = []
       for (const [name,info] of Object.entries(pokedex)) {
         if (info[0] >= mingen & info[0] <= maxgen) {
-          filtered.push(name)
+          filtered.push([name,info])
         }
       }
       let chosen = filtered[filtered.length * Math.random() | 0];
-      return [chosen,filtered]
+      return [chosen[0],filtered]
     }
 
     function newGame(){
@@ -260,7 +306,16 @@ function autocomplete(inp, arr) {
         const elem = document.getElementById('guess'+x) || false
         elem?elem.remove():false
       }
+
+      let types2 = ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dark", "Dragon", "Steel", "Fairy", ""]
       
+      for (i = 0; i < types2.length; i++) {
+        type = types2[i];
+        let typeb = document.getElementById("type_"+type)
+        typeb.style.opacity = "0.7"
+        typeb.style.borderStyle = "none"
+      }
+
       document.getElementById("guessform").style.display = "block";
       document.getElementById("results").style.display = "none";
       document.getElementById("lost").style.display = "none";
