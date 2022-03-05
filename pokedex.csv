@@ -79,7 +79,7 @@ Hisuian Growlithe,8,Fire,Rock,0.8,22.7,ヒスイガーディ,히스이 가디
 Arcanine,1,Fire,,1.9,155.0,ウインディ,윈디
 Hisuian Arcanine,8,Fire,Rock,2.0,168.0,ヒスイウインディ,히스이 윈디
 Poliwag,1,Water,,0.6,12.4,ニョロモ,발챙이
-Poliwhirl,1,Water,,1.0,20.0,ニョロゾ,수륙챙이
+Poliwhirl,1,Water,,1.0,20.0,ニョロゾ,슈륙챙이
 Poliwrath,1,Water,Fighting,1.3,54.0,ニョロボン,강챙이
 Abra,1,Psychic,,0.9,19.5,ケーシィ,캐이시
 Kadabra,1,Psychic,,1.3,56.5,ユンゲラー,윤겔라
@@ -111,7 +111,7 @@ Galarian Slowbro,8,Poison,Psychic,1.6,70.5,ガラルヤドラン,가라르 야�
 Magnemite,1,Electric,Steel,0.3,6.0,コイル,코일
 Magneton,1,Electric,Steel,1.0,60.0,レアコイル,레어코일
 Farfetchd,1,Normal,Flying,0.8,15.0,カモネギ,파오리
-Galarian Farfetchd,8,Fighting,,0.8,42.0,メガカモネギ,메가파오리
+Galarian Farfetchd,8,Fighting,,0.8,42.0,ガラルカモネギ,가라르 파오리
 Doduo,1,Normal,Flying,1.4,39.2,ドードー,두두
 Dodrio,1,Normal,Flying,1.8,85.2,ドードリオ,두트리오
 Seel,1,Water,,1.1,90.0,パウワウ,쥬쥬
@@ -132,9 +132,9 @@ Hypno,1,Psychic,,1.6,75.6,スリーパー,슬리퍼
 Krabby,1,Water,,0.4,6.5,クラブ,크랩
 Kingler,1,Water,,1.3,60.0,キングラー,킹크랩
 Voltorb,1,Electric,,0.5,10.4,ビリリダマ,찌리리공
-Hisuian Voltorb,8,Electric,Grass,0.5,13.0,ヒスイ,히스이
+Hisuian Voltorb,8,Electric,Grass,0.5,13.0,ヒスイビリリダマ,히스이 찌리리공
 Electrode,1,Electric,,1.2,66.6,マルマイン,붐볼
-Hisuian Electrode,8,Electric,Grass,1.2,71.0,ヒスイ,히스이
+Hisuian Electrode,8,Electric,Grass,1.2,71.0,ヒスイマルマイン,히스이 붐볼
 Exeggcute,1,Grass,Psychic,0.4,2.5,タマタマ,아라리
 Exeggutor,1,Grass,Psychic,2.0,120.0,ナッシー,나시
 Alolan Exeggutor,7,Grass,Dragon,10.9,415.6,アローラナッシー,알로라 나시
@@ -150,7 +150,7 @@ Galarian Weezing,8,Poison,Fairy,3.0,16.0,ガラルマタドガス,가라르 또�
 Rhyhorn,1,Ground,Rock,1.0,115.0,サイホーン,뿔카노
 Rhydon,1,Ground,Rock,1.9,120.0,サイドン,코뿌리
 Chansey,1,Normal,,1.1,34.6,ラッキー,럭키
-Tangela,1,Grass,,1.0,35.0,モンジャラ,덩구리
+Tangela,1,Grass,,1.0,35.0,モンジャラ,덩쿠리
 Kangaskhan,1,Normal,,2.2,80.0,ガルーラ,캥카
 Mega Kangaskhan,6,Normal,,2.2,100.0,メガガルーラ,메가캥카
 Horsea,1,Water,,0.4,8.0,タッツー,쏘드라
@@ -204,7 +204,7 @@ Meganium,2,Grass,,1.8,100.5,メガニウム,메가니움
 Cyndaquil,2,Fire,,0.5,7.9,ヒノアラシ,브케인
 Quilava,2,Fire,,0.9,19.0,マグマラシ,마그케인
 Typhlosion,2,Fire,,1.7,79.5,バクフーン,블레이범
-Hisuian Typhlosion,8,Fire,Ghost,1.6,69.8,ヒスイ,히스이
+Hisuian Typhlosion,8,Fire,Ghost,1.6,69.8,ヒスイバクフーン,히스이 블레이범
 Totodile,2,Water,,0.6,9.5,ワニノコ,리아코
 Croconaw,2,Water,,1.1,25.0,アリゲイツ,엘리게이
 Feraligatr,2,Water,,2.3,88.8,オーダイル,장크로다일
@@ -262,14 +262,14 @@ Mega Steelix,6,Steel,Ground,10.5,740.0,メガハガネール,메가강철톤
 Snubbull,2,Fairy,,0.6,7.8,ブルー,블루
 Granbull,2,Fairy,,1.4,48.7,グランブル,그랑블루
 Qwilfish,2,Water,Poison,0.5,3.9,ハリーセン,침바루
-Hisuian Qwilfish,8,Dark,Poison,0.5,3.9,ヒスイ,히스이
+Hisuian Qwilfish,8,Dark,Poison,0.5,3.9,ヒスイハリーセン,히스이 침바루
 Scizor,2,Bug,Steel,1.8,118.0,ハッサム,핫삼
 Mega Scizor,6,Bug,Steel,2.0,125.0,メガハッサム,메가핫삼
 Shuckle,2,Bug,Rock,0.6,20.5,ツボツボ,단단지
 Heracross,2,Bug,Fighting,1.5,54.0,ヘラクロス,헤라크로스
 Mega Heracross,6,Bug,Fighting,1.7,62.5,メガヘラクロス,메가헤라크로스
 Sneasel,2,Dark,Ice,0.9,28.0,ニューラ,포푸니
-Hisuian Sneasel,8,Fighting,Poison,0.9,27.0,ヒスイ,히스이
+Hisuian Sneasel,8,Fighting,Poison,0.9,27.0,ヒスイニューラ,히스이 포푸니
 Teddiursa,2,Normal,,0.6,8.8,ヒメグマ,깜지곰
 Ursaring,2,Normal,,1.8,125.8,リングマ,링곰
 Slugma,2,Fire,,0.7,35.0,マグマッグ,마그마그
@@ -298,7 +298,7 @@ Smoochum,2,Ice,Psychic,0.4,6.0,ムチュール,뽀뽀라
 Elekid,2,Electric,,0.6,23.5,エレキッド,에레키드
 Magby,2,Fire,,0.7,21.4,ブビィ,마그비
 Miltank,2,Normal,,1.2,75.5,ミルタンク,밀탱크
-Blissey,2,Normal,,1.5,46.8,ハピナス,해피나스
+Blissey,2,Normal,,1.5,46.8,ハピナス,해피너스
 Raikou,2,Electric,,1.9,178.0,ライコウ,라이코
 Entei,2,Fire,,2.1,198.0,エンテイ,앤테이
 Suicune,2,Water,,2.0,187.0,スイクン,스이쿤
@@ -564,7 +564,7 @@ Leafeon,4,Grass,,1.0,25.5,リーフィア,리피아
 Glaceon,4,Ice,,0.8,25.9,グレイシア,글레이시아
 Gliscor,4,Ground,Flying,2.0,42.5,グライオン,글라이온
 Mamoswine,4,Ice,Ground,2.5,291.0,マンムー,맘모꾸리
-Porygon-Z,4,Normal,,0.9,34.0,ポリゴンZ,폴리곤Ｚ
+Porygon-Z,4,Normal,,0.9,34.0,ポリゴンZ,폴리곤Z
 Gallade,4,Psychic,Fighting,1.6,52.0,エルレイド,엘레이드
 Mega Gallade,6,Psychic,Fighting,1.6,56.4,メガエルレイド,메가엘레이드
 Probopass,4,Rock,Steel,1.4,340.0,ダイノーズ,대코파스
@@ -599,12 +599,12 @@ Snivy,5,Grass,,0.6,8.1,ツタージャ,주리비얀
 Servine,5,Grass,,0.8,16.0,ジャノビー,샤비
 Serperior,5,Grass,,3.3,63.0,ジャローダ,샤로다
 Tepig,5,Fire,,0.5,9.9,ポカブ,뚜꾸리
-Pignite,5,Fire,Fighting,1.0,55.5,チャオブー,챠오꿀
+Pignite,5,Fire,Fighting,1.0,55.5,チャオブー,차오꿀
 Emboar,5,Fire,Fighting,1.6,150.0,エンブオー,염무왕
 Oshawott,5,Water,,0.5,5.9,ミジュマル,수댕이
 Dewott,5,Water,,0.8,24.5,フタチマル,쌍검자비
 Samurott,5,Water,,1.5,94.6,ダイケンキ,대검귀
-Hisuian Samurott,8,Water,Dark,1.5,58.2,ヒスイ,히스이
+Hisuian Samurott,8,Water,Dark,1.5,58.2,ヒスイダイケンキ,히스이 대검귀
 Patrat,5,Normal,,0.5,11.6,ミネズミ,보르쥐
 Watchog,5,Normal,,1.1,27.0,ミルホッグ,보르그
 Lillipup,5,Normal,,0.4,4.1,ヨーテリー,요테리
@@ -652,7 +652,7 @@ Cottonee,5,Grass,Fairy,0.3,0.6,モンメン,소미안
 Whimsicott,5,Grass,Fairy,0.7,6.6,エルフーン,엘풍
 Petilil,5,Grass,,0.5,6.6,チュリネ,치릴리
 Lilligant,5,Grass,,1.1,16.3,ドレディア,드레디어
-Hisuian Lilligant,8,Grass,Fighting,1.2,19.2,ヒスイ,히스이
+Hisuian Lilligant,8,Grass,Fighting,1.2,19.2,ヒスイドレディア,히스이 드레디어
 Basculin,5,Water,,1.0,18.0,バスラオ,배쓰나이
 Sandile,5,Ground,Dark,0.7,15.2,メグロコ,깜눈크
 Krokorok,5,Ground,Dark,1.0,33.4,ワルビル,악비르
@@ -679,9 +679,9 @@ Archeops,5,Rock,Flying,1.4,32.0,アーケオス,아케오스
 Trubbish,5,Poison,,0.6,31.0,ヤブクロン,깨봉이
 Garbodor,5,Poison,,1.9,107.3,ダストダス,더스트나
 Zorua,5,Dark,,0.7,12.5,ゾロア,조로아
-Hisuian Zorua,8,Normal,Ghost,0.7,12.5,ヒスイ,히스이
+Hisuian Zorua,8,Normal,Ghost,0.7,12.5,ヒスイゾロア,히스이 조로아
 Zoroark,5,Dark,,1.6,81.1,ゾロアーク,조로아크
-Hisuian Zoroark,8,Normal,Ghost,1.6,73.0,ヒスイ,히스이
+Hisuian Zoroark,8,Normal,Ghost,1.6,73.0,ヒスイゾロアーク,히스이 조로아크
 Minccino,5,Normal,,0.4,5.8,チラーミィ,치라미
 Cinccino,5,Normal,,0.5,7.5,チラチーノ,치라치노
 Gothita,5,Psychic,,0.4,5.8,ゴチム,고디탱
@@ -705,7 +705,7 @@ Amoonguss,5,Grass,Poison,0.6,10.5,モロバレル,뽀록나
 Frillish,5,Water,Ghost,1.2,33.0,プルリル,탱그릴
 Jellicent,5,Water,Ghost,2.2,135.0,ブルンゲル,탱탱겔
 Alomomola,5,Water,,1.2,31.6,ママンボウ,맘복치
-Joltik,5,Bug,Electric,0.1,0.6,バチュル,피쪼옥
+Joltik,5,Bug,Electric,0.1,0.6,バチュル,파쪼옥
 Galvantula,5,Bug,Electric,0.8,14.3,デンチュラ,전툴라
 Ferroseed,5,Grass,Steel,0.6,18.8,テッシード,철시드
 Ferrothorn,5,Grass,Steel,1.0,110.0,ナットレイ,너트령
@@ -740,7 +740,7 @@ Bisharp,5,Dark,Steel,1.6,70.0,キリキザン,절각참
 Bouffalant,5,Normal,,1.6,94.6,バッフロン,버프론
 Rufflet,5,Normal,Flying,0.5,10.5,ワシボン,수리둥보
 Braviary,5,Normal,Flying,1.5,41.0,ウォーグル,워글
-Hisuian Braviary,8,Psychic,Flying,1.7,43.4,ヒスイ,히스이
+Hisuian Braviary,8,Psychic,Flying,1.7,43.4,ヒスイウォーグル,히스이 워글
 Vullaby,5,Dark,Flying,0.5,9.0,バルチャイ,벌차이
 Mandibuzz,5,Dark,Flying,1.2,39.5,バルジーナ,버랜지나
 Heatmor,5,Fire,,1.4,58.0,クイタラン,앤티골
@@ -825,9 +825,9 @@ Dedenne,6,Electric,Fairy,0.2,2.2,デデンネ,데덴네
 Carbink,6,Rock,Fairy,0.3,5.7,メレシー,멜리시
 Goomy,6,Dragon,,0.3,2.8,ヌメラ,미끄메라
 Sliggoo,6,Dragon,,0.8,17.5,ヌメイル,미끄네일
-Hisuian Sliggoo,8,Steel,Dragon,0.7,68.5,ヒスイ,히스이
+Hisuian Sliggoo,8,Steel,Dragon,0.7,68.5,ヒスイヌメイル,히스이 미끄네일
 Goodra,6,Dragon,,2.0,150.5,ヌメルゴン,미끄래곤
-Hisuian Goodra,8,Steel,Dragon,1.7,334.1,ヒスイ,히스이
+Hisuian Goodra,8,Steel,Dragon,1.7,334.1,ヒスイヌメルゴン,히스이 미끄래곤
 Klefki,6,Steel,Fairy,0.2,3.0,クレッフィ,클레피
 Phantump,6,Ghost,Grass,0.4,7.0,ボクレー,나목령
 Trevenant,6,Ghost,Grass,1.5,71.0,オーロット,대로트
@@ -835,10 +835,10 @@ Pumpkaboo,6,Ghost,Grass,0.4,5.0,バケッチャ,호바귀
 Gourgeist,6,Ghost,Grass,0.9,12.5,パンプジン,펌킨인
 Bergmite,6,Ice,,1.0,99.5,カチコール,꽁어름
 Avalugg,6,Ice,,2.0,505.0,クレベース,크레베이스
-Hisuian Avalugg,8,Ice,Rock,1.4,262.4,ヒスイ,히스이
+Hisuian Avalugg,8,Ice,Rock,1.4,262.4,ヒスイクレベース,히스이 크레베이스
 Noibat,6,Flying,Dragon,0.5,8.0,オンバット,음뱃
 Noivern,6,Flying,Dragon,1.5,85.0,オンバーン,음번
-Xerneas,6,Fairy,,3.0,215.0,ゼルネアス,제루네아스
+Xerneas,6,Fairy,,3.0,215.0,ゼルネアス,제르네아스
 Yveltal,6,Dark,Flying,5.8,203.0,イベルタル,이벨타르
 Zygarde 50% Forme,6,Dragon,Ground,5.0,305.0,ジガルデ 50%フォルム,지가르데 50%폼
 Zygarde 10% Forme,7,Dragon,Ground,1.2,33.5,ジガルデ 10%フォルム,지가르데 10%폼
@@ -851,7 +851,7 @@ Volcanion,6,Fire,Water,1.7,195.0,ボルケニオン,볼케니온
 Rowlet,7,Grass,Flying,0.3,1.5,モクロー,나몰빼미
 Dartrix,7,Grass,Flying,0.7,16.0,フクスロー,빼미스로우
 Decidueye,7,Grass,Ghost,1.6,36.6,ジュナイパー,모크나이퍼
-Hisuian Decidueye,8,Grass,Fighting,1.6,37.0,ヒスイ,히스이
+Hisuian Decidueye,8,Grass,Fighting,1.6,37.0,ヒスイジュナイパー,히스이 모크나이퍼
 Litten,7,Fire,,0.4,4.3,ニャビー,냐오불
 Torracat,7,Fire,,0.7,25.0,ニャヒート,냐오히트
 Incineroar,7,Fire,Dark,1.8,83.0,ガオガエン,어흥염
