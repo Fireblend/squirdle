@@ -47,6 +47,7 @@
     border-style: none;
     border-radius: 10px;
     opacity: 0.7;
+    transition: all 0.5s;
   }
 
   .hintbtn {
@@ -58,6 +59,7 @@
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
+    display: none;
   }
 
   .hint {
@@ -81,6 +83,13 @@
     align-items: flex-start;
     flex-wrap: wrap;
     flex:1;
+    opacity:0;
+    transition: all 0.8s;
+  }
+
+  .row.in {
+    opacity:1;
+    transform: translateY(10px);
   }
   
   .column {

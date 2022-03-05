@@ -11,10 +11,48 @@ function autocomplete(inp, arr) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < arr.length; i++) {
-          if (arr[i][0].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          let matches = arr[i][0].substr(0, val.length).toUpperCase() == val.toUpperCase()? 1:0 
+          let words = arr[i][0].split(" ")
+          let highlight = true
+          for (j = 0; j < words.length; j++){
+            matches += words[j].substr(0, val.length).toUpperCase() == val.toUpperCase()? 1:0 
+          }
+          if(matches == 0){
+            highlight = false
+            let filters = val.split(" ")
+            let fvalues = []
+            for (f = 0; f < filters.length; f++){
+              if (filters[f].includes("gen:")){
+                fvalues.push(filters[f].split(":")[1] == arr[i][1][0].toString()? 1:0)
+              }
+              else if (filters[f].includes("type1:")){
+                fvalues.push(filters[f].split(":")[1].toLowerCase() == arr[i][1][1].toLowerCase()? 1:0)
+              }
+              else if (filters[f].includes("type2:")){
+                let t2 = filters[f].split(":")[1].toLowerCase()
+                t2 =  t2 == ""?"-":t2
+                t2 =  t2 == "none"?"":t2
+                fvalues.push(t2 == arr[i][1][2].toLowerCase()? 1:0)
+              }
+              else if (filters[f].includes("height:")){
+                fvalues.push(filters[f].split(":")[1] == arr[i][1][3].toString()? 1:0)
+              }
+              else if (filters[f].includes("weight:")){
+                fvalues.push(filters[f].split(":")[1] == arr[i][1][4].toString()? 1:0)
+              }
+            }
+            matches = fvalues.length > 0? Math.min(...fvalues):0
+          }
+          if (matches > 0) {
             b = document.createElement("DIV");
-            b.innerHTML = "<strong>" + arr[i][0].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i][0].substr(val.length);
+            index = arr[i][0].toLowerCase().indexOf(val.toLowerCase())
+            if(highlight){
+              b.innerHTML = arr[i][0].substr(0, index)
+              b.innerHTML += "<strong>" + arr[i][0].substr(index, val.length) + "</strong>";
+              b.innerHTML += arr[i][0].substr(index+val.length);
+            } else {
+              b.innerHTML = arr[i][0]
+            }
             if (hintsenabled == "1" | hintsenabled == ""){
               let type1 = arr[i][1][1]
               let type2 = arr[i][1][2]
@@ -170,8 +208,19 @@ function autocomplete(inp, arr) {
       let attempts = getCookie("t_attempts", daily)
 
       guesses = guesses == ""? []:JSON.parse(guesses)
-      document.getElementById("guesses").style.display = guesses.length > 0? "block":"none";
+      let guessesCont  = document.getElementById("guesses")
+      let hintTitles = document.getElementById("hinttitles")
 
+      if (guesses.length > 0) {
+        if (guessesCont.style.display == "none"){
+          guessesCont.style.display = "block";
+          window.getComputedStyle(hintTitles).opacity;
+          hintTitles.className += ' in';
+        }
+      } else {
+        guessesCont.style.display = "none"
+        hintTitles.className = 'row';
+      }
       let lastAttempt = ""
       for (const [index,guess] of guesses.entries()) {
         if (!(document.getElementById('guess'+index) || false)) {
@@ -190,8 +239,9 @@ function autocomplete(inp, arr) {
 
           rowElement.appendChild(colElement)
 
-          var guessesDiv = document.getElementById("guesses");
-          guessesDiv.appendChild(rowElement);
+          guessesCont.appendChild(rowElement);
+          window.getComputedStyle(rowElement).opacity;
+          rowElement.className += ' in';
 
           let guessedPoke = pokedex[guess.name]
           let type1correct = guess.mosaic[1] == "1" | guess.mosaic[1] == "4"

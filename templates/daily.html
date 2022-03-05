@@ -7,17 +7,18 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <script src="{{url_for('static', filename='game.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>     
+</head>
 <body class="daily">
 
 <h2>Squirdle Daily</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
 I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
-<br>(Updates @ 00:00 GMT-10)
+<br>(Updates @ 00:00 GMT-10)<br><br>
+<i><b>NEW</b>: Need some help? <a href="https://imgur.com/wEPMRGZ">Use attribute filters!</a></i>
 <br>
 
-<div id="guesses" class="guesses">
-  <div class="row">
+<div id="guesses" class="guesses" style="display: none;">
+  <div class="row" id="hinttitles">
     <div class='column'>
         <p class="hint">Gen</p>
     </div>
