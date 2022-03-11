@@ -4,58 +4,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
-    <script src="{{url_for('static', filename='game.js')}}"></script>
+    <link rel= "stylesheet" type= "text/css" href= "style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="game.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body class="daily">
+</head>     
+<body>
 
-<h2>Squirdle Daily</h2>
+<h2>Squirdle</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
-I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
-<br>(Updates @ 00:00 GMT-10)<br><br>
-<i><b>NEW</b>: Need some help? <a href="https://imgur.com/wEPMRGZ">Use attribute filters!</a></i>
-<br>
-
+I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
+<br><br>
+<i><b>NEW</b>: Need some help? <a href="https://imgur.com/wEPMRGZ">Use attribute filters!</a><br></i>
 <div id="guesses" class="guesses" style="display: none;">
-  <div class="row" id="hinttitles">
-    <div class='column'>
-        <p class="hint">Gen</p>
+    <div class="row" id="hinttitles">
+      <div class='column'>
+          <p class="hint">Gen</p>
+      </div>
+      <div class='column'>
+          <p class="hint">Type 1</p>
+      </div>
+      <div class='column'>
+          <p class="hint">Type 2</p>
+      </div>
+      <div class='column'>
+          <p class="hint">Height</p>
+      </div>
+      <div class='column'>
+          <p class="hint">Weight</p>
+      </div>
     </div>
-    <div class='column'>
-        <p class="hint">Type 1</p>
-    </div>
-    <div class='column'>
-        <p class="hint">Type 2</p>
-    </div>
-    <div class='column'>
-        <p class="hint">Height</p>
-    </div>
-    <div class='column'>
-        <p class="hint">Weight</p>
-    </div>
-  </div>
-</div><br>
+</div>
+<br>
 
 <p id="error" style="display: none;">Pokémon not found!</p>
 <form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokémon Name">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(true,'{{im[0]}}', '{{im[1]}}', '{{im[2]}}', '{{im[3]}}', '{{im[4]}}')">
-  <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(true)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
+  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(false)">
+  <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(false)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
 </form>
-
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
-  <span>The secret Pokémon was <b><span id="secretpoke">{{secret}}</span></b>!</span><br>
-  <a class="togglec" onclick="copyCurrentDay({{day}},false)" href="#">📄 Share</a>
-  <a class="togglec" onclick="copyCurrentDay({{day}},true)" href="#">👀 Share w/names</a><br>
-Generation hint arrows are obscured in daily<br>mosaics to avoid spoiling other players!<br><br>
-Come back tomorrow for another daily!
+  <span>The secret Pokémon was <b><span id="secretpoke"></span></b>!</span><br>
+  <a class="togglec" onclick="copyCurrentDay(-1,false)" href="#">📄 Share</a>
+  <a class="togglec" onclick="copyCurrentDay(-1,true)" href="#">👀 Share w/names</a>
 </div>
-
 <br>
 <div id="type_Normal" class="type-block" style="background-color: rgba(177, 177, 177);">Normal</div>
 <div id="type_Fire" class="type-block" style="background-color: rgb(255, 97, 6);">Fire</div>
@@ -77,15 +73,25 @@ Come back tomorrow for another daily!
 <div id="type_Fairy" class="type-block" style="background-color: rgb(255, 140, 230);">Fairy</div>
 <div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div><br><br>
 
-<br><a href="{{ url_for('index') }}">Free Play</a>
+<label for="quantity">Guess Pkmn from gen</label>
+<input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="" oninput="validity.valid||(value='');">
+<label for="quantity">to</label>
+<input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="" oninput="validity.valid||(value='');"><br>
+<a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
+<br><a href="daily.html">Try Squirdle Daily!</a>
 
 <script>
-  var pokedex = {{pokedex | safe}};
-  document.addEventListener('DOMContentLoaded', (event) => {
-    autocomplete(document.getElementById("guess"), getPokemon(1, 8)[1]);
-    showState(true);
-  })
+let pokedex = ""
+document.addEventListener('DOMContentLoaded', (event) => {
+  $.getJSON( "data/pokedex.json", function( json ) { 
+      pokedex = json
+      handleLoad(false)
+    });
+})
 </script>
+
+</body>
+</html>
 
 </body>
 </html>

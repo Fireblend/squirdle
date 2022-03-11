@@ -169,7 +169,14 @@ function autocomplete(inp, arr) {
   function setCookie(cname, cvalue, exdays, daily) {
     cname = (daily?"d_":"")+cname
     const d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    if(daily){
+      d.setTime(d.getTime() + (24*60*60*1000));
+      d.setHours(0)
+      d.setMinutes(0)
+      d.setSeconds(0)
+    } else {
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    }
     let expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"+";samesite=strict";
   }
@@ -258,11 +265,13 @@ function autocomplete(inp, arr) {
 
       let secret_name = getCookie("secret_poke", daily).replace(/"/g, '');
       if(secret_name == lastAttempt){
+        document.getElementById("secretpoke").innerHTML = secret_name
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
         document.getElementById("won").style.display = "block";
       }
       else if(guesses.length == attempts){
+        document.getElementById("secretpoke").innerHTML = secret_name
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
         document.getElementById("lost").style.display = "block";
@@ -270,8 +279,8 @@ function autocomplete(inp, arr) {
       document.getElementById("attempts").innerHTML = attempts-guesses.length
     }
 
-    function handleGuess(daily, im1, im2, im3, im4, im5) {
-      const imgs = {'1':im1, '2':im2, '3':im3, '4':im4, '5':im5}
+    function handleGuess(daily) {
+      const imgs = {'1':"imgs/correct.png", '2':"imgs/up.png", '3':"imgs/down.png", '4':"imgs/wrongpos.png", '5':"imgs/wrong.png"}
       let guess_name = document.getElementById("guess").value
       let secret_name = getCookie("secret_poke", daily).replace(/"/g, '');
       let guess = pokedex[guess_name]
@@ -332,9 +341,9 @@ function autocomplete(inp, arr) {
       return [chosen[0],filtered]
     }
 
-    function newGame(){
-      let mingen = parseInt(document.getElementById("mingen").value)
-      let maxgen = parseInt(document.getElementById("maxgen").value)
+    function newGame(isDaily){
+      let mingen = isDaily? 1:parseInt(document.getElementById("mingen").value)
+      let maxgen = isDaily? 8:parseInt(document.getElementById("maxgen").value)
 
       if (mingen > maxgen){
         [mingen, maxgen] = [maxgen, mingen]
@@ -343,12 +352,12 @@ function autocomplete(inp, arr) {
       }
       let guessesMap = {0:'5', 1:'5', 2:'6', 3:'6', 4:'7', 5:'7', 6:'8', 7:'8'}
 
-      filterRes = getPokemon(mingen, maxgen)
-      setCookie('guessesv2',"",30)
-      setCookie('secret_poke',filterRes[0],30)
-      setCookie('min_gene',mingen,30)
-      setCookie('max_gene',maxgen,30)
-      setCookie('t_attempts',guessesMap[maxgen-mingen],30)
+      filterRes = isDaily?[dailypoke,pokedex]:getPokemon(mingen, maxgen)
+      setCookie('guessesv2',"", 30, isDaily)
+      setCookie('secret_poke',filterRes[0], 30, isDaily)
+      setCookie('min_gene',mingen, 30, isDaily)
+      setCookie('max_gene',maxgen, 30, isDaily)
+      setCookie('t_attempts',guessesMap[maxgen-mingen], 30, isDaily)
 
       autocomplete(document.getElementById("guess"), filterRes[1]);
 
@@ -371,5 +380,29 @@ function autocomplete(inp, arr) {
       document.getElementById("lost").style.display = "none";
       document.getElementById("won").style.display = "none";
       document.getElementById("secretpoke").innerHTML = filterRes[0]
-      showState(false)
+      showState(isDaily)
+    }
+
+    function handleLoad(isDaily){
+      let poke = getCookie("secret_poke", isDaily)
+      let mingen = 1
+      let maxgen = 8
+
+      if (poke == "") {
+        if (!isDaily){
+          document.getElementById("mingen").value = mingen
+          document.getElementById("maxgen").value = maxgen
+        }
+        newGame(isDaily)
+      } else {
+        mingen = parseInt(getCookie("min_gene", false))
+        maxgen = parseInt(getCookie("max_gene", false))
+        if (!isDaily){
+          document.getElementById("mingen").value = mingen
+          document.getElementById("maxgen").value = maxgen
+        }
+      }
+
+      autocomplete(document.getElementById("guess"), getPokemon(mingen, maxgen)[1]);
+      showState(isDaily)
     }
