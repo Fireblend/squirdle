@@ -1,4 +1,4 @@
-function autocomplete(inp, arr) {
+  function autocomplete(inp, arr) {
     var currentFocus;
     let hintsenabled = getCookie("hintsenabled", false)
     inp.addEventListener("input", function(e) {
@@ -115,7 +115,7 @@ function autocomplete(inp, arr) {
   function replaceAt(str, index, ch) {
     return str.replace(/./g, (c, i) => i == index ? ch : c);
   }
-  
+
   function copyCurrentDay(day, names) {
     let attempts = parseInt(getCookie("t_attempts", day > -1))
     var guesses = JSON.parse(getCookie("guessesv2", day > -1))
@@ -131,7 +131,7 @@ function autocomplete(inp, arr) {
       if (day > -1 & (mosaic[0] == "2" | mosaic[0] == "3")){
         mosaic = replaceAt(mosaic, 0, '6')
       }
-      text = text+"\n"+mosaic+(names?guess.name:"")
+      text = text+"\n"+mosaic+(names?getPokemonFromId(guess.name):"")
     }
 
     text = text.replace(/1/g, '🟩');
@@ -192,6 +192,14 @@ function autocomplete(inp, arr) {
       }
       return "";
     }
+    
+    function getPokemonFromId(id) {
+      return isNaN(id)? id : Object.keys(pokedex)[parseInt(id)];
+    }
+
+    function getIdFromPokemon(pokemon) {
+      return Object.keys(pokedex).indexOf(pokemon);
+    }
 
     let createElement= (initObj)=> {
       var element = document.createElement(initObj.Tag);
@@ -229,9 +237,11 @@ function autocomplete(inp, arr) {
         hintTitles.className = 'row';
       }
       let lastAttempt = ""
+
       for (const [index,guess] of guesses.entries()) {
         if (!(document.getElementById('guess'+index) || false)) {
-          lastAttempt = guess.name
+          lastAttempt = getPokemonFromId(guess.name)
+
           var rowElement = createElement({Tag:"div", id:'guess'+index, classList:'row'})
 
           for (const hint of guess.hints) {
@@ -239,7 +249,7 @@ function autocomplete(inp, arr) {
             var colElement = createElement({Tag:"div", classList:'column', childNodes:[img]})
             rowElement.appendChild(colElement)
           }
-          var pokename = createElement({Tag:"p", classList:'guess', innerHTML:guess.name})
+          var pokename = createElement({Tag:"p", classList:'guess', innerHTML:lastAttempt})
           var pokeinfo = createElement({Tag:"span", classList:'tooltiptext', innerHTML:guess.info})
           var tooltip = createElement({Tag:"div", classList:'tooltip', childNodes:[pokename, pokeinfo]})
           var colElement = createElement({Tag:"div", classList:'column', childNodes:[tooltip]})
@@ -250,7 +260,7 @@ function autocomplete(inp, arr) {
           window.getComputedStyle(rowElement).opacity;
           rowElement.className += ' in';
 
-          let guessedPoke = pokedex[guess.name]
+          let guessedPoke = pokedex[lastAttempt]
           let type1correct = guess.mosaic[1] == "1" | guess.mosaic[1] == "4"
           let type2correct = guess.mosaic[2] == "1" | guess.mosaic[2] == "4"
 
@@ -263,7 +273,7 @@ function autocomplete(inp, arr) {
         }
       }
 
-      let secret_name = getCookie("secret_poke", daily).replace(/"/g, '');
+      let secret_name = getPokemonFromId(getCookie("secret_poke", daily).replace(/"/g, ''));
       if(secret_name == lastAttempt){
         document.getElementById("secretpoke").innerHTML = secret_name
         document.getElementById("guessform").style.display = "none";
@@ -282,7 +292,7 @@ function autocomplete(inp, arr) {
     function handleGuess(daily) {
       const imgs = {'1':"imgs/correct.png", '2':"imgs/up.png", '3':"imgs/down.png", '4':"imgs/wrongpos.png", '5':"imgs/wrong.png"}
       let guess_name = document.getElementById("guess").value
-      let secret_name = getCookie("secret_poke", daily).replace(/"/g, '');
+      let secret_name = getPokemonFromId(getCookie("secret_poke", daily).replace(/"/g, ''));
       let guess = pokedex[guess_name]
 
       if (guess == null) {
@@ -301,11 +311,11 @@ function autocomplete(inp, arr) {
       let w = guess[4] == secret[4] ? "1" : guess[4] < secret[4]? '2':'3'
 
       let pokeinfo = "<b>Gen:</b> "+guess[0]+"<br><b>Type 1:</b> "+guess[1]+
-                     "<br><b>Type 2:</b> "+(guess[2]==""?"None":guess[2])+
-                     "<br><b>Height:</b> "+guess[3]+"<br><b>Weight:</b> "+guess[4]
+                    "<br><b>Type 2:</b> "+(guess[2]==""?"None":guess[2])+
+                    "<br><b>Height:</b> "+guess[3]+"<br><b>Weight:</b> "+guess[4]
                     
       let guess_info = {"hints":[imgs[gen], imgs[t1], imgs[t2], imgs[h], imgs[w]], 
-                   "name":guess_name, "info":pokeinfo, "mosaic":gen+t1+t2+h+w}
+                  "name":getIdFromPokemon(guess_name), "info":pokeinfo, "mosaic":gen+t1+t2+h+w}
 
 
       let guesses = getCookie("guessesv2", daily)
@@ -331,14 +341,15 @@ function autocomplete(inp, arr) {
     }
 
     function getPokemon(mingen, maxgen){
+      console.log(mingen, maxgen)
       let filtered = []
       for (const [name,info] of Object.entries(pokedex)) {
         if (info[0] >= mingen & info[0] <= maxgen) {
           filtered.push([name,info])
         }
       }
-      let chosen = filtered[filtered.length * Math.random() | 0];
-      return [chosen[0],filtered]
+      let chosen = filtered[filtered.length * Math.random() | 0][0];
+      return [getIdFromPokemon(chosen),filtered]
     }
 
     function newGame(isDaily){
@@ -352,7 +363,7 @@ function autocomplete(inp, arr) {
       }
       let guessesMap = {0:'5', 1:'5', 2:'6', 3:'6', 4:'7', 5:'7', 6:'8', 7:'8'}
 
-      filterRes = isDaily?[dailypoke,pokedex]:getPokemon(mingen, maxgen)
+      filterRes = isDaily?[getIdFromPokemon(dailypoke),pokedex]:getPokemon(mingen, maxgen)
       setCookie('guessesv2',"", 30, isDaily)
       setCookie('secret_poke',filterRes[0], 30, isDaily)
       setCookie('min_gene',mingen, 30, isDaily)
@@ -379,7 +390,7 @@ function autocomplete(inp, arr) {
       document.getElementById("results").style.display = "none";
       document.getElementById("lost").style.display = "none";
       document.getElementById("won").style.display = "none";
-      document.getElementById("secretpoke").innerHTML = filterRes[0]
+      document.getElementById("secretpoke").innerHTML = getPokemonFromId(filterRes[0])
       showState(isDaily)
     }
 
@@ -395,8 +406,8 @@ function autocomplete(inp, arr) {
         }
         newGame(isDaily)
       } else {
-        mingen = parseInt(getCookie("min_gene", false))
-        maxgen = parseInt(getCookie("max_gene", false))
+        mingen = parseInt(getCookie("min_gene", isDaily))
+        maxgen = parseInt(getCookie("max_gene", isDaily))
         if (!isDaily){
           document.getElementById("mingen").value = mingen
           document.getElementById("maxgen").value = maxgen
