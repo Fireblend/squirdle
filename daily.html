@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Squirdle Daily</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
@@ -79,8 +81,14 @@ Come back tomorrow for another daily!
 <div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div><br><br>
 
 <br><a href="index.html">Free Play</a>
-
+<br><br>Switch <b>names</b> to: 
+<a onclick="setLanguage('en', true)", href="#">🇺🇸</a> | 
+<a onclick="setLanguage('ko', true)", href="#">🇰🇷</a> | 
+<a onclick="setLanguage('ja', true)" href="#">🇯🇵</a>
+<br>Issues? Clear your cache!
 <script>
+  let lang_map = ""
+  let rev_map = ""
   let pokedex = ""
   let day = 0
   let dailypoke = ""
@@ -91,7 +99,8 @@ Come back tomorrow for another daily!
         let date = new Date().toISOString().split("T")[0]
         day = parseInt(data2[date][0])
         dailypoke = data2[date][1]
-        handleLoad(true)
+        lang = getCookie('lang', false)
+        setLanguage(lang, true)
       });
     })
   });

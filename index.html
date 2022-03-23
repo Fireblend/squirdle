@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Squirdle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
@@ -79,13 +81,17 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="" oninput="validity.valid||(value='');"><br>
 <a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
 <br><a href="daily.html">Try Squirdle Daily!</a>
-
+<br><br>Pokémon names: <a onclick="setLanguage('en', false)", href="#">🇺🇸</a> | <a onclick="setLanguage('ko', false)", href="#">🇰🇷</a> | <a onclick="setLanguage('ja', false)" href="#">🇯🇵</a>
+<br>Issues? Clear your cache!
 <script>
+let lang_map = ""
+let rev_map = ""
 let pokedex = ""
 document.addEventListener('DOMContentLoaded', (event) => {
   $.getJSON( "data/pokedex.json", function( json ) { 
       pokedex = json
-      handleLoad(false)
+      lang = getCookie('lang', false)
+      setLanguage(lang, false)
     });
 })
 </script>

@@ -11,8 +11,10 @@ function autocomplete(inp, arr) {
     a.setAttribute("class", "autocomplete-items");
     this.parentNode.appendChild(a);
     for (i = 0; i < arr.length; i++) {
-      let matches = arr[i][0].substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
-      let words = arr[i][0].split(" ")
+      pkmnname = getPkmnName(arr[i][0])
+
+      let matches = pkmnname.substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
+      let words = pkmnname.split(" ")
       let highlight = true
       for (j = 0; j < words.length; j++) {
         matches += words[j].substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
@@ -45,13 +47,13 @@ function autocomplete(inp, arr) {
       }
       if (matches > 0) {
         b = document.createElement("DIV");
-        index = arr[i][0].toLowerCase().indexOf(val.toLowerCase())
+        index = pkmnname.toLowerCase().indexOf(val.toLowerCase())
         if (highlight) {
-          b.innerHTML = arr[i][0].substr(0, index)
-          b.innerHTML += "<strong>" + arr[i][0].substr(index, val.length) + "</strong>";
-          b.innerHTML += arr[i][0].substr(index + val.length);
+          b.innerHTML = pkmnname.substr(0, index)
+          b.innerHTML += "<strong>" + pkmnname.substr(index, val.length) + "</strong>";
+          b.innerHTML += pkmnname.substr(index + val.length);
         } else {
-          b.innerHTML = arr[i][0]
+          b.innerHTML = pkmnname
         }
         if (hintsenabled == "1" | hintsenabled == "") {
           let type1 = arr[i][1][1]
@@ -61,7 +63,7 @@ function autocomplete(inp, arr) {
           let gen = arr[i][1][0]
           b.innerHTML += "<br><span class=\"dropinfo\"> Gen " + gen + ", " + type1 + "/" + (type2 == "" ? "None" : type2) + ", " + h + "m, " + w + "kg" + "</span>";
         }
-        value = arr[i][0].replace("'", "&#39;")
+        value = pkmnname.replace("'", "&#39;")
         b.innerHTML += "<input type='hidden' value='" + value + "'>";
         b.addEventListener("click", function (e) {
           inp.value = this.getElementsByTagName("input")[0].value;
@@ -166,14 +168,41 @@ function copyCurrentDay(day, names) {
   }
 }
 
+function setLanguage(lang, isDaily){
+  setCookie("lang", lang, 100, false)
+  for (x in [0, 1, 2, 3, 4, 5, 6, 7]) {
+    const elem = document.getElementById('guess' + x) || false
+    elem ? elem.remove() : false
+  }
+  if (lang == "en" | lang == "") {
+    lang_map = ""
+    rev_map = ""
+    document.getElementById("guess").placeholder = "Pokémon Name"
+    handleLoad(isDaily)
+  } else {
+    $.getJSON( "data/"+lang+".json", function( data ) {
+      lang_map = data
+      rev_map = {}
+      for(var prop in lang_map){
+        rev_map[lang_map[prop]] = prop
+      }
+      if (lang == "ja"){
+        document.getElementById("guess").placeholder = "秘密のポケモンは？"
+      }
+      else if (lang == "ko"){
+        document.getElementById("guess").placeholder = "포켓몬은?"
+      }
+      handleLoad(isDaily)
+    });
+  }
+}
+
+
 function setCookie(cname, cvalue, exdays, daily) {
   cname = (daily ? "d_" : "") + cname
   const d = new Date();
   if (daily) {
-    d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
-    d.setHours(0)
-    d.setMinutes(0)
-    d.setSeconds(0)
+    d.setHours(23,59,59,0)
   } else {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
   }
@@ -194,7 +223,7 @@ function getCookie(cname, daily) {
 }
 
 function getPokemonFromId(id) {
-  return isNaN(id) ? id : Object.keys(pokedex)[parseInt(id)];
+  return isNaN(id) ? id : getPkmnName(Object.keys(pokedex)[parseInt(id)]);
 }
 
 function getIdFromPokemon(pokemon) {
@@ -260,7 +289,7 @@ function showState(daily) {
       window.getComputedStyle(rowElement).opacity;
       rowElement.className += ' in';
 
-      let guessedPoke = pokedex[lastAttempt]
+      let guessedPoke = pokedex[getRevPkmnName(lastAttempt)]
       let type1correct = guess.mosaic[1] == "1" | guess.mosaic[1] == "4"
       let type2correct = guess.mosaic[2] == "1" | guess.mosaic[2] == "4"
 
@@ -291,8 +320,8 @@ function showState(daily) {
 
 function handleGuess(daily) {
   const imgs = { '1': "imgs/correct.png", '2': "imgs/up.png", '3': "imgs/down.png", '4': "imgs/wrongpos.png", '5': "imgs/wrong.png" }
-  let guess_name = document.getElementById("guess").value
-  let secret_name = getPokemonFromId(getCookie("secret_poke", daily).replace(/"/g, ''));
+  let guess_name = getRevPkmnName(document.getElementById("guess").value)
+  let secret_name = getRevPkmnName(getPokemonFromId(getCookie("secret_poke", daily).replace(/"/g, '')));
   let guess = pokedex[guess_name]
 
   if (guess == null) {
@@ -342,8 +371,16 @@ function toggleHints(daily) {
   autocomplete(document.getElementById("guess"), filterRes[1]);
 }
 
+function getPkmnName(name){
+  if (lang_map == "") return name;
+  return lang_map[name]
+}
+function getRevPkmnName(name){
+  if (rev_map == "") return name;
+  return rev_map[name]
+}
+
 function getPokemon(mingen, maxgen) {
-  console.log(mingen, maxgen)
   let filtered = []
   for (const [name, info] of Object.entries(pokedex)) {
     if (info[0] >= mingen & info[0] <= maxgen) {
