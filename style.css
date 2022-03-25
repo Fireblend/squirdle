@@ -21,7 +21,6 @@
 
   .togglec {
     font-size : 19px;
-    border-style: solid;
     color: #383838;
     background-color: rgb(155, 211, 212);
     padding: 8px;
@@ -31,6 +30,23 @@
     text-decoration: none;
     border-radius: 10px;
     cursor: pointer;
+  }
+
+  .syntax {
+    font-size : 19px;
+    color: #383838;
+    background-color: rgb(130, 213, 214);
+    padding: 4px;
+    margin: 4px;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family:'Lucida Console', monospace;
+  }
+  .small {
+    font-size : 14px;
+    margin: 0px;
   }
 
   .type-block {

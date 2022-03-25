@@ -231,7 +231,7 @@ function setLanguage(lang, isDaily){
   if (lang == "en" | lang == "") {
     lang_map = ""
     rev_map = ""
-    document.getElementById("guess").placeholder = "Pokémon Name"
+    document.getElementById("guess").placeholder = "Who's that Pokémon?"
     handleLoad(isDaily)
   } else {
     $.getJSON( "data/"+lang+".json", function( data ) {
@@ -245,6 +245,9 @@ function setLanguage(lang, isDaily){
       }
       else if (lang == "ko"){
         document.getElementById("guess").placeholder = "포켓몬은?"
+      }
+      else if (lang == "fr"){
+        document.getElementById("guess").placeholder = "Quel est ce Pokemon?"
       }
       handleLoad(isDaily)
     });

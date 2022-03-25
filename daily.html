@@ -17,9 +17,7 @@
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
 I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses left today. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
 <br>(Updates @ 00:00 your time!)<br><br>
-<i><b>NEW</b>: Need some help? <a href="https://imgur.com/wEPMRGZ">Use attribute filters!</a></i>
-<br>
-
+<i><b>NEWS 3/25/22</b>: <a href="filters.html">Advanced attribute filters!</a><br></i>
 <div id="guesses" class="guesses" style="display: none;">
   <div class="row" id="hinttitles">
     <div class='column'>
@@ -43,7 +41,7 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 <p id="error" style="display: none;">Pokémon not found!</p>
 <form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
-    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokémon Name">
+    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Who's that Pokémon?">
   </div>
   <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(true)">
   <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(true)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
@@ -81,10 +79,12 @@ Come back tomorrow for another daily!
 <div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div><br><br>
 
 <br><a href="index.html">Free Play</a>
-<br><br>Switch <b>names</b> to: 
+<br><br>Pokémon names: 
 <a onclick="setLanguage('en', true)", href="#">🇺🇸</a> | 
 <a onclick="setLanguage('ko', true)", href="#">🇰🇷</a> | 
-<a onclick="setLanguage('ja', true)" href="#">🇯🇵</a>
+<a onclick="setLanguage('ja', true)" href="#">🇯🇵</a> | 
+<a onclick="setLanguage('fr', true)" href="#">🇫🇷</a> 
+
 <br>Issues? Clear your cache!
 <script>
   let lang_map = ""

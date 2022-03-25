@@ -17,7 +17,7 @@
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
 I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
 <br><br>
-<i><b>NEW</b>: Need some help? <a href="https://imgur.com/wEPMRGZ">Use attribute filters!</a><br></i>
+<i><b>NEWS 3/25/22</b>: <a href="filters.html">Advanced attribute filters!</a><br></i>
 <div id="guesses" class="guesses" style="display: none;">
     <div class="row" id="hinttitles">
       <div class='column'>
@@ -42,7 +42,7 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 <p id="error" style="display: none;">Pokémon not found!</p>
 <form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
-    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Pokémon Name">
+    <input class="guess_input" id="guess" type="text" name="guess" placeholder="Who's that Pokémon?">
   </div>
   <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(false)">
   <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(false)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
@@ -81,7 +81,11 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="" oninput="validity.valid||(value='');"><br>
 <a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
 <br><a href="daily.html">Try Squirdle Daily!</a>
-<br><br>Pokémon names: <a onclick="setLanguage('en', false)", href="#">🇺🇸</a> | <a onclick="setLanguage('ko', false)", href="#">🇰🇷</a> | <a onclick="setLanguage('ja', false)" href="#">🇯🇵</a>
+<br><br>Pokémon names: 
+<a onclick="setLanguage('en', false)", href="#">🇺🇸</a> | 
+<a onclick="setLanguage('ko', false)", href="#">🇰🇷</a> | 
+<a onclick="setLanguage('ja', false)" href="#">🇯🇵</a> | 
+<a onclick="setLanguage('fr', false)" href="#">🇫🇷</a> 
 <br>Issues? Clear your cache!
 <script>
 let lang_map = ""
