@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Squirdle Filters Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <h2>Squirdle Filters</h2>
+    You can use attribute filters to better search for Pokémon on Squirdle!
+    <br>
+    <h3>Syntax</h3>
+    <span class="syntax"><b>attr:X</b></span> Show only Pokémon with <span class="syntax small"><b>attr</b></span> exactly equal to <span class="syntax small"><b>X</b></span><br>
+    <span class="syntax"><b>attr!X </b></span> Show only Pokémon with <span class="syntax small"><b>attr</b></span> of any value BUT <span class="syntax small"><b>X</b></span><br>
+    <span class="syntax"><b>attr&gt;X</b></span> Show only Pokémon with <span class="syntax small"><b>attr</b></span> higher than <span class="syntax small"><b>X</b></span><br>
+    <span class="syntax"><b>attr&lt;X</b></span> Show only Pokémon with <span class="syntax small"><b>attr</b></span> lower than <span class="syntax small"><b>X</b></span><br>
+
+
+    <h3>Examples</h3>
+
+    Show only Pokémon from generation 4:<br>
+    <div class="autocomplete" style="margin-top: 6px;">
+    <input class="guess_input" type="text" readonly value="gen:4">
+    </div><br><br>
+
+    Show Pokémon NOT from generation 4 with type1 of fire:<br>
+    <div class="autocomplete" style="margin-top: 6px;">
+    <input class="guess_input" type="text" readonly value="gen!4 type1:fire">
+    </div><br><br>
+
+    Show Pokémon from generation 4 with type1 of fire<br>and height less than 0.9:<br>
+    <div class="autocomplete" style="margin-top: 6px;">
+    <input class="guess_input" type="text" readonly value="gen:4 type1:fire height&lt;0.9">
+    </div><br><br>
+
+    Show Pokémon from generation 4 with<br>height between 0.7 and 0.9:<br>
+    <div class="autocomplete" style="margin-top: 6px;">
+    <input class="guess_input" type="text" readonly value="gen:4 height&gt;0.7 height&lt;0.9">
+    </div><br><br>
+
+    <a href="javascript:history.back()">Go Back</a>
+
+</body>
