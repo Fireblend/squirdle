@@ -24,23 +24,77 @@ function autocomplete(inp, arr) {
         let filters = val.split(" ")
         let fvalues = []
         for (f = 0; f < filters.length; f++) {
-          if (filters[f].includes("gen:")) {
-            fvalues.push(filters[f].split(":")[1] == arr[i][1][0].toString() ? 1 : 0)
+          let filter = filters[f]
+          if (filter.includes("gen:")) {
+            fvalues.push(arr[i][1][0].toString() == filter.split(":")[1] ? 1 : 0)
           }
-          else if (filters[f].includes("type1:")) {
-            fvalues.push(filters[f].split(":")[1].toLowerCase() == arr[i][1][1].toLowerCase() ? 1 : 0)
+          else if (filter.includes("gen!")) {
+            fvalues.push(arr[i][1][0].toString() != filter.split("!")[1] ? 1 : 0)
           }
-          else if (filters[f].includes("type2:")) {
-            let t2 = filters[f].split(":")[1].toLowerCase()
+          else if (filter.includes("gen>")) {
+            fvalues.push(arr[i][1][0] > parseInt(filter.split(">")[1]) ? 1 : 0)
+          }
+          else if (filter.includes("gen<")) {
+            fvalues.push(arr[i][1][0] < parseInt(filter.split("<")[1]) ? 1 : 0)
+          }
+
+          else if (filter.includes("type1:")) {
+            fvalues.push(arr[i][1][1].toLowerCase() == filter.split(":")[1].toLowerCase() ? 1 : 0)
+          }
+          else if (filter.includes("type1!")) {
+            fvalues.push(arr[i][1][1].toLowerCase() != filter.split("!")[1].toLowerCase() ? 1 : 0)
+          }
+
+          else if (filter.includes("type2:")) {
+            let t2 = filter.split(":")[1].toLowerCase()
             t2 = t2 == "" ? "-" : t2
             t2 = t2 == "none" ? "" : t2
-            fvalues.push(t2 == arr[i][1][2].toLowerCase() ? 1 : 0)
+            fvalues.push(arr[i][1][2].toLowerCase() == t2 ? 1 : 0)
           }
-          else if (filters[f].includes("height:")) {
-            fvalues.push(filters[f].split(":")[1] == arr[i][1][3].toString() ? 1 : 0)
+          else if (filter.includes("type2!")) {
+            let t2 = filter.split("!")[1].toLowerCase()
+            t2 = t2 == "" ? "-" : t2
+            t2 = t2 == "none" ? "" : t2
+            fvalues.push(arr[i][1][2].toLowerCase() != t2 ? 1 : 0)
           }
-          else if (filters[f].includes("weight:")) {
-            fvalues.push(filters[f].split(":")[1] == arr[i][1][4].toString() ? 1 : 0)
+
+          else if (filter.includes("type:")) {
+            let t1 = filter.split(":")[1].toLowerCase()
+            let t2 = t1 == "" ? "-" : t1
+            t2 = t2 == "none" ? "" : t2
+            fvalues.push(arr[i][1][1].toLowerCase() == t1 || arr[i][1][2].toLowerCase() == t2 ? 1 : 0)
+          }
+          else if (filter.includes("type!")) {
+            let t1 = filter.split("!")[1].toLowerCase()
+            let t2 = t1 == "" ? "-" : t1
+            t2 = t2 == "none" ? "" : t2
+            fvalues.push(arr[i][1][1].toLowerCase() != t1 && arr[i][1][2].toLowerCase() != t2 ? 1 : 0)
+          }
+
+          else if (filter.includes("height:")) {
+            fvalues.push(arr[i][1][3].toString() == filter.split(":")[1] ? 1 : 0)
+          }
+          else if (filter.includes("height!")) {
+            fvalues.push(arr[i][1][3].toString() != filter.split("!")[1] ? 1 : 0)
+          }
+          else if (filter.includes("height>")) {
+            fvalues.push(arr[i][1][3] > parseFloat(filter.split(">")[1]) ? 1 : 0)
+          }
+          else if (filter.includes("height<")) {
+            fvalues.push(arr[i][1][3] < parseFloat(filter.split("<")[1]) ? 1 : 0)
+          }
+
+          else if (filter.includes("weight:")) {
+            fvalues.push(arr[i][1][4].toString() == filter.split(":")[1] ? 1 : 0)
+          }
+          else if (filter.includes("weight!")) {
+            fvalues.push(arr[i][1][4].toString() != filter.split("!")[1] ? 1 : 0)
+          }
+          else if (filter.includes("weight>")) {
+            fvalues.push(arr[i][1][4] > parseFloat(filter.split(">")[1]) ? 1 : 0)
+          }
+          else if (filter.includes("weight<")) {
+            fvalues.push(arr[i][1][4] < parseFloat(filter.split("<")[1]) ? 1 : 0)
           }
         }
         matches = fvalues.length > 0 ? Math.min(...fvalues) : 0
