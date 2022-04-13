@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Squirdle</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
-    <link rel= "stylesheet" type= "text/css" href= "style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="game.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>     
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Squirdle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Telex" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="scripts/game.js" type="module"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
 
 <h2>Squirdle</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
-I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses. <div class="tooltip">Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span></div>
-<br><br>
-<i><b>NEWS 3/25/22</b>: <a href="filters.html">Advanced attribute filters!</a><br></i>
+I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses.
+<p class="tooltip">
+  Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span>
+</p>
+<p>
+  <i><b>NEWS 3/25/22</b>: <a href="filters.html">Advanced attribute filters!</a><br></i>
+</p>
 <div id="guesses" class="guesses" style="display: none;">
-    <div class="row" id="hinttitles">
-      <div class='column'>
-          <p class="hint">Gen</p>
-      </div>
-      <div class='column'>
-          <p class="hint">Type 1</p>
-      </div>
-      <div class='column'>
-          <p class="hint">Type 2</p>
-      </div>
-      <div class='column'>
-          <p class="hint">Height</p>
-      </div>
-      <div class='column'>
-          <p class="hint">Weight</p>
-      </div>
+  <div class="row" id="hinttitles">
+    <div class='column'>
+      <p class="hint">Gen</p>
     </div>
+    <div class='column'>
+      <p class="hint">Type 1</p>
+    </div>
+    <div class='column'>
+      <p class="hint">Type 2</p>
+    </div>
+    <div class='column'>
+      <p class="hint">Height</p>
+    </div>
+    <div class='column'>
+      <p class="hint">Weight</p>
+    </div>
+  </div>
 </div>
 <br>
 
-<p id="error" style="display: none;">Pokémon not found!</p>
+<p id="error" style="display: none;">
+  Pokémon not found!
+</p>
 <form id="guessform" autocomplete="off" onsubmit="return false;">
   <div class="autocomplete">
     <input class="guess_input" id="guess" type="text" name="guess" placeholder="Who's that Pokémon?">
   </div>
-  <input class="guess_input" type="submit" value="Submit" onclick="handleGuess(false)">
-  <br><a class="type-block hintbtn" id="toggleinfo" href="#" onclick="toggleHints(false)" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
+  <input id="guess_submit" class="guess_input" type="submit" value="Submit">
+  <br><a class="type-block hintbtn" id="toggleinfo" href="#" title="Show Pokémon info in autocomplete entries">📋 Pokémon Info ON</a>
 </form>
 <div id="results" style="display: none;">
   <span id="won" style="display: none;">You won!</span>
   <span id="lost" style="display: none;">You lost!</span>
   <span>The secret Pokémon was <b><span id="secretpoke"></span></b>!</span><br>
-  <a class="togglec" onclick="copyCurrentDay(-1,false)" href="#">📄 Share</a>
-  <a class="togglec" onclick="copyCurrentDay(-1,true)" href="#">👀 Share w/names</a>
+  <a id="share_lnk" class="togglec" href="#">📄 Share</a>
+  <a id="share_with_names_lnk" class="togglec" href="#">👀 Share w/names</a>
 </div>
 <br>
 <div id="type_Normal" class="type-block" style="background-color: rgba(177, 177, 177);">Normal</div>
@@ -60,44 +66,78 @@ I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> gu
 <div id="type_Water" class="type-block" style="background-color: rgb(57, 159, 255);">Water</div>
 <div id="type_Grass" class="type-block" style="background-color: rgb(32, 255, 11);">Grass</div>
 <div id="type_Electric" class="type-block" style="background-color: rgb(192, 196, 0);">Electric</div>
-<div id="type_Ice" class="type-block" style="background-color: rgb(80, 243, 255);">Ice</div><br>
+<div id="type_Ice" class="type-block" style="background-color: rgb(80, 243, 255);">Ice</div>
+<br>
 <div id="type_Fighting" class="type-block" style="background-color: rgba(230, 0, 0);">Fighting</div>
 <div id="type_Poison" class="type-block" style="background-color: rgb(143, 0, 187);">Poison</div>
 <div id="type_Ground" class="type-block" style="background-color: rgb(170, 130, 0);">Ground</div>
 <div id="type_Flying" class="type-block" style="background-color: rgb(235, 81, 255);">Flying</div>
 <div id="type_Psychic" class="type-block" style="background-color: rgb(255, 46, 210);">Psychic</div>
-<div id="type_Bug" class="type-block" style="background-color: rgb(156, 199, 0);">Bug</div><br>
+<div id="type_Bug" class="type-block" style="background-color: rgb(156, 199, 0);">Bug</div>
+<br>
 <div id="type_Rock" class="type-block" style="background-color: rgb(129, 84, 0);">Rock</div>
 <div id="type_Ghost" class="type-block" style="background-color: rgb(68, 0, 255);">Ghost</div>
 <div id="type_Dark" class="type-block" style="background-color: rgb(131, 107, 0);">Dark</div>
 <div id="type_Dragon" class="type-block" style="background-color: rgb(119, 0, 255);">Dragon</div>
 <div id="type_Steel" class="type-block" style="background-color: rgb(122, 109, 129);">Steel</div>
 <div id="type_Fairy" class="type-block" style="background-color: rgb(255, 140, 230);">Fairy</div>
-<div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div><br><br>
+<div id="type_" class="type-block" style="background-color: rgb(255, 171, 115);">Single-Type</div>
+<br><br>
 
-<label for="quantity">Guess Pkmn from gen</label>
+<label for="mingen">Guess Pkmn from gen</label>
 <input class="mg_input" type="number" id="mingen" name="mingen" min="1" max="8" value="" oninput="validity.valid||(value='');">
-<label for="quantity">to</label>
+<label for="maxgen">to</label>
 <input class="mg_input" type="number" id="maxgen" name="maxgen" min="1" max="8" value="" oninput="validity.valid||(value='');"><br>
-<a class="togglec" onclick="newGame()" href="#">▶️ New Game</a><br>
+<a id="new_game_lnk" class="togglec" href="#">▶️ New Game</a><br>
 <br><a href="daily.html">Try Squirdle Daily!</a>
-<br><br>Pokémon names: 
-<a onclick="setLanguage('en', false)", href="#">🇺🇸</a> | 
-<a onclick="setLanguage('ko', false)", href="#">🇰🇷</a> | 
-<a onclick="setLanguage('ja', false)" href="#">🇯🇵</a> | 
-<a onclick="setLanguage('fr', false)" href="#">🇫🇷</a> 
+<br><br>Pokémon names:
+<a id="lang_en_lnk" href="#">🇺🇸</a> |
+<a id="lang_ko_lnk" href="#">🇰🇷</a> |
+<a id="lang_ja_lnk" href="#">🇯🇵</a> |
+<a id="lang_fr_lnk" href="#">🇫🇷</a>
 <br>Issues? Clear your cache!
-<script>
-let lang_map = ""
-let rev_map = ""
-let pokedex = ""
-document.addEventListener('DOMContentLoaded', (event) => {
-  $.getJSON( "data/pokedex.json", function( json ) { 
+<script type="module">
+  import {getCookie} from "./scripts/cookies.js";
+  import {setLanguage} from "./scripts/i18n.js";
+  import {handleGuess, toggleHints, newGame, copyCurrentDay, handleLoad} from "./scripts/game.js";
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    $.getJSON("data/pokedex.json", function (json) {
       pokedex = json
-      lang = getCookie('lang', false)
+      let lang = getCookie('lang', false)
       setLanguage(lang, false)
     });
-})
+  })
+
+  document.querySelector('#guess_submit').addEventListener('click', () => {
+    handleGuess(false)
+  });
+  document.querySelector('#toggleinfo').addEventListener('click', () => {
+    toggleHints(false)
+  });
+  document.querySelector('#new_game_lnk').addEventListener('click', () => {
+    newGame(false)
+  });
+
+  document.querySelector('#share_lnk').addEventListener('click', () => {
+    copyCurrentDay(-1, false)
+  });
+  document.querySelector('#share_with_names_lnk').addEventListener('click', () => {
+    copyCurrentDay(-1, true)
+  });
+
+  document.querySelector('#lang_en_lnk').addEventListener('click', () => {
+    setLanguage('en', false)
+  });
+  document.querySelector('#lang_ko_lnk').addEventListener('click', () => {
+    setLanguage('ko', false)
+  });
+  document.querySelector('#lang_ja_lnk').addEventListener('click', () => {
+    setLanguage('ja', false)
+  });
+  document.querySelector('#lang_fr_lnk').addEventListener('click', () => {
+    setLanguage('fr', false)
+  });
 </script>
 
 </body>
