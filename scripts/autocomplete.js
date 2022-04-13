@@ -29,7 +29,7 @@ export function autocomplete(inp, arr) {
                 let filters = val.split(" ")
                 let fvalues = []
                 for (let f = 0; f < filters.length; f++) {
-                    let filter = filters[f]
+                    let filter = filters[f].toLowerCase()
                     if (filter.includes("gen:")) {
                         fvalues.push(arr[i][1][0].toString() == filter.split(":")[1] ? 1 : 0)
                     } else if (filter.includes("gen!")) {
