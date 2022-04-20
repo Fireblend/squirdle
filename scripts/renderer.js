@@ -1,4 +1,4 @@
-import {getCookie} from "./cookies.js";
+import {getCookie, setCookie} from "./cookies.js";
 import {getRevPkmnName} from "./i18n.js";
 import {getPokemonFromId} from "./pokedex.js";
 
@@ -66,12 +66,21 @@ export function showState(daily) {
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
         document.getElementById("won").style.display = "block";
+        if (daily) {
+            let streak = parseInt(getCookie("streak", false))
+            let title = getCookie("title", false)
+            document.getElementById("streak").innerHTML = "You've guessed <b>"+streak+" Pokémon</b> in a row!<br><b>Title: </b>"+title
+        }
     }
     else if (guesses.length == attempts) {
         document.getElementById("secretpoke").innerHTML = secret_name
         document.getElementById("guessform").style.display = "none";
         document.getElementById("results").style.display = "block";
         document.getElementById("lost").style.display = "block";
+        if (daily) {
+            setCookie("streak", 0, 300, false)
+            document.getElementById("streak").innerHTML = "Streak Reset!<br><b>Title:</b> Novice Trainer"
+        }
     }
     document.getElementById("attempts").innerHTML = attempts - guesses.length
 }

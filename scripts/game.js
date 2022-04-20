@@ -8,6 +8,30 @@ function replaceAt(str, index, ch) {
   return str.replace(/./g, (c, i) => i == index ? ch : c);
 }
 
+function getTitle(streak) {
+  if (streak < 3){
+    return "Novice Trainer"
+  }
+  if (streak < 7){
+    return "Pokémon Trainer"
+  }
+  if (streak < 14){
+    return "Pokémon Collector"
+  }
+  if (streak < 25){
+    return "Pokémon Professor"
+  }
+  if (streak < 35){
+    return "Pokémon Champion"
+  }
+  if (streak < 45){
+    return "Pokémon Master"
+  }
+  else{
+    return "Pokemaniac"
+  }
+}
+
 export function copyCurrentDay(day, names) {
   let attempts = parseInt(getCookie("t_attempts", day > -1))
   let guesses = JSON.parse(getCookie("guessesv2", day > -1))
@@ -58,7 +82,6 @@ export function copyCurrentDay(day, names) {
   }
 }
 
-
 export function handleGuess(daily) {
   const imgs = { '1': "imgs/correct.png", '2': "imgs/up.png", '3': "imgs/down.png", '4': "imgs/wrongpos.png", '5': "imgs/wrong.png" }
   let guess_name = getRevPkmnName(document.getElementById("guess").value)
@@ -89,11 +112,18 @@ export function handleGuess(daily) {
     "name": getIdFromPokemon(guess_name), "info": pokeinfo, "mosaic": gen + t1 + t2 + h + w
   }
 
-
   let guesses = getCookie("guessesv2", daily)
   guesses = guesses == "" ? [] : JSON.parse(guesses)
 
   guesses.push(guess_info)
+
+  if(guess_name == secret_name & daily){
+    let streak = getCookie("streak", false)
+    streak = streak == ""? 1 : parseInt(streak)+1
+    setCookie("streak", streak, 300, false)
+    let title = getTitle(streak)
+    setCookie("title", title, 300, false)
+  }
 
   setCookie("guessesv2", JSON.stringify(guesses), 100, daily)
   showState(daily)
