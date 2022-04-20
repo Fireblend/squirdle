@@ -10,10 +10,13 @@ export function getCookie(cname, daily) {
     return "";
 }
 
-export function setCookie(cname, cvalue, exdays, daily) {
+export function setCookie(cname, cvalue, exdays, daily, streak=false) {
     cname = (daily ? "d_" : "") + cname
     const d = new Date();
     if (daily) {
+        d.setHours(23,59,59,0)
+    } else if (streak) {
+        d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
         d.setHours(23,59,59,0)
     } else {
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

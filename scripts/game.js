@@ -120,7 +120,7 @@ export function handleGuess(daily) {
   if(guess_name == secret_name & daily){
     let streak = getCookie("streak", false)
     streak = streak == ""? 1 : parseInt(streak)+1
-    setCookie("streak", streak, 300, false)
+    setCookie("streak", streak, 300, false, true)
     let title = getTitle(streak)
     setCookie("title", title, 300, false)
   }
