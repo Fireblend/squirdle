@@ -4,26 +4,33 @@ import {getPokemonFromId} from "./pokedex.js";
 
 function getTitle(streak) {
     if (streak < 3){
-      return "Novice Trainer"
+        return "Novice Trainer"
     }
     if (streak < 7){
-      return "Pokémon Trainer"
+        return "Pokémon Trainer"
     }
-    if (streak < 14){
-      return "Pokémon Collector"
+    if (streak < 10){
+        return "Ace Trainer"
+    }
+    if (streak < 15){
+        return "Pokémon Collector"
     }
     if (streak < 25){
-      return "Pokémon Professor"
+        return "Pokemaniac"
     }
     if (streak < 35){
-      return "Pokémon Champion"
+        return "Pokémon Professor"
     }
     if (streak < 45){
-      return "Pokémon Master"
+        return "Gym Leader"
     }
-    else{
-      return "Pokemaniac"
+    if (streak < 60){
+        return "Elite Four"
     }
+    if (streak < 75){
+        return "Pokémon Champion"
+    }
+    return "Pokémon Master"
 }
 
 export function showState(daily) {
