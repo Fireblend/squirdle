@@ -8,30 +8,6 @@ function replaceAt(str, index, ch) {
   return str.replace(/./g, (c, i) => i == index ? ch : c);
 }
 
-function getTitle(streak) {
-  if (streak < 3){
-    return "Novice Trainer"
-  }
-  if (streak < 7){
-    return "Pokémon Trainer"
-  }
-  if (streak < 14){
-    return "Pokémon Collector"
-  }
-  if (streak < 25){
-    return "Pokémon Professor"
-  }
-  if (streak < 35){
-    return "Pokémon Champion"
-  }
-  if (streak < 45){
-    return "Pokémon Master"
-  }
-  else{
-    return "Pokemaniac"
-  }
-}
-
 export function copyCurrentDay(day, names) {
   let attempts = parseInt(getCookie("t_attempts", day > -1))
   let guesses = JSON.parse(getCookie("guessesv2", day > -1))
@@ -121,8 +97,6 @@ export function handleGuess(daily) {
     let streak = getCookie("streak", false)
     streak = streak == ""? 1 : parseInt(streak)+1
     setCookie("streak", streak, 300, false, true)
-    let title = getTitle(streak)
-    setCookie("title", title, 300, false)
   }
 
   setCookie("guessesv2", JSON.stringify(guesses), 100, daily)

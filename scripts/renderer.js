@@ -2,6 +2,30 @@ import {getCookie, setCookie} from "./cookies.js";
 import {getRevPkmnName} from "./i18n.js";
 import {getPokemonFromId} from "./pokedex.js";
 
+function getTitle(streak) {
+    if (streak < 3){
+      return "Novice Trainer"
+    }
+    if (streak < 7){
+      return "Pokémon Trainer"
+    }
+    if (streak < 14){
+      return "Pokémon Collector"
+    }
+    if (streak < 25){
+      return "Pokémon Professor"
+    }
+    if (streak < 35){
+      return "Pokémon Champion"
+    }
+    if (streak < 45){
+      return "Pokémon Master"
+    }
+    else{
+      return "Pokemaniac"
+    }
+}
+
 export function showState(daily) {
     let enabled = getCookie("hintsenabled", false)
     document.getElementById("toggleinfo").innerHTML = "📋 Pokémon Info " + (enabled == "0" ? "OFF" : "ON");
@@ -68,7 +92,7 @@ export function showState(daily) {
         document.getElementById("won").style.display = "block";
         if (daily) {
             let streak = parseInt(getCookie("streak", false))
-            let title = getCookie("title", false)
+            let title = getTitle(streak)
             document.getElementById("streak").innerHTML = "You've guessed <b>"+streak+" Pokémon</b> in a row!<br><b>Title: </b>"+title
         }
     }
