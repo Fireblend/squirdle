@@ -1,4 +1,4 @@
-import {getCookie, setCookie} from "./cookies.js";
+import {getCookie, setCookie} from "./utils.js";
 import {autocomplete} from "./autocomplete.js";
 import {getRevPkmnName} from "./i18n.js";
 import {getIdFromPokemon, getPokemon, getPokemonFromId} from "./pokedex.js";

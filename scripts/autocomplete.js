@@ -1,4 +1,4 @@
-import {getCookie} from "./cookies.js";
+import {getCookie} from "./utils.js";
 import {getPkmnName} from "./i18n.js";
 
 export function autocomplete(inp, arr) {

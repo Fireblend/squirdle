@@ -1,4 +1,4 @@
-import {setCookie} from "./cookies.js";
+import {setCookie} from "./utils.js";
 import {handleLoad} from "./game.js";
 
 var lang_map = ""
