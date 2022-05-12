@@ -92,7 +92,8 @@
 <a id="lang_en_lnk" href="#">🇺🇸</a> |
 <a id="lang_ko_lnk" href="#">🇰🇷</a> |
 <a id="lang_ja_lnk" href="#">🇯🇵</a> |
-<a id="lang_fr_lnk" href="#">🇫🇷</a>
+<a id="lang_fr_lnk" href="#">🇫🇷</a> |
+<a id="lang_de_lnk" href="#">🇩🇪</a>
 <br>Issues? Clear your cache!
 <script type="module">
   import {getCookie} from "./scripts/utils.js";
@@ -135,6 +136,9 @@
   });
   document.querySelector('#lang_fr_lnk').addEventListener('click', () => {
     setLanguage('fr', false)
+  });
+  document.querySelector('#lang_de_lnk').addEventListener('click', () => {
+    setLanguage('de', false)
   });
 </script>
 
