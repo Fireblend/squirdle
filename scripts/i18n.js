@@ -41,6 +41,9 @@ export function setLanguage(lang, isDaily){
             else if (lang == "fr"){
                 document.getElementById("guess").placeholder = "Quel est ce Pokemon?"
             }
+            else if (lang == "ger"){
+                document.getElementById("guess").placeholder = "Welches Pokémon ist gesucht?"
+            }
             handleLoad(isDaily)
         });
     }
