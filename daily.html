@@ -104,10 +104,9 @@
     $.getJSON("data/pokedex.json", function (data1) {
       pokedex = data1
       $.getJSON("data/daily.json", function (data2) {
-        let date = getLocalDateDay()
-
-        day = parseInt(data2[date][0])
-        window.dailypoke = data2[date][1]
+        let localDateDay = getLocalDateDay()
+        day = parseInt(data2[localDateDay][0])
+        window.dailypoke = data2[localDateDay][1]
         let lang = getCookie('lang', false)
         setLanguage(lang, true)
       });
