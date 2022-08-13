@@ -24,3 +24,9 @@ export function setCookie(cname, cvalue, exdays, daily, streak=false) {
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/" + ";samesite=strict";
 }
+
+export function getLocalDateDay() {
+    let date = new Date()
+    let localOffsetMilliseconds = date.getTimezoneOffset() * 60000
+    return new Date(date.getTime() - localOffsetMilliseconds).toISOString().split("T")[0]
+}

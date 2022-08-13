@@ -94,7 +94,7 @@
 
 <br>Issues? Clear your cache!
 <script type="module">
-  import {getCookie} from "./scripts/utils.js";
+  import {getCookie, getLocalDateDay} from "./scripts/utils.js";
   import {setLanguage} from "./scripts/i18n.js";
   import {handleGuess, toggleHints, copyCurrentDay} from "./scripts/game.js";
 
@@ -104,7 +104,8 @@
     $.getJSON("data/pokedex.json", function (data1) {
       pokedex = data1
       $.getJSON("data/daily.json", function (data2) {
-        let date = new Date().toISOString().split("T")[0]
+        let date = getLocalDateDay()
+
         day = parseInt(data2[date][0])
         window.dailypoke = data2[date][1]
         let lang = getCookie('lang', false)
