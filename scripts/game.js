@@ -26,11 +26,11 @@ export function copyCurrentDay(day, names) {
     text = text + "\n" + mosaic + (names ? getPokemonFromId(guess.name) : "")
   }
 
-  text = text.replace(/(?<!Zygarde-)1/g, '🟩');
-  text = text.replace(/(?<!Porygon)2/g, '🔼');
+  text = text.replace(/1/g, '🟩');
+  text = text.replace(/2/g, '🔼');
   text = text.replace(/3/g, '🔽');
   text = text.replace(/4/g, '🟨');
-  text = text.replace(/(?<!Zygarde-)5/g, '🟥');
+  text = text.replace(/5/g, '🟥');
   text = text.replace(/6/g, '🟦');
 
 
