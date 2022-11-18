@@ -118,14 +118,14 @@ export function toggleHints(daily) {
 
 export function newGame(isDaily) {
   let mingen = isDaily ? 1 : parseInt(document.getElementById("mingen").value)
-  let maxgen = isDaily ? 8 : parseInt(document.getElementById("maxgen").value)
+  let maxgen = isDaily ? 9 : parseInt(document.getElementById("maxgen").value)
 
   if (mingen > maxgen) {
     [mingen, maxgen] = [maxgen, mingen]
     document.getElementById("mingen").value = mingen
     document.getElementById("maxgen").value = maxgen
   }
-  let guessesMap = { 0: '5', 1: '5', 2: '6', 3: '6', 4: '7', 5: '7', 6: '8', 7: '8' }
+  let guessesMap = { 0: '5', 1: '5', 2: '6', 3: '6', 4: '7', 5: '7', 6: '8', 7: '8', 8: '8'}
 
   let filterRes = isDaily ? [getIdFromPokemon(window.dailypoke), pokedex] : getPokemon(mingen, maxgen)
   setCookie('guessesv2', "", 30, isDaily)
@@ -161,7 +161,7 @@ export function newGame(isDaily) {
 export function handleLoad(isDaily) {
   let poke = getCookie("secret_poke", isDaily)
   let mingen = 1
-  let maxgen = 8
+  let maxgen = 9
 
   if (poke == "") {
     if (!isDaily) {
