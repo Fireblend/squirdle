@@ -15,11 +15,16 @@
 
 <h2>Squirdle</h2>
 <h3>A Pokémon Wordle-like by <a href="https://www.fireblend.com">Fireblend</a></h3>
+<div id="news">
+<p style="font-size: 15px;">
+<b>20/11/22:</b> Gen 9 Pokémon have been added!
+<br>- Optional for now, use gen selector below to include.
+<br>- New Pkmn will be added to the Daily pool on Dec 10th.
+<br><button  onclick="getElementById('news').style.display='none'">Hide</button></p></div>
 <p>I'm thinking of a Pokémon. Guess which! You have <span id="attempts"></span> guesses.
 <span class="tooltip">
   Emoji Key<span class="tooltiptext">🟩: Correct guess<br>🟥: Incorrect Guess<br>🟨: Type in wrong position<br>🔼: Guessed too low<br>🔽: Guessed too high</span>
 </span><br><a href="filters.html">Advanced filters guide</a>
-<br><br><b>20/11/22:</b> Gen 9 Pokémon have been added to the game!<br>Reset your cache if you have any issues :)
 </p>
 <div id="guesses" class="guesses" style="display: none;">
   <div class="row" id="hinttitles">
@@ -95,7 +100,7 @@
 <a id="lang_ja_lnk" href="#">🇯🇵</a> |
 <a id="lang_fr_lnk" href="#">🇫🇷</a> |
 <a id="lang_de_lnk" href="#">🇩🇪</a>
-<br>Issues? Clear your cache!
+<br>Issues? <a href="cacheclear.html">Clear your cache!</a>
 <script type="module">
   import {getCookie} from "./scripts/utils.js";
   import {setLanguage} from "./scripts/i18n.js";
