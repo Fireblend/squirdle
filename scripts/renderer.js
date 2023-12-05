@@ -152,6 +152,13 @@ export function showState(daily) {
     document.getElementById("attempts").innerHTML = attempts - guesses.length
 }
 
+export function showStats() {
+    console.log("Show Stats button clicked");
+    // todo : add stats here.
+    //  a histogram of stats with y values as no. of guesses. x with pokemon
+    // (spike chartjs lib)
+}
+
 function createElement(initObj) {
     let element = document.createElement(initObj.Tag);
     for (let prop in initObj) {
