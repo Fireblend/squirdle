@@ -102,6 +102,31 @@ export function showState(daily) {
             let title = getTitle(streak)
             document.getElementById("streak").innerHTML = "You've guessed <b>"+streak+" Pokémon</b> in a row!<br><b>Title: </b>"+title
         }
+        else{
+            // update wining stats for normal games
+            let statsCookie = getCookie('Stats', false);
+            let statsObject = statsCookie ? JSON.parse(statsCookie) : {};
+
+            statsObject.wins += 1;
+
+            // guesses graph
+            const MAX_ELEMENTS = 7;
+
+            if (statsObject.guesses.length >= MAX_ELEMENTS) {
+                statsObject.guesses.shift();
+                statsObject.guessesNo.shift();
+            }
+            statsObject.guesses.push(secret_name);
+            statsObject.guessesNo.push(guesses.length);
+            
+            // average guesses
+            let sum = statsObject.guessesNo.reduce((acc, guessValue) => acc + guessValue, 0);
+            statsObject.averageNoGuesses = sum/statsObject.guessesNo.length
+
+            let updatedStats = JSON.stringify(statsObject);
+
+            setCookie('Stats', updatedStats, 300, false);
+        }
     }
     else if (guesses.length == attempts) {
         document.getElementById("secretpoke").innerHTML = secret_name
@@ -112,8 +137,26 @@ export function showState(daily) {
             setCookie("streak", 0, 300, false)
             document.getElementById("streak").innerHTML = "Streak Reset!<br><b>Title:</b> Novice Trainer"
         }
+        else{
+            // update losses for normal games
+            let statsCookie = getCookie('Stats', false);
+            let statsObject = statsCookie ? JSON.parse(statsCookie) : {};
+
+            statsObject.losses += 1
+            console.log(guesses);
+
+            let updatedStats = JSON.stringify(statsObject);
+            setCookie('Stats', updatedStats, 300, false);
+        }
     }
     document.getElementById("attempts").innerHTML = attempts - guesses.length
+}
+
+export function showStats() {
+    console.log("Show Stats button clicked");
+    // todo : add stats here.
+    //  a histogram of stats with y values as no. of guesses. x with pokemon
+    // (spike chartjs lib)
 }
 
 function createElement(initObj) {

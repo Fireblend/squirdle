@@ -101,12 +101,31 @@
 <a id="lang_fr_lnk" href="#">🇫🇷</a> |
 <a id="lang_de_lnk" href="#">🇩🇪</a>
 <br>Issues? <a href="cacheclear.html">Clear your cache!</a>
+<button id="show_stats_btn" style="position: fixed; top: 10px; right: 20px;">Show Stats</button>
 <script type="module">
-  import {getCookie} from "./scripts/utils.js";
+  import {getCookie,setCookie} from "./scripts/utils.js";
   import {setLanguage} from "./scripts/i18n.js";
   import {handleGuess, toggleHints, newGame, copyCurrentDay, handleLoad} from "./scripts/game.js";
-
+  import {showStats} from "./scripts/renderer.js";
+  
   document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("Dom content loaded..")
+    console.log(` ${document.cookie}`.split(";"));
+    let statsCookie = getCookie('Stats', false);
+
+    if (!statsCookie) {
+        let initialStats = {
+            wins: 0,
+            losses: 0,
+            guessesNo: [],
+            guesses: [],
+            averageNoGuesses: 0
+        };
+
+        let statsJSON = JSON.stringify(initialStats);
+        setCookie('Stats', statsJSON, 300, false);
+    }
+
     $.getJSON("data/pokedex.json", function (json) {
       pokedex = json
       let lang = getCookie('lang', false)
@@ -145,6 +164,9 @@
   });
   document.querySelector('#lang_de_lnk').addEventListener('click', () => {
     setLanguage('de', false)
+  });
+  document.querySelector('#show_stats_btn').addEventListener('click', () => {
+      showStats();
   });
 </script>
 

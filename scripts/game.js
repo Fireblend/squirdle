@@ -59,11 +59,13 @@ export function copyCurrentDay(day, names) {
 }
 
 export function handleGuess(daily) {
+  console.log("4. Inside handle guess")
   const imgs = { '1': "imgs/correct.png", '2': "imgs/up.png", '3': "imgs/down.png", '4': "imgs/wrongpos.png", '5': "imgs/wrong.png" }
   let guess_name = getRevPkmnName(document.getElementById("guess").value)
   let secret_name = getRevPkmnName(getPokemonFromId(getCookie("secret_poke", daily).replace(/"/g, '')));
   let guess = pokedex[guess_name]
-
+  console.log("5. Guess,Secret.")
+  console.log(guess,secret_name)
   if (guess == null) {
     document.getElementById("error").style.display = "block";
     return
@@ -92,15 +94,18 @@ export function handleGuess(daily) {
   guesses = guesses == "" ? [] : JSON.parse(guesses)
 
   guesses.push(guess_info)
-
+  console.log(guesses)
+  console.log(`Total Guesses: ${guesses.length}`)
+  
   if(guess_name == secret_name & daily){
     let streak = getCookie("streak", false)
     streak = streak == ""? 1 : parseInt(streak)+1
     setCookie("streak", streak, 300, false, true)
   }
 
-  setCookie("guessesv2", JSON.stringify(guesses), 100, daily)
+  setCookie("guessesv2", JSON.stringify(guesses), 100, daily);
   showState(daily)
+  console.log(`2. ${document.cookie}.split(";")`)
 }
 
 export function toggleHints(daily) {
